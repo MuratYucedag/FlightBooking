@@ -1,0 +1,796 @@
+/* Extra large devices (large desktops, 1800px and up) */
+@media (max-width: 1800px) {
+
+
+}
+
+
+/* Extra large devices (large desktops, 1800px and up) */
+@media (max-width: 1500px) {
+.slider-content .title {
+    font-size: 44px;
+}
+.booking-form ul li {
+	width: 195px;
+}
+.booking-form ul li:last-child {
+	width: 218px;
+}
+.slider-bg {
+	min-height: 600px;
+	padding: 100px 0 170px;
+}
+.slider-content {
+	margin-top: -20px;
+}
+.blog-item.small-item {
+	padding-bottom: 18px;
+	margin-bottom: 20px;
+}
+.blog-area .row {
+	margin: 0 -15px;
+}
+.blog-area .row [class*="col-"] {
+	padding: 0 15px;
+}
+.blog-content .blog-meta ul li {
+	margin-right: 12px;
+	padding-right: 12px;
+}
+.faq-area .faq-content .accordion-body {
+	padding: 5px 20px 20px 45px;
+}
+.faq-area .section-title {
+	margin-bottom: 20px;
+}
+.blog-details-content blockquote {
+	padding: 30px 30px 30px 75px;
+}
+.booking-list-item .flight-info li {
+	margin-right: 35px;
+}
+
+}
+
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (max-width: 1199.98px) {
+.custom-container {
+    max-width: 960px;
+}
+.header-action > ul li.header-btn {
+	display: none;
+}
+.header-top-left {
+	display: none;
+}
+.booking-form ul li:nth-child(3) {
+	width: 170px;
+}
+.booking-form .form-grp.select {
+	padding: 10px 0;
+}
+.booking-form .form-grp.select .form-select {
+	width: 150px;
+}
+.booking-form ul li:nth-child(4) {
+	width: 240px;
+}
+.booking-form .form-grp.date {
+	padding: 10px 15px;
+}
+.booking-form ul li {
+	width: 150px;
+}
+.booking-form ul li:last-child {
+	width: 188px;
+}
+.booking-form .form-grp.economy {
+	padding: 10px 15px;
+}
+.booking-area .tab-content-wrap {
+	padding: 15px;
+}
+.booking-form ul li:nth-child(2) .form-grp input {
+	padding: 20px 20px 20px 25px;
+}
+.booking-form .form-grp input {
+	padding: 10px 20px;
+	height: 62px;
+}
+.header-top-right ul {
+	justify-content: center;
+}
+.flight-offer-item .overlay-content .btn {
+	min-width: 184px;
+}
+.flight-offer-item.offer-item-two .flight-offer-content {
+	padding: 12px 0px 10px;
+}
+.destination-content ul {
+	width: 100%;
+}
+.destination-area .destination-content > p {
+    width: 95%;
+}
+.fly-next-thumb img {
+	width: 100%;
+}
+.blog-area .row .col-53 {
+	width: 70%;
+	flex: 0 0 70%;
+}
+.blog-area .row .col-47 {
+	width: 70%;
+	flex: 0 0 70%;
+}
+.blog-thumb img {
+	width: 100%;
+}
+.blog-item.small-item {
+	padding-bottom: 22px;
+	margin-bottom: 30px;
+}
+.about-img .img-two {
+	right: -25px;
+}
+.about-img::before {
+	right: 2%;
+	top: -8%;
+}
+.about-content ul {
+	margin-bottom: 30px;
+}
+.faq-content p {
+	margin-bottom: 25px;
+}
+.faq-area .faq-content .accordion-button {
+	font-size: 18px;
+}
+.faq-area .faq-content .accordion-body {
+	padding: 0px 20px 15px 45px;
+}
+.section-title .title {
+	font-size: 32px;
+}
+.breadcrumb-content .title {
+	font-size: 45px;
+}
+.inner-blog-content .title {
+	font-size: 28px;
+	margin-bottom: 15px;
+}
+.blog-sidebar {
+	margin-left: 0;
+}
+.rc-post-content .title {
+	font-size: 16px;
+	margin-bottom: 3px;
+}
+.blog-sidebar .blog-widget {
+	padding: 35px 25px 40px;
+}
+.sidebar-newsletter .sn-title .title {
+	margin-bottom: 6px;
+	font-size: 22px;
+}
+.blog-details-content blockquote {
+	padding: 25px 25px 25px 50px;
+}
+.blog-details-content blockquote > p {
+	font-size: 20px;
+	margin-bottom: 10px;
+}
+.blog-details-content blockquote::before {
+	left: 25px;
+	top: 25px;
+	bottom: 25px;
+}
+.blog-details-area .avatar-post {
+	padding: 25px 25px 25px 25px;
+}
+.comment-reply-box {
+	padding: 40px 30px;
+}
+.booking-list-area .col-27 {
+	flex: 0 0 70%;
+	width: 70%;
+}
+.booking-list-area .col-73 {
+	flex: 0 0 100%;
+	width: 100%;
+}
+.booking-list-item .flight-info li {
+	margin-right: 50px;
+}
+.widget .flight-stops .form-select {
+	width: 90%;
+}
+.booking-sidebar {
+	margin-top: 80px;
+}
+.booking-details-area .row .col-73 {
+	width: 100%;
+	flex: 0 0 100%;
+}
+.booking-details-area .row .col-27 {
+	flex: 0 0 70%;
+	width: 70%;
+}
+
+
+
+}
+
+
+
+/* Large devices (desktops, 992px and up) */
+@media (max-width: 991.98px) {
+.custom-container {
+    max-width: 720px;
+}
+.menu-area {
+	padding: 20px 0;
+}
+.menu-nav {
+	justify-content: space-between;
+}
+.header-action {
+	margin-right: 40px;
+}
+.menu-outer .navbar-wrap {
+	display: block !important;
+}
+.menu-area .mobile-nav-toggler {
+	display: block;
+}
+.booking-form ul {
+	flex-wrap: wrap;
+	justify-content: center;
+}
+.slider-content .title {
+	font-size: 38px;
+}
+.header-action {
+	margin-right: 20px;
+}
+.booking-wrap .nav-tabs .nav-link {
+	font-size: 12px;
+}
+.booking-wrap .nav-tabs .nav-link i {
+	font-size: 14px;
+}
+.form-grp.date ul {
+	flex-wrap: unset;
+}
+.booking-form ul li:nth-child(3) {
+	width: 33.33%;
+}
+.booking-form .form-grp.select {
+	padding: 10px 0;
+}
+.booking-form .form-grp.select .form-select {
+	width: 170px;
+}
+.booking-form ul li {
+	width: 33.33%;
+}
+.booking-form {
+	border: none;
+	overflow: hidden;
+}
+.booking-form .form-grp {
+	border: 1px solid #dedcd7;
+	margin-left: -1px;
+	height: 62px;
+}
+.booking-form ul li:first-child .form-grp {
+	margin-left: 0;
+}
+.booking-form .form-grp.economy {
+	border: 1px solid #dedcd7;
+}
+.booking-form ul li:nth-child(5) .form-grp,
+.booking-form ul li:nth-child(4) .form-grp {
+	margin-top: -1px;
+}
+.booking-form ul li:nth-child(4) .form-grp {
+	margin-left: 0;
+}
+.booking-form ul li:nth-child(4) {
+	width: 60%;
+}
+.booking-form .form-grp.date {
+	padding: 10px 30px;
+}
+.booking-form ul li:last-child {
+	width: 40%;
+}
+.booking-form .form-grp.economy {
+	padding: 10px 20px;
+}
+.booking-form ul li:nth-child(2) .form-grp input {
+	padding: 20px 20px 20px 30px;
+}
+.section-title .title {
+	font-size: 30px;
+}
+.service-item {
+	padding: 25px 15px;
+}
+.service-content .title {
+	font-size: 20px;
+	margin-bottom: 25px;
+}
+.blog-area .row .col-53 {
+	width: 100%;
+	flex: 0 0 100%;
+}
+.blog-content .title {
+	font-size: 30px;
+}
+.blog-area .row .col-47 {
+	width: 100%;
+	flex: 0 0 100%;
+}
+.footer-widget.privacy {
+	margin-left: 0;
+}
+.footer-bottom {
+	padding: 20px 0;
+}
+.copyright-text p {
+	margin-bottom: 15px;
+	text-align: center;
+}
+.footer-bottom .cart-img {
+	text-align: center !important;
+}
+.about-img {
+	margin-bottom: 50px;
+}
+.faq-content {
+	margin-bottom: 50px;
+}
+.faq-area .faq-content .accordion-button {
+	font-size: 20px;
+}
+.faq-area .faq-content .accordion-body {
+	padding: 5px 20px 20px 45px;
+}
+.blog-sidebar .blog-widget {
+	padding: 40px 30px 45px;
+}
+.rc-post-content .title {
+	font-size: 18px;
+	margin-bottom: 5px;
+}
+.sidebar-newsletter .sn-title .title {
+	margin-bottom: 10px;
+	font-size: 26px;
+}
+.blog-sidebar {
+	margin-top: 100px;
+}
+.blog-details-bottom {
+	margin-top: 40px;
+}
+.blog-next-prev {
+	margin-bottom: 70px;
+}
+.booking-list-item .flight-airway {
+	min-width: 37%;
+}
+.booking-list-item .flight-price {
+	border-left: none;
+	 padding-left: 0;
+	margin: 0 auto 10px;
+}
+.flight-detail-wrap .flight-detail-right {
+	margin-top: 20px;
+}
+.customer-details-content .content .title {
+	font-size: 20px;
+}
+.booking-details-wrap {
+	padding: 40px 30px 60px;
+}
+
+
+}
+
+
+
+/* Medium devices (tablets, 768px and up) */
+@media (max-width: 767.98px) {
+.custom-container {
+    max-width: 100%;
+}
+.transparent-header:not(.sticky-menu) {
+	top: 104px;
+}
+.header-top {
+	padding: 8px 0 0;
+}
+.header-top-right ul li {
+	margin-right: 10px;
+	padding-right: 10px;
+	margin-bottom: 8px;
+}
+.slider-content .title {
+	font-size: 28px;
+}
+.slider-content p {
+	margin-bottom: 20px;
+	width: 100%;
+}
+.booking-tag ul li a {
+	padding: 12px 15px;
+}
+.booking-wrap .nav-tabs .nav-item {
+	width: 100%;
+	flex: 0 0 100%;
+}
+.booking-wrap .nav-tabs .nav-item:first-child .nav-link {
+	border-radius: 20px 20px 0 0;
+}
+.booking-wrap .nav-tabs .nav-item:last-child .nav-link {
+	border-radius: 0;
+}
+.booking-form ul li {
+	width: 100% !important;
+}
+.booking-form .form-grp {
+	margin-top: -1px;
+	margin-left: 0;
+}
+.booking-form ul li:first-child .form-grp {
+	margin-top: 0;
+}
+.booking-form .form-grp.select .form-select {
+	width: 90%;
+}
+.booking-form .form-grp .exchange-icon {
+	left: 50%;
+	top: -19px;
+	transform: translateX(-50%);
+}
+.booking-form ul li:nth-child(2) .form-grp input {
+	padding: 20px 20px 20px 20px;
+}
+.booking-form .form-grp.select {
+	padding: 10px 10px;
+}
+.booking-form .form-grp.date {
+	padding: 10px 20px;
+}
+.tab-content-wrap .content-bottom {
+	justify-content: center;
+}
+.tab-content-wrap .content-bottom .promo-code {
+	margin-right: 0;
+	margin-bottom: 10px;
+}
+.features-item {
+	padding: 25px;
+}
+.features-content .title {
+	font-size: 18px;
+}
+.features-icon i {
+	font-size: 40px;
+}
+.features-icon {
+	width: 40px;
+	flex: 0 0 40px;
+	margin-top: 15px;
+}
+.section-title .title {
+	font-size: 26px;
+}
+.flight-offer-area .section-title {
+	text-align: center;
+	margin-bottom: 15px;
+}
+.best-price a {
+	justify-content: center;
+}
+.flight-offer-content {
+	padding: 20px 20px;
+}
+.flight-offer-item.offer-item-two .flight-offer-thumb img {
+	width: 100%;
+}
+.destination-area .section-title .title {
+	font-size: 28px;
+}
+.destination-area .destination-content > p {
+    width: 100%;
+}
+.destination-content ul li {
+	width: 100%;
+	margin-bottom: 20px;
+}
+.destination-content ul li:last-child {
+	margin-bottom: 0;
+}
+.destination-content .counter-content .count {
+	font-size: 28px;
+}
+.destination-content .counter-icon i {
+	font-size: 40px;
+}
+.destination-content .counter-item {
+	padding: 20px 20px;
+}
+.destination-content .content-bottom {
+	display: block;
+}
+.destination-content .content-bottom a {
+	margin-top: 10px;
+	margin-left: 0;
+}
+.fly-next-area .section-title {
+	margin-bottom: 30px;
+}
+.fly-next-nav {
+	margin-bottom: 30px;
+}
+.fly-next-nav button {
+	margin-bottom: 10px;
+}
+.blog-content {
+	padding: 15px;
+}
+.blog-content .title {
+	font-size: 20px;
+}
+.blog-item.small-item {
+	display: block;
+	text-align: center;
+}
+.blog-item.small-item .blog-thumb {
+	margin: 0 auto 15px;
+}
+.small-item .blog-content .blog-meta ul {
+	justify-content: center;
+}
+.blog-item.small-item .blog-content .title {
+	font-size: 20px;
+}
+.footer-top {
+	padding: 80px 0 50px;
+}
+.about-img .img-two {
+	width: 300px;
+	top: -50px;
+	right: -10px;
+}
+.about-img::before {
+	right: 4%;
+	top: -7%;
+	width: 300px;
+	height: 323px;
+}
+.about-content p {
+	margin-bottom: 20px;
+}
+.breadcrumb-content .title {
+	font-size: 36px;
+}
+.breadcrumb-bg {
+	padding: 100px 0 110px;
+}
+.about-area {
+	padding: 150px 0 100px;
+}
+.faq-area .faq-content .accordion-button {
+	font-size: 18px;
+}
+.faq-img::before {
+	left: 10px;
+	top: 10px;
+}
+.scroll-top {
+	right: 15px;
+}
+.inner-blog-content .title {
+	font-size: 22px;
+	margin-bottom: 10px;
+}
+.blog-sidebar .blog-widget {
+	padding: 30px 20px 35px;
+}
+.rc-post-content .title {
+	font-size: 16px;
+	margin-bottom: 3px;
+}
+.sidebar-newsletter .sn-title .title {
+	margin-bottom: 5px;
+	font-size: 22px;
+}
+.blog-details-tags {
+	width: 100%;
+	flex: 0 0 100%;
+}
+.blog-details-bottom {
+	margin-top: 30px;
+	display: block;
+}
+.blog-details-social ul {
+	justify-content: flex-start;
+	margin-top: 10px;
+}
+.blog-details-img [class*="col-"]:first-child img {
+	margin-bottom: 20px;
+}
+.blog-details-area .avatar-post {
+	display: block;
+	text-align: center;
+}
+.blog-details-area .avatar-post .avatar-post-img {
+	margin: 0 auto 20px;
+}
+.blog-details-area .avatar-post-content .blog-details-social ul {
+	justify-content: center;
+}
+.comment-reply-box {
+	padding: 30px 25px;
+}
+.comment-reply-box .title {
+	font-size: 22px;
+	margin-bottom: 25px;
+}
+.blog-details-img img {
+	width: 100%;
+}
+.booking-list-item-inner {
+	padding: 20px;
+}
+.booking-list-item .flight-info li {
+	margin-right: 35px;
+	margin-bottom: 10px;
+}
+.booking-list-item .flight-airway {
+	min-width: 100%;
+	margin-right: 0;
+	margin-bottom: 15px;
+}
+.booking-list-item .booking-list-bottom ul {
+	flex-wrap: wrap;
+	justify-content: center;
+	flex-direction: column-reverse;
+}
+.booking-list-item .booking-list-bottom ul li.detail {
+	margin-top: 10px;
+}
+.flight-detail-wrap {
+	padding: 20px;
+}
+.flight-detail-wrap .flight-date {
+	width: 100%;
+	flex: 0 0 100%;
+}
+.flight-detail-wrap .flight-detail-info {
+	display: block;
+}
+.flight-detail-wrap .flight-detail-info img {
+	margin: 0 0 10px 0;
+}
+.content-top ul {
+	flex-wrap: wrap;
+}
+.booking-list-area .col-27 {
+	flex: 0 0 100%;
+	width: 100%;
+}
+.booking-sidebar .widget.filters .filters-wrap {
+	padding: 30px 25px;
+}
+.customer-details-content .icon {
+	margin-right: 0;
+	margin-bottom: 20px;
+}
+.customer-details-content .content .title {
+	font-size: 18px;
+}
+.customer-progress-step ul li p {
+	font-size: 12px;
+}
+.booking-details-area .primary-contact {
+	padding: 12px 20px;
+	border-radius: 5px 5px 0 0;
+}
+.booking-details-area .primary-contact .title {
+	font-size: 16px;
+}
+.booking-details-wrap {
+	padding: 35px 20px 45px;
+}
+.booking-details-wrap .form-grp .icon {
+	font-size: 18px;
+	margin-right: 8px;
+}
+.booking-details-wrap .form-grp.select-form .form label {
+	display: none;
+}
+.booking-details-wrap ul li {
+	width: 100%;
+}
+.booking-details-wrap ul li:first-child {
+	width: 100%;
+}
+.booking-details-wrap .optional-item .form-grp .form .form-select {
+	font-size: 14px;
+}
+.booking-details-area .row .col-27 {
+	flex: 0 0 100%;
+	width: 100%;
+}
+.booking-details-wrap .gender-select {
+	margin-left: 0px;
+}
+
+
+}
+
+@media (max-width: 420px) {
+.tab-content-wrap .content-bottom .promo-code {
+	margin-right: 20px;
+	margin-bottom: 0;
+}
+.transparent-header:not(.sticky-menu) {
+	top: 72px;
+}
+.about-img .img-two {
+	width: 270px;
+	top: -50px;
+	right: -10px;
+}
+.about-img::before {
+	right: 5%;
+	top: -7%;
+	width: 270px;
+	height: 298px;
+}
+
+
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+.custom-container {
+    max-width: 540px;
+}
+.transparent-header:not(.sticky-menu) {
+	top: 72px;
+}
+.tab-content-wrap .content-bottom .promo-code {
+	margin-right: 20px;
+	margin-bottom: 0;
+}
+.about-img .img-two {
+	width: auto;
+	right: -35px;
+	max-width: 100%;
+}
+.about-img::before {
+	right: 6%;
+	top: -6%;
+	width: 400px;
+	height: 459px;
+}
+.faq-area .faq-content .accordion-button {
+	font-size: 20px;
+}
+.flight-detail-wrap .flight-date {
+	width: 55%;
+	flex: 0 0 55%;
+}
+.booking-details-wrap .gender-select {
+	margin-left: 26px;
+}
+
+}
+
+
