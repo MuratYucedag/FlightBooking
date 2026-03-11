@@ -1,0 +1,8 @@
+﻿<div class="booking-tag">
+    <ul>
+        <li><a href="booking-list.html"><i class="flaticon-flight"></i>Uçuşlar</a></li>
+        <li><a href="booking-list.html"><i class="flaticon-car-1"></i>Araç Kiralama</a></li>
+        <li><a href="booking-list.html"><i class="flaticon-eiffel-tower"></i>Turlar & Aktiviteler</a></li>
+        <li><a href="booking-list.html"><i class="flaticon-taxi"></i>Havalimanı Transferi</a></li>
+    </ul>
+</div>

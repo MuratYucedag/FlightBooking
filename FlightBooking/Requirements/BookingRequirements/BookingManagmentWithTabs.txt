@@ -1,0 +1,208 @@
+﻿<div class="booking-wrap">
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+
+<li class="nav-item" role="presentation">
+<button class="nav-link active" id="bOOKing-tab" data-bs-toggle="tab" data-bs-target="#bOOKing-tab-pane" type="button">
+<i class="flaticon-flight"></i> Uçuş Ara
+</button>
+</li>
+
+<li class="nav-item" role="presentation">
+<button class="nav-link" id="trips-tab" data-bs-toggle="tab" data-bs-target="#trips-tab-pane" type="button">
+<i class="flaticon-file"></i> Seyahatlerim
+</button>
+</li>
+
+<li class="nav-item" role="presentation">
+<button class="nav-link" id="check-tab" data-bs-toggle="tab" data-bs-target="#check-tab-pane" type="button">
+<i class="flaticon-tick"></i> Online Check-in
+</button>
+</li>
+
+<li class="nav-item" role="presentation">
+<button class="nav-link" id="flight-tab" data-bs-toggle="tab" data-bs-target="#flight-tab-pane" type="button">
+<i class="flaticon-clock"></i> Uçuş Durumu
+</button>
+</li>
+
+</ul>
+
+
+<div class="tab-content" id="myTabContent">
+
+<!-- UÇUŞ ARAMA -->
+
+<div class="tab-pane fade show active" id="bOOKing-tab-pane">
+
+<div class="tab-content-wrap">
+
+<form class="booking-form">
+<ul>
+
+<li>
+<div class="form-grp">
+<input type="text" placeholder="Nereden">
+</div>
+</li>
+
+<li>
+<div class="form-grp">
+<input type="text" placeholder="Nereye">
+<button class="exchange-icon">
+<i class="flaticon-exchange-1"></i>
+</button>
+</div>
+</li>
+
+<li>
+<div class="form-grp select">
+<label>Yolculuk Tipi</label>
+<select class="form-select">
+<option>Tek Yön</option>
+<option>Gidiş - Dönüş</option>
+<option>Çoklu Uçuş</option>
+</select>
+</div>
+</li>
+
+<li>
+<div class="form-grp date">
+<ul>
+<li>
+<label>Gidiş Tarihi</label>
+<input type="text" class="date" placeholder="Tarih seçin">
+</li>
+<li>
+<label>Dönüş Tarihi</label>
+<input type="text" class="date" placeholder="Tarih seçin">
+</li>
+</ul>
+</div>
+</li>
+
+<li>
+<div class="form-grp economy">
+<label>Yolcu / Sınıf</label>
+<input type="text" placeholder="1 Yolcu, Ekonomi">
+</div>
+</li>
+
+</ul>
+</form>
+
+<div class="content-bottom">
+<a class="promo-code">+ Promosyon Kodu</a>
+<a class="btn">Uçuşları Listele <i class="flaticon-flight-1"></i></a>
+</div>
+
+</div>
+</div>
+
+
+
+<!-- SEYAHATLERİM -->
+
+<div class="tab-pane fade" id="trips-tab-pane">
+
+<div class="tab-content-wrap">
+
+<form class="booking-form">
+<ul>
+
+<li>
+<div class="form-grp">
+<label>Rezervasyon Kodu (PNR)</label>
+<input type="text" placeholder="PNR kodunu girin">
+</div>
+</li>
+
+<li>
+<div class="form-grp">
+<label>Soyad</label>
+<input type="text" placeholder="Soyadınızı girin">
+</div>
+</li>
+
+</ul>
+</form>
+
+<div class="content-bottom">
+<a class="btn">Seyahatimi Görüntüle</a>
+</div>
+
+</div>
+</div>
+
+
+
+<!-- CHECK IN -->
+
+<div class="tab-pane fade" id="check-tab-pane">
+
+<div class="tab-content-wrap">
+
+<form class="booking-form">
+<ul>
+
+<li>
+<div class="form-grp">
+<label>Rezervasyon Kodu</label>
+<input type="text" placeholder="PNR kodu">
+</div>
+</li>
+
+<li>
+<div class="form-grp">
+<label>Soyad</label>
+<input type="text" placeholder="Soyad">
+</div>
+</li>
+
+</ul>
+</form>
+
+<div class="content-bottom">
+<a class="btn">Check-in Yap</a>
+</div>
+
+</div>
+</div>
+
+
+
+<!-- UÇUŞ DURUMU -->
+
+<div class="tab-pane fade" id="flight-tab-pane">
+
+<div class="tab-content-wrap">
+
+<form class="booking-form">
+<ul>
+
+<li>
+<div class="form-grp">
+<label>Uçuş Numarası</label>
+<input type="text" placeholder="Örn: TK1234">
+</div>
+</li>
+
+<li>
+<div class="form-grp date">
+<label>Tarih</label>
+<input type="text" class="date" placeholder="Tarih seçin">
+</div>
+</li>
+
+</ul>
+</form>
+
+<div class="content-bottom">
+<a class="btn">Uçuşu Sorgula</a>
+</div>
+
+</div>
+</div>
+
+
+</div>
+</div>

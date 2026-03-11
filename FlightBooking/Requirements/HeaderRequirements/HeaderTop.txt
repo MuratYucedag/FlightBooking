@@ -1,0 +1,23 @@
+﻿<div class="header-top">
+    <div class="container custom-container">
+        <div class="row">
+            <div class="col-xl-4">
+                <div class="header-top-left">
+                    <a href="#"><i class="fa-solid fa-tags"></i> Yaz Kampanyası: Yurt dışı uçuşlarda %30'a varan indirim!</a>
+                </div>
+            </div>
+            <div class="col-xl-8">
+                <div class="header-top-right">
+                    <ul>
+                        <li><a href="#"><i class="fa-solid fa-ticket"></i> Rezervasyonum</a></li>
+                        <li><a href="#"><i class="fa-solid fa-plane-departure"></i> Online Check-in</a></li>
+                        <li><a href="#"><i class="fa-solid fa-headset"></i> Yardım & Destek</a></li>
+                        <li><a href="#"><i class="fa-solid fa-magnifying-glass"></i> Uçuş Ara</a></li>
+                        <li><a href="#"><i class="fa-solid fa-turkish-lira-sign"></i> Para Birimi</a></li>
+                        <li><a href="#"><i class="fa-solid fa-earth-asia"></i> TR - Türkçe</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
