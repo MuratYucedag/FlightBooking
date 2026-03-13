@@ -1,0 +1,189 @@
+﻿<!-- fly-next-area -->
+<section class="fly-next-area">
+    <div class="container">
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="section-title text-center">
+                    <span class="sub-title">Popüler Rotalar</span>
+                    <h2 class="title">En Çok Tercih Edilen Uçuşlar</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-7">
+                <div class="fly-next-nav">
+                    <button class="active" data-filter="*">Popüler Rotalar <i class="flaticon-flight"></i></button>
+                    <button data-filter=".cat-one">Avrupa Uçuşları <i class="flaticon-globe"></i></button>
+                    <button data-filter=".cat-two">Tatil Destinasyonları <i class="flaticon-sunbed"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row fly-next-active justify-content-center">
+
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 grid-item cat-two">
+                <div class="fly-next-item">
+                    <div class="fly-next-thumb">
+                        <a href="booking-details.html"><img src="/geair/assets/img/images/fly_img01.jpg" alt=""></a>
+                    </div>
+                    <div class="fly-next-content">
+                        <span>12 Haziran 2026 - 19 Haziran 2026</span>
+                        <h4 class="title">İstanbul, Türkiye</h4>
+                        <a href="#" class="exchange-btn"><i class="flaticon-exchange-1"></i></a>
+                        <h4 class="title">Roma, İtalya</h4>
+                        <a href="booking-details.html" class="air-logo"><img src="/geair/assets/img/icon/fly_icon01.jpg" alt=""></a>
+                        <div class="content-bottom">
+                            <p>Ekonomi başlangıç</p>
+                            <h4 class="price">2.050 TL</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 grid-item cat-one">
+                <div class="fly-next-item">
+                    <div class="fly-next-thumb">
+                        <a href="booking-details.html"><img src="/geair/assets/img/images/fly_img02.jpg" alt=""></a>
+                    </div>
+                    <div class="fly-next-content">
+                        <span>18 Haziran 2026 - 25 Haziran 2026</span>
+                        <h4 class="title">Ankara, Türkiye</h4>
+                        <a href="#" class="exchange-btn"><i class="flaticon-exchange-1"></i></a>
+                        <h4 class="title">Berlin, Almanya</h4>
+                        <a href="booking-details.html" class="air-logo"><img src="/geair/assets/img/icon/fly_icon02.jpg" alt=""></a>
+                        <div class="content-bottom">
+                            <p>Business Class</p>
+                            <h4 class="price">3.800 TL</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 grid-item cat-two">
+                <div class="fly-next-item">
+                    <div class="fly-next-thumb">
+                        <a href="booking-details.html"><img src="/geair/assets/img/images/fly_img03.jpg" alt=""></a>
+                    </div>
+                    <div class="fly-next-content">
+                        <span>22 Haziran 2026 - 29 Haziran 2026</span>
+                        <h4 class="title">İzmir, Türkiye</h4>
+                        <a href="#" class="exchange-btn"><i class="flaticon-exchange-1"></i></a>
+                        <h4 class="title">Paris, Fransa</h4>
+                        <a href="booking-details.html" class="air-logo"><img src="/geair/assets/img/icon/fly_icon03.jpg" alt=""></a>
+                        <div class="content-bottom">
+                            <p>Ekonomi başlangıç</p>
+                            <h4 class="price">2.150 TL</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 grid-item cat-one">
+                <div class="fly-next-item">
+                    <div class="fly-next-thumb">
+                        <a href="booking-details.html"><img src="/geair/assets/img/images/fly_img04.jpg" alt=""></a>
+                    </div>
+                    <div class="fly-next-content">
+                        <span>01 Temmuz 2026 - 08 Temmuz 2026</span>
+                        <h4 class="title">İstanbul, Türkiye</h4>
+                        <a href="#" class="exchange-btn"><i class="flaticon-exchange-1"></i></a>
+                        <h4 class="title">Amsterdam, Hollanda</h4>
+                        <a href="booking-details.html" class="air-logo"><img src="/geair/assets/img/icon/fly_icon01.jpg" alt=""></a>
+                        <div class="content-bottom">
+                            <p>Business Class</p>
+                            <h4 class="price">3.250 TL</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 grid-item cat-two">
+                <div class="fly-next-item">
+                    <div class="fly-next-thumb">
+                        <a href="booking-details.html"><img src="/geair/assets/img/images/fly_img05.jpg" alt=""></a>
+                    </div>
+                    <div class="fly-next-content">
+                        <span>10 Temmuz 2026 - 17 Temmuz 2026</span>
+                        <h4 class="title">İzmir, Türkiye</h4>
+                        <a href="#" class="exchange-btn"><i class="flaticon-exchange-1"></i></a>
+                        <h4 class="title">Barselona, İspanya</h4>
+                        <a href="booking-details.html" class="air-logo"><img src="/geair/assets/img/icon/fly_icon03.jpg" alt=""></a>
+                        <div class="content-bottom">
+                            <p>Ekonomi başlangıç</p>
+                            <h4 class="price">2.090 TL</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 grid-item cat-one">
+                <div class="fly-next-item">
+                    <div class="fly-next-thumb">
+                        <a href="booking-details.html"><img src="/geair/assets/img/images/fly_img06.jpg" alt=""></a>
+                    </div>
+                    <div class="fly-next-content">
+                        <span>15 Temmuz 2026 - 22 Temmuz 2026</span>
+                        <h4 class="title">İstanbul, Türkiye</h4>
+                        <a href="#" class="exchange-btn"><i class="flaticon-exchange-1"></i></a>
+                        <h4 class="title">Viyana, Avusturya</h4>
+                        <a href="booking-details.html" class="air-logo"><img src="/geair/assets/img/icon/fly_icon02.jpg" alt=""></a>
+                        <div class="content-bottom">
+                            <p>Business Class</p>
+                            <h4 class="price">3.100 TL</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 grid-item cat-two">
+                <div class="fly-next-item">
+                    <div class="fly-next-thumb">
+                        <a href="booking-details.html"><img src="/geair/assets/img/images/fly_img07.jpg" alt=""></a>
+                    </div>
+                    <div class="fly-next-content">
+                        <span>20 Temmuz 2026 - 27 Temmuz 2026</span>
+                        <h4 class="title">Ankara, Türkiye</h4>
+                        <a href="#" class="exchange-btn"><i class="flaticon-exchange-1"></i></a>
+                        <h4 class="title">Prag, Çekya</h4>
+                        <a href="booking-details.html" class="air-logo"><img src="/geair/assets/img/icon/fly_icon01.jpg" alt=""></a>
+                        <div class="content-bottom">
+                            <p>Ekonomi başlangıç</p>
+                            <h4 class="price">2.120 TL</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 grid-item cat-one">
+                <div class="fly-next-item">
+                    <div class="fly-next-thumb">
+                        <a href="booking-details.html"><img src="/geair/assets/img/images/fly_img08.jpg" alt=""></a>
+                    </div>
+                    <div class="fly-next-content">
+                        <span>25 Temmuz 2026 - 01 Ağustos 2026</span>
+                        <h4 class="title">İstanbul, Türkiye</h4>
+                        <a href="#" class="exchange-btn"><i class="flaticon-exchange-1"></i></a>
+                        <h4 class="title">Zürih, İsviçre</h4>
+                        <a href="booking-details.html" class="air-logo"><img src="/geair/assets/img/icon/fly_icon02.jpg" alt=""></a>
+                        <div class="content-bottom">
+                            <p>Business Class</p>
+                            <h4 class="price">3.450 TL</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</section>
+<!-- fly-next-area-end -->

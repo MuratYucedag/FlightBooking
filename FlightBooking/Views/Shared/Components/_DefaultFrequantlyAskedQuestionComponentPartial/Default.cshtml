@@ -1,0 +1,506 @@
+﻿
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+
+<style>
+    /* ── Variables ── */
+    :root {
+        --navy: #0d1b3e;
+        --navy-mid: #1b2f5e;
+        --amber: #f5c518;
+        --amber-deep: #d4a80e;
+        --amber-soft: rgba(245,197,24,.12);
+        --amber-border: rgba(245,197,24,.28);
+        --bg: #f3f5f9;
+        --white: #ffffff;
+        --text-body: #5a6a8a;
+        --text-muted: #8a96b0;
+        --border: rgba(13,27,62,.08);
+        --border-open: rgba(13,27,62,.13);
+        --radius-lg: 20px;
+        --radius-md: 14px;
+    }
+
+    /* ── Section shell ── */
+    .faq-section {
+        background: var(--bg);
+        padding: 96px 0 104px;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        position: relative;
+        overflow: hidden;
+    }
+
+        /* Decorative circles */
+        .faq-section::before {
+            content: '';
+            position: absolute;
+            width: 520px;
+            height: 520px;
+            border-radius: 50%;
+            border: 1px solid rgba(13,27,62,.05);
+            top: -180px;
+            right: -160px;
+            pointer-events: none;
+        }
+
+        .faq-section::after {
+            content: '';
+            position: absolute;
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            border: 1px solid rgba(13,27,62,.04);
+            bottom: -120px;
+            left: -80px;
+            pointer-events: none;
+        }
+
+    /* ── Left column ── */
+    .faq-left {
+        position: sticky;
+        top: 80px;
+        padding-right: 32px;
+    }
+
+    .faq-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: .22em;
+        text-transform: uppercase;
+        color: var(--amber-deep);
+        margin-bottom: 14px;
+    }
+
+        .faq-eyebrow::before {
+            content: '';
+            display: block;
+            width: 22px;
+            height: 2px;
+            border-radius: 2px;
+            background: var(--amber);
+        }
+
+    .faq-main-title {
+        font-size: clamp(28px, 3vw, 40px);
+        font-weight: 800;
+        color: var(--navy);
+        line-height: 1.18;
+        letter-spacing: -.025em;
+        margin: 0 0 16px;
+    }
+
+    .faq-desc {
+        font-size: 14.5px;
+        font-weight: 400;
+        color: var(--text-body);
+        line-height: 1.7;
+        margin: 0 0 36px;
+    }
+
+    /* Illustration card */
+    .faq-illus {
+        background: linear-gradient(140deg, var(--navy) 0%, var(--navy-mid) 100%);
+        border-radius: var(--radius-lg);
+        padding: 32px 28px;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .faq-illus::before {
+            content: '';
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: rgba(245,197,24,.07);
+            bottom: -60px;
+            right: -40px;
+        }
+
+    .faq-illus-icon {
+        width: 56px;
+        height: 56px;
+        border-radius: 14px;
+        background: var(--amber-soft);
+        border: 1px solid var(--amber-border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 18px;
+    }
+
+        .faq-illus-icon i {
+            font-size: 26px;
+            color: var(--amber);
+        }
+
+    .faq-illus-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: #f0e8d0;
+        margin-bottom: 8px;
+    }
+
+    .faq-illus-text {
+        font-size: 13px;
+        color: rgba(240,232,208,.55);
+        line-height: 1.6;
+        margin: 0 0 22px;
+    }
+
+    .faq-illus-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        font-size: 12.5px;
+        font-weight: 700;
+        color: var(--amber);
+        text-decoration: none;
+        letter-spacing: .04em;
+        transition: gap .22s ease;
+    }
+
+        .faq-illus-link i {
+            transition: transform .22s ease;
+        }
+
+        .faq-illus-link:hover {
+            gap: 12px;
+            color: var(--amber);
+        }
+
+            .faq-illus-link:hover i {
+                transform: translateX(3px);
+            }
+
+    /* ── Accordion ── */
+    .faq-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .faq-item {
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        box-shadow: 0 2px 12px rgba(13,27,62,.05);
+        transition: box-shadow .25s ease, border-color .25s ease;
+    }
+
+        .faq-item.open {
+            border-color: var(--border-open);
+            box-shadow: 0 8px 28px rgba(13,27,62,.11);
+        }
+
+    /* Question button */
+    .faq-question {
+        width: 100%;
+        background: none;
+        border: none;
+        padding: 20px 22px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        cursor: pointer;
+        text-align: left;
+        transition: background .2s ease;
+    }
+
+        .faq-question:hover {
+            background: rgba(13,27,62,.025);
+        }
+
+    .faq-item.open .faq-question {
+        background: rgba(13,27,62,.025);
+    }
+
+    /* Number badge */
+    .faq-num {
+        flex-shrink: 0;
+        width: 30px;
+        height: 30px;
+        border-radius: 8px;
+        background: var(--amber-soft);
+        border: 1px solid var(--amber-border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        font-weight: 800;
+        color: var(--navy);
+        transition: background .25s ease, border-color .25s ease;
+    }
+
+    .faq-item.open .faq-num {
+        background: var(--amber);
+        border-color: var(--amber-deep);
+    }
+
+    .faq-q-text {
+        flex: 1;
+        font-size: 14.5px;
+        font-weight: 600;
+        color: var(--navy);
+        line-height: 1.4;
+    }
+
+    /* Chevron icon */
+    .faq-chevron {
+        flex-shrink: 0;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: 1.5px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--white);
+        transition: background .25s ease, border-color .25s ease, transform .35s cubic-bezier(.22,.68,0,1.2);
+    }
+
+        .faq-chevron i {
+            font-size: 14px;
+            color: var(--text-muted);
+            transition: color .25s ease;
+        }
+
+    .faq-item.open .faq-chevron {
+        background: var(--navy);
+        border-color: var(--navy);
+        transform: rotate(180deg);
+    }
+
+        .faq-item.open .faq-chevron i {
+            color: var(--amber);
+        }
+
+    /* Answer panel */
+    .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height .42s cubic-bezier(.4,0,.2,1), padding .35s ease;
+    }
+
+    .faq-answer-inner {
+        padding: 0 22px 22px 66px; /* align under question text */
+        font-size: 14px;
+        color: var(--text-body);
+        line-height: 1.72;
+        border-top: 1px solid var(--border);
+        padding-top: 16px;
+    }
+
+    .faq-item.open .faq-answer {
+        max-height: 200px;
+    }
+
+    /* ── Stagger animation ── */
+    .faq-item {
+        opacity: 0;
+        transform: translateY(16px);
+        animation: faq-in .45s ease forwards;
+    }
+
+        .faq-item:nth-child(1) {
+            animation-delay: .06s;
+        }
+
+        .faq-item:nth-child(2) {
+            animation-delay: .12s;
+        }
+
+        .faq-item:nth-child(3) {
+            animation-delay: .18s;
+        }
+
+        .faq-item:nth-child(4) {
+            animation-delay: .24s;
+        }
+
+        .faq-item:nth-child(5) {
+            animation-delay: .30s;
+        }
+
+        .faq-item:nth-child(6) {
+            animation-delay: .36s;
+        }
+
+    @@keyframes faq-in {
+        to
+
+    {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    /* ── Responsive ── */
+    @@media (max-width: 991px) {
+        .faq-left
+
+    {
+        position: static;
+        padding-right: 0;
+        margin-bottom: 40px;
+    }
+
+    }
+</style>
+
+<!-- ══════════════════════════════════════════════
+     FAQ SECTION
+     ══════════════════════════════════════════════ -->
+<section class="faq-section">
+    <div class="container" style="position:relative;z-index:1;">
+        <div class="row">
+
+            <!-- ── Left column ── -->
+            <div class="col-lg-4">
+                <div class="faq-left">
+                    <div class="faq-eyebrow">Yardım Merkezi</div>
+                    <h2 class="faq-main-title">Sık Sorulan<br>Sorular</h2>
+                    <p class="faq-desc">Uçuş rezervasyonu ve seyahat hizmetleri hakkında en çok merak edilen soruların cevaplarını burada bulabilirsiniz.</p>
+
+                    <!-- Illustration card -->
+                    <div class="faq-illus">
+                        <div class="faq-illus-icon">
+                            <i class="bi bi-headset"></i>
+                        </div>
+                        <div class="faq-illus-title">Cevap bulamadınız mı?</div>
+                        <p class="faq-illus-text">Destek ekibimiz size 7/24 yardımcı olmaya hazır.</p>
+                        <a href="#" class="faq-illus-link">
+                            Bize Ulaşın <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Right column — Accordion ── -->
+            <div class="col-lg-8">
+                <div class="faq-list" id="faq-list">
+
+                    <!-- 1 -->
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span class="faq-num">01</span>
+                            <span class="faq-q-text">Uçuşuma ek bagaj nasıl ekleyebilirim?</span>
+                            <span class="faq-chevron"><i class="bi bi-chevron-down"></i></span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">
+                                Rezervasyon işlemi sırasında veya rezervasyonunuzu tamamladıktan sonra <strong>"Ek Hizmetler"</strong> bölümünden bagaj satın alabilirsiniz. Uçuşa 2 saat kala ek bagaj ekleme imkânı kapanmaktadır.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2 -->
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span class="faq-num">02</span>
+                            <span class="faq-q-text">Online check-in işlemi ne zaman başlar?</span>
+                            <span class="faq-chevron"><i class="bi bi-chevron-down"></i></span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">
+                                Online check-in işlemi genellikle uçuş saatinden <strong>24 saat önce</strong> başlar ve uçuşa birkaç saat kalana kadar devam eder. Yurt dışı uçuşlarında pasaport bilgilerinizi hazır bulundurmanız önerilir.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3 -->
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span class="faq-num">03</span>
+                            <span class="faq-q-text">Koltuk seçimi nasıl yapılır?</span>
+                            <span class="faq-chevron"><i class="bi bi-chevron-down"></i></span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">
+                                Rezervasyon sırasında koltuk seçimi yapabilir veya rezervasyon sonrasında hesabınızdan koltuğunuzu değiştirebilirsiniz. Pencere, koridor ve ekstra bacak mesafeli koltuklar için ek ücret uygulanabilir.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4 -->
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span class="faq-num">04</span>
+                            <span class="faq-q-text">Uçuşumu değiştirebilir veya iptal edebilir miyim?</span>
+                            <span class="faq-chevron"><i class="bi bi-chevron-down"></i></span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">
+                                Bilet türüne bağlı olarak uçuş değişikliği veya iptal işlemleri yapılabilir. Detaylı bilgi için <strong>Rezervasyon Yönetimi</strong> sayfasını kullanabilirsiniz. Esnek bilet sahipleri ücretsiz değişiklik hakkından yararlanabilir.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 5 -->
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span class="faq-num">05</span>
+                            <span class="faq-q-text">Uçuşuma yemek seçimi ekleyebilir miyim?</span>
+                            <span class="faq-chevron"><i class="bi bi-chevron-down"></i></span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">
+                                Evet. Rezervasyon sırasında veya uçuşunuzdan önce yemek tercihi ekleyebilirsiniz. Vejetaryen, vegan, glütensiz ve çocuk menüsü gibi özel diyet seçenekleri de mevcuttur.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 6 -->
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span class="faq-num">06</span>
+                            <span class="faq-q-text">Hızlı Geçiş (Fast Track) hizmeti nedir?</span>
+                            <span class="faq-chevron"><i class="bi bi-chevron-down"></i></span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">
+                                Hızlı Geçiş hizmeti sayesinde güvenlik ve pasaport kontrol noktalarından <strong>daha hızlı geçebilirsiniz</strong>. Özellikle yoğun sezonlarda zamandan tasarruf etmek isteyen yolculara tavsiye edilir.
+                            </div>
+                        </div>
+                    </div>
+
+                </div><!-- /.faq-list -->
+            </div>
+
+        </div><!-- /.row -->
+    </div>
+</section>
+<!-- ══════════════════════════════════════════════ -->
+
+<script>
+    (function () {
+      const items = document.querySelectorAll('#faq-list .faq-item');
+
+      items.forEach(item => {
+        const btn    = item.querySelector('.faq-question');
+        const answer = item.querySelector('.faq-answer');
+
+        btn.addEventListener('click', () => {
+          const isOpen = item.classList.contains('open');
+
+          // Close all
+          items.forEach(i => {
+            i.classList.remove('open');
+            i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+          });
+
+          // Open clicked (if it was closed)
+          if (!isOpen) {
+            item.classList.add('open');
+            btn.setAttribute('aria-expanded', 'true');
+          }
+        });
+      });
+    })();
+</script>

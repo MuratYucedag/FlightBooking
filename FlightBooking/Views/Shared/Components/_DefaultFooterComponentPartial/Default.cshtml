@@ -1,0 +1,572 @@
+﻿
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+
+<style>
+    /* ══════════════════════════════════════════
+       UNIFIED FOOTER — Tek footer, üç katman
+       ══════════════════════════════════════════ */
+    :root {
+        --fn: 'Plus Jakarta Sans', sans-serif;
+        --navy: #0b1730;
+        --navy-mid: #142040;
+        --navy-light: #1e3060;
+        --amber: #f5c518;
+        --amber-deep: #d4a80e;
+        --amber-glow: rgba(245,197,24,.12);
+        --amber-border: rgba(245,197,24,.22);
+        --white: #ffffff;
+        --text-soft: rgba(255,255,255,.58);
+        --text-muted: rgba(255,255,255,.35);
+        --border: rgba(255,255,255,.08);
+        --dest-bg: #0e1e3a; /* destinasyon şeridi */
+        --nav-bg: #0b1730; /* ana footer gövdesi */
+        --copy-bg: #060f22; /* copyright şeridi  */
+    }
+
+    /* ── Genel kapsayıcı ── */
+    .footer-area {
+        font-family: var(--fn);
+        background: var(--nav-bg);
+    }
+
+    /* ════════════════════════════════
+       KATMAN 1 — Destinasyon Linkleri
+       ════════════════════════════════ */
+    .footer-dest {
+        background: var(--dest-bg);
+        border-bottom: 1px solid var(--border);
+        padding: 44px 0 40px;
+    }
+
+    .dest-section-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: .2em;
+        text-transform: uppercase;
+        color: var(--amber);
+        margin-bottom: 14px;
+    }
+
+        .dest-section-label::before {
+            content: '';
+            display: block;
+            width: 18px;
+            height: 2px;
+            border-radius: 2px;
+            background: var(--amber);
+        }
+
+    .dest-divider {
+        height: 1px;
+        background: var(--border);
+        margin: 0 0 28px;
+    }
+
+    .dest-link-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+    }
+
+        .dest-link-list a {
+            font-size: 12.5px;
+            color: var(--text-soft);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color .16s ease, gap .16s ease;
+            line-height: 1.4;
+        }
+
+            .dest-link-list a i {
+                font-size: 10px;
+                color: var(--amber-deep);
+                opacity: 0;
+                transition: opacity .16s ease;
+            }
+
+            .dest-link-list a:hover {
+                color: var(--amber);
+                gap: 9px;
+                text-decoration: none;
+            }
+
+                .dest-link-list a:hover i {
+                    opacity: 1;
+                }
+
+    /* ════════════════════════════════
+       KATMAN 2 — Ana Footer Gövdesi
+       ════════════════════════════════ */
+    .footer-top {
+        padding: 56px 0 48px;
+        background: var(--nav-bg);
+    }
+
+    /* Logo */
+    .footer-logo {
+        margin-bottom: 20px;
+    }
+
+        .footer-logo a {
+            display: inline-block;
+        }
+
+        .footer-logo img {
+            max-height: 44px;
+        }
+
+    /* Logo placeholder (logo.png yokken) */
+    .footer-logo-text {
+        font-size: 24px;
+        font-weight: 800;
+        color: var(--white);
+        letter-spacing: -.02em;
+    }
+
+        .footer-logo-text span {
+            color: var(--amber);
+        }
+
+    .footer-content p {
+        font-size: 13.5px;
+        color: var(--text-soft);
+        line-height: 1.7;
+        margin-bottom: 20px;
+    }
+
+    /* Sosyal medya */
+    .footer-social {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        gap: 8px;
+    }
+
+        .footer-social li a {
+            width: 36px;
+            height: 36px;
+            border-radius: 9px;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,.04);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-soft);
+            font-size: 14px;
+            transition: all .2s ease;
+            text-decoration: none;
+        }
+
+            .footer-social li a:hover {
+                background: var(--amber);
+                border-color: var(--amber);
+                color: var(--navy);
+                text-decoration: none;
+            }
+
+    /* Widget başlığı */
+    .fw-title {
+        margin-bottom: 20px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--border);
+    }
+
+        .fw-title .title {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: var(--white);
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+            .fw-title .title::before {
+                content: '';
+                display: block;
+                width: 3px;
+                height: 14px;
+                border-radius: 2px;
+                background: var(--amber);
+                flex-shrink: 0;
+            }
+
+    /* Link listesi */
+    .fw-link ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 9px;
+    }
+
+        .fw-link ul li a {
+            font-size: 13px;
+            color: var(--text-soft);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            transition: color .16s ease, gap .16s ease;
+            line-height: 1.4;
+        }
+
+            .fw-link ul li a::before {
+                content: '';
+                display: block;
+                width: 5px;
+                height: 1px;
+                background: var(--amber);
+                flex-shrink: 0;
+                opacity: 0;
+                transition: opacity .16s ease;
+            }
+
+            .fw-link ul li a:hover {
+                color: var(--amber);
+                gap: 10px;
+                text-decoration: none;
+            }
+
+                .fw-link ul li a:hover::before {
+                    opacity: 1;
+                }
+
+    /* İletişim alanı */
+    .footer-contact p {
+        font-size: 13px;
+        color: var(--text-soft);
+        margin-bottom: 10px;
+        line-height: 1.6;
+    }
+
+    .footer-contact .contact-phone {
+        font-size: 22px;
+        font-weight: 800;
+        color: var(--white);
+        text-decoration: none;
+        display: block;
+        margin-bottom: 6px;
+        transition: color .16s ease;
+        letter-spacing: -.02em;
+    }
+
+        .footer-contact .contact-phone:hover {
+            color: var(--amber);
+            text-decoration: none;
+        }
+
+    .footer-contact .contact-email {
+        font-size: 13px;
+        color: var(--amber);
+        text-decoration: none;
+        display: block;
+        margin-bottom: 18px;
+        transition: opacity .16s ease;
+    }
+
+        .footer-contact .contact-email:hover {
+            opacity: .75;
+            text-decoration: none;
+        }
+
+    /* Newsletter formu */
+    .newsletter-form {
+        display: flex;
+        gap: 0;
+        background: rgba(255,255,255,.06);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        overflow: hidden;
+        transition: border-color .2s ease;
+    }
+
+        .newsletter-form:focus-within {
+            border-color: rgba(245,197,24,.4);
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            padding: 11px 14px;
+            font-size: 13px;
+            color: var(--white);
+            font-family: var(--fn);
+        }
+
+            .newsletter-form input::placeholder {
+                color: var(--text-muted);
+            }
+
+        .newsletter-form button {
+            background: var(--amber);
+            border: none;
+            padding: 0 16px;
+            cursor: pointer;
+            color: var(--navy);
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background .2s ease;
+            flex-shrink: 0;
+        }
+
+            .newsletter-form button:hover {
+                background: var(--amber-deep);
+            }
+
+    /* ════════════════════════════════
+       KATMAN 3 — Copyright
+       ════════════════════════════════ */
+    .footer-bottom {
+        background: var(--copy-bg);
+        padding: 16px 0;
+        border-top: 1px solid var(--border);
+    }
+
+    .copyright-text p {
+        font-size: 12.5px;
+        color: var(--text-muted);
+        margin: 0;
+        line-height: 1.5;
+    }
+
+        .copyright-text p span {
+            color: var(--amber);
+            font-weight: 600;
+        }
+
+    .footer-bottom-links {
+        display: flex;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+        gap: 0;
+    }
+
+        .footer-bottom-links a {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 2px 10px;
+            border-right: 1px solid var(--border);
+            transition: color .15s ease;
+            line-height: 1.5;
+        }
+
+            .footer-bottom-links a:last-child {
+                border-right: none;
+            }
+
+            .footer-bottom-links a:hover {
+                color: var(--amber);
+                text-decoration: none;
+            }
+
+    /* ── Responsive ── */
+    @@media (max-width: 767px) {
+        .footer-dest .col-md-4
+
+    {
+        margin-bottom: 28px;
+    }
+
+    .footer-dest .col-md-4:last-child {
+        margin-bottom: 0;
+    }
+
+    .footer-bottom-links {
+        justify-content: flex-start;
+        margin-top: 8px;
+    }
+
+    }
+</style>
+
+<!-- ══════════════════════════════════════════════
+     TEK FOOTER — Üç entegre katman
+     ══════════════════════════════════════════════ -->
+<footer>
+    <div class="footer-area">
+
+        <!-- ─────────────────────────────────────────
+             KATMAN 1 · Destinasyon Linkleri
+             footer-area içinde, footer-top üstünde
+             ───────────────────────────────────────── -->
+        <div class="footer-dest">
+            <div class="container">
+                <div class="row">
+
+                    <!-- Popüler Rotalar -->
+                    <div class="col-md-4 col-sm-6 mb-4 mb-md-0">
+                        <div class="dest-section-label">
+                            <i class="bi bi-airplane-fill"></i> Popüler Rotalar
+                        </div>
+                        <ul class="dest-link-list">
+                            <li><a href="#">İstanbul → Paris Uçak Bileti <i class="bi bi-arrow-right"></i></a></li>
+                            <li><a href="#">İstanbul → Londra Uçak Bileti <i class="bi bi-arrow-right"></i></a></li>
+                            <li><a href="#">İstanbul → Roma Uçak Bileti <i class="bi bi-arrow-right"></i></a></li>
+                            <li><a href="#">İstanbul → Berlin Uçak Bileti <i class="bi bi-arrow-right"></i></a></li>
+                            <li><a href="#">Ankara → Paris Uçak Bileti <i class="bi bi-arrow-right"></i></a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Popüler Şehirler -->
+                    <div class="col-md-4 col-sm-6 mb-4 mb-md-0">
+                        <div class="dest-section-label">
+                            <i class="bi bi-building"></i> Popüler Şehirler
+                        </div>
+                        <ul class="dest-link-list">
+                            <li><a href="#">İstanbul Uçak Bileti <i class="bi bi-arrow-right"></i></a></li>
+                            <li><a href="#">Ankara Uçak Bileti <i class="bi bi-arrow-right"></i></a></li>
+                            <li><a href="#">İzmir Uçak Bileti <i class="bi bi-arrow-right"></i></a></li>
+                            <li><a href="#">Paris Uçak Bileti <i class="bi bi-arrow-right"></i></a></li>
+                            <li><a href="#">Roma Uçak Bileti <i class="bi bi-arrow-right"></i></a></li>
+                            <li><a href="#">Berlin Uçak Bileti <i class="bi bi-arrow-right"></i></a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Popüler Ülkeler -->
+                    <div class="col-md-4 col-sm-6">
+                        <div class="dest-section-label">
+                            <i class="bi bi-globe-americas"></i> Popüler Ülkeler
+                        </div>
+                        <ul class="dest-link-list">
+                            <li><a href="#">Almanya Uçak Bileti <i class="bi bi-arrow-right"></i></a></li>
+                            <li><a href="#">İtalya Uçak Bileti <i class="bi bi-arrow-right"></i></a></li>
+                            <li><a href="#">Fransa Uçak Bileti <i class="bi bi-arrow-right"></i></a></li>
+                            <li><a href="#">İngiltere Uçak Bileti <i class="bi bi-arrow-right"></i></a></li>
+                            <li><a href="#">Hollanda Uçak Bileti <i class="bi bi-arrow-right"></i></a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- ─────────────────────────────────────────
+             KATMAN 2 · Ana Footer Navigasyonu
+             ───────────────────────────────────────── -->
+        <div class="footer-top">
+            <div class="container">
+                <div class="row gy-5">
+
+                    <!-- Logo + Açıklama + Sosyal Medya -->
+                    <div class="col-xl-3 col-lg-4 col-md-6">
+                        <div class="footer-widget">
+                            <div class="footer-logo mb-3">
+                                <!-- Gerçek logo varsa: <a href="index.html"><img src="assets/img/logo/logo.png" alt="Air Geair"></a> -->
+                                <a href="index.html" class="footer-logo-text">Air <span>Geair</span></a>
+                            </div>
+                            <div class="footer-content">
+                                <p>Seyahatinizi daha unutulmaz kılmak için en uygun uçuş seçeneklerini keşfedin.</p>
+                                <ul class="footer-social">
+                                    <li><a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a></li>
+                                    <li><a href="#" aria-label="Twitter / X"><i class="bi bi-twitter-x"></i></a></li>
+                                    <li><a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a></li>
+                                    <li><a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Keşfet -->
+                    <div class="col-xl-3 col-lg-4 col-md-6">
+                        <div class="footer-widget">
+                            <div class="fw-title"><h4 class="title">Keşfet</h4></div>
+                            <div class="fw-link">
+                                <ul>
+                                    <li><a href="about.html">Hakkımızda</a></li>
+                                    <li><a href="contact.html">Seyahat Uyarıları</a></li>
+                                    <li><a href="contact.html">Ödüller</a></li>
+                                    <li><a href="contact.html">Kariyer</a></li>
+                                    <li><a href="contact.html">Basın Bülteni</a></li>
+                                    <li><a href="contact.html">Kargo Hizmetleri</a></li>
+                                    <li><a href="contact.html">Sponsorluk</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gizlilik -->
+                    <div class="col-xl-3 col-lg-4 col-sm-4">
+                        <div class="footer-widget">
+                            <div class="fw-title"><h4 class="title">Gizlilik</h4></div>
+                            <div class="fw-link">
+                                <ul>
+                                    <li><a href="booking-list.html">Havayolu Ücretleri</a></li>
+                                    <li><a href="booking-list.html">Havayolu Rehberi</a></li>
+                                    <li><a href="booking-list.html">Havalimanı Rehberi</a></li>
+                                    <li><a href="booking-list.html">Uygun Fiyat İpuçları</a></li>
+                                    <li><a href="booking-list.html">Uçuşlar</a></li>
+                                    <li><a href="#">KVKK</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- İletişim + Bülten -->
+                    <div class="col-xl-3 col-lg-4 col-sm-8">
+                        <div class="footer-widget">
+                            <div class="fw-title"><h4 class="title">İletişim</h4></div>
+                            <div class="footer-contact">
+                                <p>PO Box W75, West New Queens Caddesi, İstanbul</p>
+                                <a href="tel:+12463330079" class="contact-phone">+1 246 333 - 0079</a>
+                                <a href="mailto:geair@company.com" class="contact-email">geair@company.com</a>
+                                <div class="fw-title mt-2"><h4 class="title">Bülten</h4></div>
+                                <div class="newsletter-form">
+                                    <input type="email" placeholder="E-posta adresiniz">
+                                    <button type="button" aria-label="Abone Ol">
+                                        <i class="bi bi-send-fill"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- ─────────────────────────────────────────
+             KATMAN 3 · Copyright
+             ───────────────────────────────────────── -->
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-5">
+                        <div class="copyright-text">
+                            <p>Copyright © 2024. Tüm Hakları Saklıdır — <span>Air Geair</span></p>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="footer-bottom-links">
+                            <a href="#">Kullanım Koşulları</a>
+                            <a href="#">Gizlilik Politikası</a>
+                            <a href="#">Çerez Politikası</a>
+                            <a href="#">Site Haritası</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- /.footer-area -->
+</footer>
+<!-- ══════════════════════════════════════════════ -->

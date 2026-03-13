@@ -1,0 +1,526 @@
+﻿
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+
+<style>
+    /* ── Variables ── */
+    :root {
+        --navy: #0d1b3e;
+        --navy-mid: #162550;
+        --amber: #f5c518;
+        --amber-deep: #e0af10;
+        --amber-soft: rgba(245,197,24,.13);
+        --amber-border: rgba(245,197,24,.3);
+        --bg-section: #f3f5f9;
+        --white: #ffffff;
+        --text-body: #5a6a8a;
+        --border: rgba(13,27,62,.08);
+        --shadow-sm: 0 2px 16px rgba(13,27,62,.07);
+        --shadow-hover: 0 16px 40px rgba(13,27,62,.16);
+        --radius: 18px;
+    }
+
+    /* ── Section ── */
+    .service-area {
+        background: var(--bg-section);
+        padding: 88px 0 96px;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        position: relative;
+        overflow: hidden;
+    }
+
+        /* Subtle dot-grid background texture */
+        .service-area::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle, rgba(13,27,62,.055) 1px, transparent 1px);
+            background-size: 28px 28px;
+            pointer-events: none;
+        }
+
+    /* ── Header row ── */
+    .svc-header {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        margin-bottom: 48px;
+        flex-wrap: wrap;
+        gap: 20px;
+        position: relative;
+    }
+
+    .svc-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: .22em;
+        text-transform: uppercase;
+        color: var(--amber-deep);
+        margin-bottom: 10px;
+    }
+
+        .svc-eyebrow::before {
+            content: '';
+            display: block;
+            width: 22px;
+            height: 2px;
+            border-radius: 2px;
+            background: var(--amber);
+        }
+
+    .svc-main-title {
+        font-size: clamp(26px, 3vw, 38px);
+        font-weight: 800;
+        color: var(--navy);
+        line-height: 1.2;
+        margin: 0 0 8px;
+        letter-spacing: -.02em;
+    }
+
+    .svc-desc {
+        font-size: 14px;
+        font-weight: 400;
+        color: var(--text-body);
+        margin: 0;
+    }
+
+    /* ── Arrow buttons ── */
+    .svc-arrows {
+        display: flex;
+        gap: 10px;
+        flex-shrink: 0;
+    }
+
+    .svc-arrow-btn {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        border: 1.5px solid var(--border);
+        background: var(--white);
+        color: var(--navy);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 17px;
+        transition: all .22s ease;
+        box-shadow: var(--shadow-sm);
+        flex-shrink: 0;
+    }
+
+        .svc-arrow-btn:hover {
+            background: var(--navy);
+            border-color: var(--navy);
+            color: var(--amber);
+            box-shadow: 0 4px 16px rgba(13,27,62,.22);
+        }
+
+        .svc-arrow-btn:active {
+            transform: scale(.93);
+        }
+
+    /* ── Slider track ── */
+    .svc-slider-outer {
+        position: relative;
+        overflow: hidden;
+    }
+
+        /* Fade masks on edges */
+        .svc-slider-outer::before,
+        .svc-slider-outer::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 56px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .svc-slider-outer::before {
+            left: 0;
+            background: linear-gradient(to right, var(--bg-section), transparent);
+        }
+
+        .svc-slider-outer::after {
+            right: 0;
+            background: linear-gradient(to left, var(--bg-section), transparent);
+        }
+
+    .svc-slider-track {
+        display: flex;
+        gap: 20px;
+        transition: transform .45s cubic-bezier(.4,0,.2,1);
+        will-change: transform;
+        padding: 12px 4px 20px;
+        /* allow cards to overflow for shadow visibility */
+        margin: -12px -4px -20px;
+    }
+
+    /* ── Service Card ── */
+    .svc-card {
+        flex: 0 0 220px;
+        background: var(--white);
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        padding: 36px 24px 28px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        box-shadow: var(--shadow-sm);
+        transition: transform .3s cubic-bezier(.22,.68,0,1.2), box-shadow .3s ease, border-color .3s ease;
+        position: relative;
+        cursor: default;
+        user-select: none;
+    }
+
+        .svc-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+            border-color: rgba(13,27,62,.12);
+        }
+
+        /* Top amber line */
+        .svc-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 24px;
+            right: 24px;
+            height: 3px;
+            border-radius: 0 0 6px 6px;
+            background: linear-gradient(90deg, var(--amber), var(--amber-deep));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform .32s ease;
+        }
+
+        .svc-card:hover::after {
+            transform: scaleX(1);
+        }
+
+    /* ── Icon ── */
+    .svc-card-icon {
+        width: 68px;
+        height: 68px;
+        border-radius: 18px;
+        background: var(--amber-soft);
+        border: 1.5px solid var(--amber-border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+        transition: transform .3s cubic-bezier(.22,.68,0,1.2), background .3s ease, border-color .3s ease;
+    }
+
+        .svc-card-icon i {
+            font-size: 28px;
+            color: var(--navy);
+            transition: color .3s ease, transform .3s ease;
+        }
+
+    .svc-card:hover .svc-card-icon {
+        transform: scale(1.1);
+        background: var(--amber);
+        border-color: var(--amber-deep);
+    }
+
+        .svc-card:hover .svc-card-icon i {
+            color: var(--navy);
+            transform: scale(1.05);
+        }
+
+    /* ── Card title ── */
+    .svc-card-title {
+        font-size: 14.5px;
+        font-weight: 700;
+        color: var(--navy);
+        line-height: 1.35;
+        margin: 0 0 auto;
+        letter-spacing: -.01em;
+    }
+
+    /* ── Plus button ── */
+    .svc-plus-btn {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        border: 1.5px solid var(--border);
+        background: var(--white);
+        color: var(--navy);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 17px;
+        margin-top: 22px;
+        cursor: pointer;
+        transition: all .25s cubic-bezier(.22,.68,0,1.2);
+        box-shadow: 0 2px 8px rgba(13,27,62,.06);
+    }
+
+    .svc-card:hover .svc-plus-btn {
+        background: var(--navy);
+        border-color: var(--navy);
+        color: var(--amber);
+        transform: rotate(90deg) scale(1.1);
+        box-shadow: 0 6px 18px rgba(13,27,62,.25);
+    }
+
+    /* ── Dots indicator ── */
+    .svc-dots {
+        display: flex;
+        justify-content: center;
+        gap: 7px;
+        margin-top: 36px;
+    }
+
+    .svc-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: rgba(13,27,62,.18);
+        cursor: pointer;
+        transition: all .25s ease;
+    }
+
+        .svc-dot.active {
+            background: var(--navy);
+            width: 22px;
+            border-radius: 4px;
+        }
+
+    /* ── Drag cursor ── */
+    .svc-slider-outer.is-dragging {
+        cursor: grabbing;
+    }
+
+        .svc-slider-outer.is-dragging .svc-card {
+            pointer-events: none;
+        }
+
+    /* ── Stagger on load ── */
+    .svc-card {
+        opacity: 0;
+        animation: card-in .5s ease forwards;
+    }
+
+        .svc-card:nth-child(1) {
+            animation-delay: .04s;
+        }
+
+        .svc-card:nth-child(2) {
+            animation-delay: .1s;
+        }
+
+        .svc-card:nth-child(3) {
+            animation-delay: .16s;
+        }
+
+        .svc-card:nth-child(4) {
+            animation-delay: .22s;
+        }
+
+        .svc-card:nth-child(5) {
+            animation-delay: .28s;
+        }
+
+        .svc-card:nth-child(6) {
+            animation-delay: .34s;
+        }
+
+        .svc-card:nth-child(7) {
+            animation-delay: .40s;
+        }
+
+    @@keyframes card-in {
+        from
+
+    {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    /* keep hover transform dominant */
+    .svc-card:hover {
+        transform: translateY(-8px) !important;
+    }
+</style>
+
+<!-- ══════════════════════════════════════════
+     SERVICE SECTION — Horizontal Slider
+     ══════════════════════════════════════════ -->
+<section class="service-area">
+    <div class="container" style="position:relative; z-index:1;">
+
+        <!-- Header -->
+        <div class="svc-header">
+            <div>
+                <div class="svc-eyebrow">Neden Air Geair</div>
+                <h2 class="svc-main-title">Uçuşuna Ek Hizmet Ekle</h2>
+                <p class="svc-desc">Seyahatinizi daha konforlu hale getirmek için ek hizmetlerden yararlanın.</p>
+            </div>
+            <div class="svc-arrows">
+                <button class="svc-arrow-btn" id="svc-prev" aria-label="Önceki">
+                    <i class="bi bi-chevron-left"></i>
+                </button>
+                <button class="svc-arrow-btn" id="svc-next" aria-label="Sonraki">
+                    <i class="bi bi-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Slider -->
+        <div class="svc-slider-outer" id="svc-outer">
+            <div class="svc-slider-track" id="svc-track">
+
+                <!-- 1. Uçak İçi Eğlence -->
+                <div class="svc-card">
+                    <div class="svc-card-icon"><i class="bi bi-play-circle-fill"></i></div>
+                    <div class="svc-card-title">Uçak İçi Eğlence</div>
+                    <button class="svc-plus-btn"><i class="bi bi-plus"></i></button>
+                </div>
+
+                <!-- 2. Paket Yükselt -->
+                <div class="svc-card">
+                    <div class="svc-card-icon"><i class="bi bi-arrow-up-circle-fill"></i></div>
+                    <div class="svc-card-title">Paket Yükselt</div>
+                    <button class="svc-plus-btn"><i class="bi bi-plus"></i></button>
+                </div>
+
+                <!-- 3. Yemek Seçimi -->
+                <div class="svc-card">
+                    <div class="svc-card-icon"><i class="bi bi-cup-hot-fill"></i></div>
+                    <div class="svc-card-title">Yemek Seçimi</div>
+                    <button class="svc-plus-btn"><i class="bi bi-plus"></i></button>
+                </div>
+
+                <!-- 4. Koltuk Seçimi -->
+                <div class="svc-card">
+                    <div class="svc-card-icon"><i class="bi bi-grid-1x2-fill"></i></div>
+                    <div class="svc-card-title">Koltuk Seçimi</div>
+                    <button class="svc-plus-btn"><i class="bi bi-plus"></i></button>
+                </div>
+
+                <!-- 5. Ek Bagaj -->
+                <div class="svc-card">
+                    <div class="svc-card-icon"><i class="bi bi-briefcase-fill"></i></div>
+                    <div class="svc-card-title">Ek Bagaj</div>
+                    <button class="svc-plus-btn"><i class="bi bi-plus"></i></button>
+                </div>
+
+                <!-- 6. Hızlı Geçiş -->
+                <div class="svc-card">
+                    <div class="svc-card-icon"><i class="bi bi-lightning-charge-fill"></i></div>
+                    <div class="svc-card-title">Hızlı Geçiş</div>
+                    <button class="svc-plus-btn"><i class="bi bi-plus"></i></button>
+                </div>
+
+                <!-- 7. Araç Kiralama -->
+                <div class="svc-card">
+                    <div class="svc-card-icon"><i class="bi bi-car-front-fill"></i></div>
+                    <div class="svc-card-title">Araç Kiralama</div>
+                    <button class="svc-plus-btn"><i class="bi bi-plus"></i></button>
+                </div>
+
+            </div><!-- /.svc-slider-track -->
+        </div><!-- /.svc-slider-outer -->
+        <!-- Dot indicators -->
+        <div class="svc-dots" id="svc-dots"></div>
+
+    </div><!-- /.container -->
+</section>
+<!-- ══════════════════════════════════════ -->
+
+<script>
+    (function () {
+      const track  = document.getElementById('svc-track');
+      const outer  = document.getElementById('svc-outer');
+      const btnPrev = document.getElementById('svc-prev');
+      const btnNext = document.getElementById('svc-next');
+      const dotsEl  = document.getElementById('svc-dots');
+
+      const cards      = Array.from(track.querySelectorAll('.svc-card'));
+      const CARD_W     = () => cards[0].offsetWidth + 20; // card width + gap
+      const VISIBLE    = () => Math.floor(outer.offsetWidth / CARD_W());
+      const MAX_IDX    = () => Math.max(0, cards.length - VISIBLE());
+
+      let current = 0;
+
+      /* ── Dots ── */
+      function buildDots() {
+        dotsEl.innerHTML = '';
+        const count = MAX_IDX() + 1;
+        for (let i = 0; i < count; i++) {
+          const d = document.createElement('button');
+          d.className = 'svc-dot' + (i === current ? ' active' : '');
+          d.setAttribute('aria-label', `Slayt ${i + 1}`);
+          d.addEventListener('click', () => goTo(i));
+          dotsEl.appendChild(d);
+        }
+      }
+
+      function updateDots() {
+        dotsEl.querySelectorAll('.svc-dot').forEach((d, i) => {
+          d.classList.toggle('active', i === current);
+        });
+      }
+
+      /* ── Move ── */
+      function goTo(idx) {
+        current = Math.max(0, Math.min(idx, MAX_IDX()));
+        track.style.transform = `translateX(-${current * CARD_W()}px)`;
+        updateDots();
+        btnPrev.style.opacity = current === 0 ? '.4' : '1';
+        btnNext.style.opacity = current >= MAX_IDX() ? '.4' : '1';
+      }
+
+      btnPrev.addEventListener('click', () => goTo(current - 1));
+      btnNext.addEventListener('click', () => goTo(current + 1));
+
+      /* ── Touch / drag ── */
+      let startX = 0, startIdx = 0, dragging = false;
+
+      outer.addEventListener('pointerdown', e => {
+        startX = e.clientX; startIdx = current; dragging = true;
+        outer.classList.add('is-dragging');
+        outer.setPointerCapture(e.pointerId);
+      });
+
+      outer.addEventListener('pointermove', e => {
+        if (!dragging) return;
+        const delta = startX - e.clientX;
+        const shifted = startIdx + delta / CARD_W();
+        const clamped = Math.max(0, Math.min(shifted, MAX_IDX()));
+        track.style.transform = `translateX(-${clamped * CARD_W()}px)`;
+      });
+
+      outer.addEventListener('pointerup', e => {
+        if (!dragging) return;
+        dragging = false;
+        outer.classList.remove('is-dragging');
+        const delta = startX - e.clientX;
+        if (Math.abs(delta) > CARD_W() * 0.25) {
+          goTo(delta > 0 ? startIdx + 1 : startIdx - 1);
+        } else {
+          goTo(startIdx);
+        }
+      });
+
+      /* ── Init & resize ── */
+      buildDots();
+      goTo(0);
+      window.addEventListener('resize', () => { buildDots(); goTo(Math.min(current, MAX_IDX())); });
+    })();
+</script>

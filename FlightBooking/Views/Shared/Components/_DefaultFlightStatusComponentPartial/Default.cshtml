@@ -1,0 +1,760 @@
+﻿<!-- ============================================================
+     FLIGHT STATUS SECTION — Replaces .brand-area.brand-bg
+     Drop-in replacement: same outer class names preserved
+     ============================================================ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow+Condensed:wght@300;400;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+
+<style>
+    /* ── CSS Variables ── */
+    :root {
+      --burgundy-deep:  #1a0508;
+      --burgundy-mid:   #3b0a12;
+      --burgundy-light: #5c1624;
+      --burgundy-glow:  #8b1a2a;
+      --accent-amber:   #e8b94f;
+      --accent-amber-dim: rgba(232,185,79,.15);
+      --text-primary:   #f0e6d3;
+      --text-dim:       rgba(240,230,211,.55);
+      --text-muted:     rgba(240,230,211,.32);
+      --border:         rgba(232,185,79,.18);
+      --border-subtle:  rgba(240,230,211,.08);
+      --glass:          rgba(255,255,255,.03);
+      --glass-hover:    rgba(255,255,255,.065);
+
+      /* Status colours */
+      --s-green:  #22c55e;
+      --s-blue:   #38bdf8;
+      --s-orange: #f97316;
+      --s-red:    #ef4444;
+      --s-yellow: #eab308;
+      --s-purple: #a78bfa;
+      --s-gray:   #94a3b8;
+    }
+
+    /* ── Section shell ── */
+    .brand-area.brand-bg {
+      background: linear-gradient(160deg, #1a0508 0%, #2d0910 40%, #1f060d 100%);
+      padding: 64px 0 72px;
+      position: relative;
+      overflow: hidden;
+      font-family: 'Barlow', sans-serif;
+    }
+
+    /* Decorative scanline overlay */
+    .brand-area.brand-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        rgba(0,0,0,.12) 3px,
+        rgba(0,0,0,.12) 4px
+      );
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Ambient glow orbs */
+    .brand-area.brand-bg::after {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(139,26,42,.35) 0%, transparent 70%);
+      top: -200px; right: -150px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .fsd-glow-left {
+      position: absolute;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(232,185,79,.07) 0%, transparent 70%);
+      bottom: -150px; left: -100px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .fsd-container { position: relative; z-index: 1; }
+
+    /* ── Header area ── */
+    .fsd-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 36px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .fsd-title-block {}
+
+    .fsd-eyebrow {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      letter-spacing: .25em;
+      color: var(--accent-amber);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .fsd-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 20px; height: 1px;
+      background: var(--accent-amber);
+    }
+
+    .fsd-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: .02em;
+      line-height: 1;
+      margin: 0;
+      text-transform: uppercase;
+    }
+
+    .fsd-live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      background: rgba(34,197,94,.12);
+      border: 1px solid rgba(34,197,94,.3);
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      color: var(--s-green);
+      text-transform: uppercase;
+      font-family: 'Share Tech Mono', monospace;
+    }
+
+    .fsd-live-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--s-green);
+      animation: pulse-dot 2s infinite;
+    }
+
+    @@keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: .5; transform: scale(.7); }
+    }
+
+    /* ── Tabs ── */
+    .fsd-tabs {
+      display: flex;
+      gap: 4px;
+      background: rgba(0,0,0,.3);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 4px;
+      margin-bottom: 24px;
+      width: fit-content;
+    }
+
+    .fsd-tab-btn {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      background: transparent;
+      border: none;
+      border-radius: 7px;
+      padding: 9px 28px;
+      cursor: pointer;
+      transition: all .25s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .fsd-tab-btn i { font-size: 15px; }
+
+    .fsd-tab-btn:hover {
+      color: var(--text-primary);
+      background: var(--glass-hover);
+    }
+
+    .fsd-tab-btn.active {
+      background: linear-gradient(135deg, var(--burgundy-glow), var(--burgundy-light));
+      color: var(--accent-amber);
+      box-shadow: 0 2px 16px rgba(139,26,42,.5);
+    }
+
+    /* ── Stats bar ── */
+    .fsd-stats {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .fsd-stat {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--text-dim);
+      font-family: 'Share Tech Mono', monospace;
+    }
+
+    .fsd-stat-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ── Table wrapper ── */
+    .fsd-table-wrap {
+      overflow-x: auto;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(0,0,0,.25);
+    }
+
+    /* ── Column header row ── */
+    .fsd-col-headers {
+      display: grid;
+      grid-template-columns: 180px 110px 1fr 1fr 100px 90px 80px 160px;
+      gap: 0;
+      padding: 11px 20px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(0,0,0,.35);
+    }
+
+    .fsd-col-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    /* ── Flight row ── */
+    .fsd-flight-row {
+      display: grid;
+      grid-template-columns: 180px 110px 1fr 1fr 100px 90px 80px 160px;
+      gap: 0;
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border-subtle);
+      align-items: center;
+      transition: background .2s ease;
+      cursor: default;
+      position: relative;
+    }
+
+    .fsd-flight-row:last-child { border-bottom: none; }
+
+    .fsd-flight-row::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      border-radius: 0 2px 2px 0;
+      background: transparent;
+      transition: background .2s ease;
+    }
+
+    .fsd-flight-row:hover {
+      background: var(--glass-hover);
+    }
+
+    .fsd-flight-row:hover::before {
+      background: var(--accent-amber);
+    }
+
+    /* Cells */
+    .fsd-cell {
+      padding-right: 12px;
+      display: flex;
+      align-items: center;
+      min-width: 0;
+    }
+
+    /* Airline cell */
+    .fsd-airline {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .fsd-airline-icon {
+      width: 34px; height: 34px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+      font-weight: 700;
+      font-family: 'Barlow Condensed', sans-serif;
+      letter-spacing: 0;
+    }
+
+    .fsd-airline-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Flight number */
+    .fsd-fnum {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 13px;
+      color: var(--accent-amber);
+      letter-spacing: .05em;
+    }
+
+    /* Route */
+    .fsd-route {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--text-primary);
+      white-space: nowrap;
+    }
+
+    .fsd-route-arrow {
+      color: var(--text-muted);
+      font-size: 10px;
+    }
+
+    .fsd-iata {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: .05em;
+    }
+
+    .fsd-city {
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+
+    /* Time */
+    .fsd-time {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 15px;
+      color: var(--text-primary);
+      letter-spacing: .05em;
+    }
+
+    /* Gate / Terminal */
+    .fsd-gate, .fsd-terminal {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: .05em;
+    }
+
+    .fsd-gate-num {
+      display: inline-block;
+      padding: 2px 8px;
+      background: var(--accent-amber-dim);
+      border: 1px solid rgba(232,185,79,.25);
+      border-radius: 5px;
+      font-size: 13px;
+      color: var(--accent-amber);
+    }
+
+    /* Status badge */
+    .fsd-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 11px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      font-family: 'Barlow Condensed', sans-serif;
+      white-space: nowrap;
+    }
+
+    .fsd-status i { font-size: 11px; }
+
+    .s-green  { background: rgba(34,197,94,.12);  border: 1px solid rgba(34,197,94,.3);  color: var(--s-green); }
+    .s-blue   { background: rgba(56,189,248,.12); border: 1px solid rgba(56,189,248,.3); color: var(--s-blue); }
+    .s-orange { background: rgba(249,115,22,.12); border: 1px solid rgba(249,115,22,.3); color: var(--s-orange); }
+    .s-red    { background: rgba(239,68,68,.12);  border: 1px solid rgba(239,68,68,.3);  color: var(--s-red); }
+    .s-yellow { background: rgba(234,179,8,.12);  border: 1px solid rgba(234,179,8,.3);  color: var(--s-yellow); }
+    .s-purple { background: rgba(167,139,250,.12);border: 1px solid rgba(167,139,250,.3);color: var(--s-purple); }
+    .s-gray   { background: rgba(148,163,184,.1); border: 1px solid rgba(148,163,184,.2);color: var(--s-gray); }
+
+    /* ── Tab panes ── */
+    .fsd-pane { display: none; }
+    .fsd-pane.active { display: block; }
+
+    /* ── Ticker strip ── */
+    .fsd-ticker-wrap {
+      margin-top: 20px;
+      overflow: hidden;
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 14px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .fsd-ticker-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .2em;
+      color: var(--accent-amber);
+      text-transform: uppercase;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    .fsd-ticker-track {
+      overflow: hidden;
+      flex: 1;
+    }
+
+    .fsd-ticker-inner {
+      display: flex;
+      gap: 48px;
+      white-space: nowrap;
+      animation: ticker-scroll 28s linear infinite;
+    }
+
+    .fsd-ticker-item {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      color: var(--text-dim);
+      letter-spacing: .05em;
+      flex-shrink: 0;
+    }
+
+    .fsd-ticker-item span { color: var(--accent-amber); }
+
+    @@keyframes ticker-scroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ── Responsive ── */
+    @@media (max-width: 991px) {
+      .fsd-col-headers { display: none; }
+
+      .fsd-flight-row {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+        gap: 10px 16px;
+        padding: 16px;
+      }
+
+      .fsd-flight-row > .fsd-cell:nth-child(1) { grid-column: 1 / 2; }
+      .fsd-flight-row > .fsd-cell:nth-child(2) { grid-column: 2 / 3; justify-content: flex-end; }
+      .fsd-flight-row > .fsd-cell:nth-child(3) { grid-column: 1 / 3; }
+      .fsd-flight-row > .fsd-cell:nth-child(4) { display: none; } /* hide destination on mobile */
+      .fsd-flight-row > .fsd-cell:nth-child(5) { grid-column: 1 / 2; }
+      .fsd-flight-row > .fsd-cell:nth-child(6) { grid-column: 2 / 3; justify-content: flex-end; }
+      .fsd-flight-row > .fsd-cell:nth-child(7) { display: none; }
+      .fsd-flight-row > .fsd-cell:nth-child(8) { grid-column: 1 / 3; }
+    }
+
+    @@media (max-width: 575px) {
+      .fsd-title { font-size: 26px; }
+      .fsd-tab-btn { padding: 8px 18px; font-size: 13px; }
+    }
+</style>
+
+<!-- ════════════════════════════════════════════════════
+     SECTION START — replaces .brand-area.brand-bg block
+     ════════════════════════════════════════════════════ -->
+<div class="brand-area brand-bg">
+    <div class="fsd-glow-left"></div>
+    <div class="container fsd-container">
+
+        <!-- Header -->
+        <div class="fsd-header">
+            <div class="fsd-title-block">
+                <div class="fsd-eyebrow">Real-time information</div>
+                <h2 class="fsd-title">Flight Status Board</h2>
+            </div>
+            <div class="fsd-live-badge">
+                <span class="fsd-live-dot"></span>
+                Live Updates
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="fsd-tabs" role="tablist">
+            <button class="fsd-tab-btn active" data-tab="departures" role="tab" aria-selected="true">
+                <i class="bi bi-airplane-fill" style="transform:rotate(45deg)"></i>
+                Departures
+            </button>
+            <button class="fsd-tab-btn" data-tab="arrivals" role="tab" aria-selected="false">
+                <i class="bi bi-airplane-fill" style="transform:rotate(135deg)"></i>
+                Arrivals
+            </button>
+        </div>
+
+        <!-- Stats bar -->
+        <div class="fsd-stats" id="fsd-stats-bar">
+            <!-- filled by JS -->
+        </div>
+
+        <!-- ── DEPARTURES PANE ── -->
+        <div class="fsd-pane active" id="pane-departures">
+            <div class="fsd-table-wrap">
+                <!-- Column headers -->
+                <div class="fsd-col-headers">
+                    <div class="fsd-col-label">Airline</div>
+                    <div class="fsd-col-label">Flight</div>
+                    <div class="fsd-col-label">From</div>
+                    <div class="fsd-col-label">To</div>
+                    <div class="fsd-col-label">Scheduled</div>
+                    <div class="fsd-col-label">Gate</div>
+                    <div class="fsd-col-label">Terminal</div>
+                    <div class="fsd-col-label">Status</div>
+                </div>
+                <!-- Rows generated by JS -->
+                <div id="departures-list"></div>
+            </div>
+        </div>
+
+        <!-- ── ARRIVALS PANE ── -->
+        <div class="fsd-pane" id="pane-arrivals">
+            <div class="fsd-table-wrap">
+                <div class="fsd-col-headers">
+                    <div class="fsd-col-label">Airline</div>
+                    <div class="fsd-col-label">Flight</div>
+                    <div class="fsd-col-label">From</div>
+                    <div class="fsd-col-label">To</div>
+                    <div class="fsd-col-label">Scheduled</div>
+                    <div class="fsd-col-label">Gate</div>
+                    <div class="fsd-col-label">Terminal</div>
+                    <div class="fsd-col-label">Status</div>
+                </div>
+                <div id="arrivals-list"></div>
+            </div>
+        </div>
+
+        <!-- Ticker -->
+        <div class="fsd-ticker-wrap">
+            <div class="fsd-ticker-label"><i class="bi bi-broadcast me-1"></i>Updates</div>
+            <div class="fsd-ticker-track">
+                <div class="fsd-ticker-inner" id="fsd-ticker">
+                    <!-- filled by JS -->
+                </div>
+            </div>
+        </div>
+
+    </div><!-- /.container -->
+</div><!-- /.brand-area -->
+<!-- ════════════════ SECTION END ════════════════ -->
+
+
+<script>
+    /* ────────────────────────────────────────────────
+       FLIGHT STATUS DATA & RENDERER
+       ──────────────────────────────────────────────── */
+    const AIRLINES = [
+      { name:'Turkish Airlines', code:'TK', color:'#C70000', bg:'rgba(199,0,0,.15)' },
+      { name:'Lufthansa',        code:'LH', color:'#05164d', bg:'rgba(5,22,77,.2)'  },
+      { name:'British Airways',  code:'BA', color:'#2b5eac', bg:'rgba(43,94,172,.15)' },
+      { name:'Emirates',         code:'EK', color:'#c09c2d', bg:'rgba(192,156,45,.15)' },
+      { name:'Air France',       code:'AF', color:'#0066cc', bg:'rgba(0,102,204,.15)' },
+      { name:'Qatar Airways',    code:'QR', color:'#5c0632', bg:'rgba(92,6,50,.25)'  },
+      { name:'KLM',              code:'KL', color:'#00a1de', bg:'rgba(0,161,222,.15)' },
+      { name:'Swiss Air',        code:'LX', color:'#e2001a', bg:'rgba(226,0,26,.15)' },
+      { name:'Pegasus',          code:'PC', color:'#ff6600', bg:'rgba(255,102,0,.15)' },
+      { name:'SunExpress',       code:'XQ', color:'#f5a623', bg:'rgba(245,166,35,.15)' },
+    ];
+
+    const AIRPORTS = [
+      { iata:'IST', city:'Istanbul' },
+      { iata:'LHR', city:'London'   },
+      { iata:'CDG', city:'Paris'    },
+      { iata:'FRA', city:'Frankfurt'},
+      { iata:'AMS', city:'Amsterdam'},
+      { iata:'DXB', city:'Dubai'    },
+      { iata:'DOH', city:'Doha'     },
+      { iata:'MUC', city:'Munich'   },
+      { iata:'MAD', city:'Madrid'   },
+      { iata:'FCO', city:'Rome'     },
+      { iata:'ZRH', city:'Zurich'   },
+      { iata:'BCN', city:'Barcelona'},
+      { iata:'JFK', city:'New York' },
+      { iata:'DUS', city:'Düsseldorf'},
+    ];
+
+    const STATUSES = [
+      { label:'Check-in Open',  cls:'s-blue',   icon:'bi-ticket-perforated-fill' },
+      { label:'Go to Counter',  cls:'s-blue',   icon:'bi-person-lines-fill'      },
+      { label:'Go to Gate',     cls:'s-purple', icon:'bi-signpost-fill'           },
+      { label:'Boarding',       cls:'s-orange', icon:'bi-door-open-fill'          },
+      { label:'Final Call',     cls:'s-orange', icon:'bi-megaphone-fill'          },
+      { label:'Gate Closed',    cls:'s-gray',   icon:'bi-door-closed-fill'        },
+      { label:'Departed',       cls:'s-green',  icon:'bi-airplane-fill'           },
+      { label:'Landed',         cls:'s-green',  icon:'bi-geo-alt-fill'            },
+      { label:'Delayed',        cls:'s-yellow', icon:'bi-clock-history'           },
+      { label:'Cancelled',      cls:'s-red',    icon:'bi-x-circle-fill'           },
+    ];
+
+    const DEP_STATUSES  = [0,1,2,3,4,5,6,8,9,2]; // indices into STATUSES for departures
+    const ARR_STATUSES  = [7,7,8,9,6,2,7,8,3,7]; // indices for arrivals
+
+    function pad(n){ return String(n).padStart(2,'0'); }
+
+    function makeTime(offsetMin){
+      const d = new Date();
+      d.setMinutes(d.getMinutes() + offsetMin);
+      return pad(d.getHours()) + ':' + pad(d.getMinutes());
+    }
+
+    const OFFSETS_DEP = [-45,-30,-15,5,20,35,50,65,80,95];
+    const OFFSETS_ARR = [-60,-40,-20,-5,10,30,45,60,75,90];
+
+    function buildFlights(isArrival){
+      const offsets = isArrival ? OFFSETS_ARR : OFFSETS_DEP;
+      const statusIdx = isArrival ? ARR_STATUSES : DEP_STATUSES;
+      const origin = { iata:'IST', city:'Istanbul' };
+
+      return AIRLINES.map((al, i) => {
+        const remote = AIRPORTS[i + (isArrival ? 0 : 1)];
+        const from   = isArrival ? remote : origin;
+        const to     = isArrival ? origin : remote;
+        const fnum   = al.code + String(100 + i * 37).padStart(3,'0');
+        const time   = makeTime(offsets[i]);
+        const gate   = ['A','B','C','D'][i % 4] + (10 + i * 3);
+        const term   = 'T' + ((i % 3) + 1);
+        const status = STATUSES[statusIdx[i]];
+        return { al, fnum, from, to, time, gate, term, status };
+      });
+    }
+
+    function renderRow(f){
+      return `
+      <div class="fsd-flight-row">
+        <div class="fsd-cell">
+          <div class="fsd-airline">
+            <div class="fsd-airline-icon" style="background:${f.al.bg};color:${f.al.color};">
+              ${f.al.code}
+            </div>
+            <div>
+              <div class="fsd-airline-name">${f.al.name}</div>
+            </div>
+          </div>
+        </div>
+        <div class="fsd-cell">
+          <span class="fsd-fnum">${f.fnum}</span>
+        </div>
+        <div class="fsd-cell">
+          <div class="fsd-route">
+            <div>
+              <div class="fsd-iata">${f.from.iata}</div>
+              <div class="fsd-city">${f.from.city}</div>
+            </div>
+          </div>
+        </div>
+        <div class="fsd-cell">
+          <div class="fsd-route">
+            <i class="bi bi-arrow-right fsd-route-arrow"></i>
+            <div>
+              <div class="fsd-iata">${f.to.iata}</div>
+              <div class="fsd-city">${f.to.city}</div>
+            </div>
+          </div>
+        </div>
+        <div class="fsd-cell">
+          <span class="fsd-time">${f.time}</span>
+        </div>
+        <div class="fsd-cell">
+          <span class="fsd-gate-num">${f.gate}</span>
+        </div>
+        <div class="fsd-cell">
+          <span class="fsd-gate">${f.term}</span>
+        </div>
+        <div class="fsd-cell">
+          <span class="fsd-status ${f.status.cls}">
+            <i class="bi ${f.status.icon}"></i>
+            ${f.status.label}
+          </span>
+        </div>
+      </div>`;
+    }
+
+    function buildStats(flights){
+      const total     = flights.length;
+      const onTime    = flights.filter(f => !['Delayed','Cancelled'].includes(f.status.label)).length;
+      const delayed   = flights.filter(f => f.status.label === 'Delayed').length;
+      const cancelled = flights.filter(f => f.status.label === 'Cancelled').length;
+
+      return `
+        <div class="fsd-stat"><span class="fsd-stat-dot" style="background:var(--s-blue)"></span>${total} Flights scheduled</div>
+        <div class="fsd-stat"><span class="fsd-stat-dot" style="background:var(--s-green)"></span>${onTime} On time</div>
+        <div class="fsd-stat"><span class="fsd-stat-dot" style="background:var(--s-yellow)"></span>${delayed} Delayed</div>
+        <div class="fsd-stat"><span class="fsd-stat-dot" style="background:var(--s-red)"></span>${cancelled} Cancelled</div>
+      `;
+    }
+
+    function buildTicker(deps, arrs){
+      const items = [
+        ...deps.filter(f=>f.status.label==='Boarding').map(f=>`<span class="fsd-ticker-item">🛫 <span>${f.fnum}</span> to ${f.to.iata} — Now Boarding Gate ${f.gate}</span>`),
+        ...arrs.filter(f=>f.status.label==='Landed').map(f=>`<span class="fsd-ticker-item">🛬 <span>${f.fnum}</span> from ${f.from.iata} — Landed</span>`),
+        ...deps.filter(f=>f.status.label==='Final Call').map(f=>`<span class="fsd-ticker-item">🚨 Final Call: <span>${f.fnum}</span> to ${f.to.iata} — Gate ${f.gate}</span>`),
+        ...deps.filter(f=>f.status.label==='Delayed').map(f=>`<span class="fsd-ticker-item">⚠️ <span>${f.fnum}</span> to ${f.to.iata} — Delayed</span>`),
+        ...arrs.filter(f=>f.status.label==='Delayed').map(f=>`<span class="fsd-ticker-item">⚠️ <span>${f.fnum}</span> from ${f.from.iata} — Delayed</span>`),
+      ];
+      // duplicate for seamless loop
+      const all = [...items, ...items];
+      return all.join('');
+    }
+
+    /* ── Boot ── */
+    document.addEventListener('DOMContentLoaded', () => {
+      const deps = buildFlights(false);
+      const arrs = buildFlights(true);
+
+      document.getElementById('departures-list').innerHTML = deps.map(renderRow).join('');
+      document.getElementById('arrivals-list').innerHTML   = arrs.map(renderRow).join('');
+      document.getElementById('fsd-stats-bar').innerHTML   = buildStats(deps);
+      document.getElementById('fsd-ticker').innerHTML      = buildTicker(deps, arrs);
+
+      /* Tab switching */
+      document.querySelectorAll('.fsd-tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.fsd-tab-btn').forEach(b => {
+            b.classList.remove('active');
+            b.setAttribute('aria-selected','false');
+          });
+          document.querySelectorAll('.fsd-pane').forEach(p => p.classList.remove('active'));
+
+          btn.classList.add('active');
+          btn.setAttribute('aria-selected','true');
+
+          const target = btn.dataset.tab;
+          document.getElementById('pane-' + target).classList.add('active');
+
+          /* Update stats for the active tab */
+          const flights = target === 'departures' ? deps : arrs;
+          document.getElementById('fsd-stats-bar').innerHTML = buildStats(flights);
+        });
+      });
+    });
+</script>
