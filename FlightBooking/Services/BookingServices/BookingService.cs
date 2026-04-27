@@ -79,6 +79,23 @@ namespace FlightBooking.Services.BookingServices
             //);
         }
 
+        public async Task<(string Name, string Surname)> GetPassengerNameByIdAsync(string passengerId)
+        {
+            // 🔥 1. İçinde bu passenger olan booking’i bul
+            var booking = await _bookingCollection.Find(x => x.Passengers.Any(p => p.PassengerId == passengerId)).FirstOrDefaultAsync();
+
+            if (booking == null)
+                return (null, null);
+
+            // 🔥 2. Booking içinden passenger’ı çek
+            var passenger = booking.Passengers.FirstOrDefault(p => p.PassengerId == passengerId);
+
+            if (passenger == null)
+                return (null, null);
+
+            // 🔥 3. Name + Surname dön
+            return (passenger.Name, passenger.Surname);
+        }
 
         private async Task<string> GenerateUniquePnrAsync()
         {

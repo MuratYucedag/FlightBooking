@@ -1,4 +1,5 @@
 ﻿using FlightBooking.Dtos.FlightDtos;
+using FlightBooking.Services.BookingServices;
 using FlightBooking.Services.FlightServices;
 using Microsoft.AspNetCore.Mvc;
 
@@ -48,6 +49,10 @@ namespace FlightBooking.Areas.Admin.Controllers
             TempData["FlightNumber"] = flight.FlightNumber;
             TempData["DepartureTime"] = flight.DepartureTime;
             TempData["ArrivalTime"] = flight.ArrivalTime;
+
+          //  var passenger = await _bookingService.GetPassengerNameByIdAsync(id);
+
+
             //TempData["PassengerName"] = passengers.Select(x => x.Name).FirstOrDefault();
 
             return View(passengers);
