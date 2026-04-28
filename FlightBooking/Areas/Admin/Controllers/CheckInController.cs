@@ -16,19 +16,26 @@ namespace FlightBooking.Areas.Admin.Controllers
             _bookingService = bookingService;
         }
 
-        public async Task< IActionResult> Index(string id)
+        public async Task<IActionResult> Index(string id)
         {
             ViewBag.FlightNumber = TempData["FlightNumber"];
             ViewBag.DepartureTime = TempData["DepartureTime"];
             ViewBag.ArrivalTime = TempData["ArrivalTime"];
-            //ViewBag.PassengerName = TempData["PassengerName"];
-            //  var value=await _bookingCollection.FindAsync(x=>x.Passengers.)
 
             var passenger = await _bookingService.GetPassengerNameByIdAsync(id);
+            var pnrNumber = await _bookingService.GetPnrByPassengerIdAsync(id);
+            var gate = await _bookingService.GetGateByPassengerIdAsync(id);
 
             ViewBag.Name = passenger.Name;
             ViewBag.Surname = passenger.Surname;
+            ViewBag.PnrNumber= pnrNumber;
+            ViewBag.Gate= gate;
             return View();
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            return RedirectToAction("");
         }
     }
 }

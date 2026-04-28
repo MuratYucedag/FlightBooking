@@ -6,5 +6,7 @@ namespace FlightBooking.Services.BookingServices
     {
         Task CreateBookingAsync(CreateBookingDto dto);
         Task<(string Name, string Surname)> GetPassengerNameByIdAsync(string passengerId);
+        Task<string> GetPnrByPassengerIdAsync(string passengerId);
+        Task<string> GetGateByPassengerIdAsync(string passengerId);
     }
 }
