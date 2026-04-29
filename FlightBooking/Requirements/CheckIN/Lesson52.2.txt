@@ -371,9 +371,8 @@
         CompleteCheckInDto alanları hidden input olarak taşınır.
         PassengerId, FlightId, PnrNumber: ViewBag'den sabit değer.
         SeatNumber, BaggageKg, MealType, ExtraServices, ExtraTotalPrice: JS tarafından doldurulur.
-        asp-area="Admin" asp-controller="CheckIn" asp-action="Index"
     *@
-    <form id="checkInForm" method="post">
+    <form id="checkInForm" asp-area="Admin" asp-controller="CheckIn" asp-action="Index" method="post">
 
         @* DTO hidden alanlar *@
         <input type="hidden" id="hPassengerId"     name="PassengerId"     value="@ViewBag.PassengerId" />
@@ -833,7 +832,8 @@
    innerHTML üzerinden render edilmez — doğrudan JS değişkeni.
 ═══════════════════════════════════════════════════════════ */
 var BASE_PRICE = @(ViewBag.BasePrice != null ? ViewBag.BasePrice.ToString().Replace(',', '.') : "0");
-
+// ⚠️  Currency sembolünü HTML encode olmadan JS string'e aktarıyoruz.
+//     Razor @() ifadesi HTML encode yapar, bu yüzden JS string literal olarak yazıyoruz.
 var CURRENCY   = '@Html.Raw(currencySymbol)';
 
 var ROWS     = 20;

@@ -289,7 +289,7 @@
 <div class="container-fluid px-4 py-4">
 <div class="ci-page">
 
-    @* Başlık *@
+    {{-- Başlık --}}
     <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
         <div>
             <nav aria-label="breadcrumb">
@@ -310,7 +310,7 @@
         </a>
     </div>
 
-    @* Flight Banner *@
+    {{-- Flight Banner --}}
     <div class="ci-banner">
         <div class="ci-banner-top">
             <div class="ci-route">
@@ -366,31 +366,30 @@
         </div>
     </div>
 
-    @* FORM BAŞLANGICI *@
-    @*
+    {{-- FORM BAŞLANGICI --}}
+    {{--
         CompleteCheckInDto alanları hidden input olarak taşınır.
         PassengerId, FlightId, PnrNumber: ViewBag'den sabit değer.
         SeatNumber, BaggageKg, MealType, ExtraServices, ExtraTotalPrice: JS tarafından doldurulur.
-        asp-area="Admin" asp-controller="CheckIn" asp-action="Index"
-    *@
-    <form id="checkInForm" method="post">
+    --}}
+    <form id="checkInForm" asp-area="Admin" asp-controller="CheckIn" asp-action="Index" method="post">
 
-        @* DTO hidden alanlar *@
+        {{-- DTO hidden alanlar --}}
         <input type="hidden" id="hPassengerId"     name="PassengerId"     value="@ViewBag.PassengerId" />
         <input type="hidden" id="hFlightId"        name="FlightId"        value="@ViewBag.FlightId" />
         <input type="hidden" id="hPnrNumber"       name="PnrNumber"       value="@ViewBag.PnrNumber" />
         <input type="hidden" id="hSeatNumber"      name="SeatNumber"      value="" />
         <input type="hidden" id="hBaggageKg"       name="BaggageKg"       value="0" />
         <input type="hidden" id="hMealType"        name="MealType"        value="" />
-        @* ExtraServices: JS tarafından dinamik olarak eklenir (List<string> binding için birden fazla name="ExtraServices") *@
+        {{-- ExtraServices: JS tarafından dinamik olarak eklenir (List<string> binding için birden fazla name="ExtraServices") --}}
         <input type="hidden" id="hExtraTotalPrice" name="ExtraTotalPrice" value="0" />
 
         <div class="ci-layout">
 
-            @* Sol: Sekmeli Form *@
+            {{-- Sol: Sekmeli Form --}}
             <div class="ci-col-main">
 
-                @* Step Bar *@
+                {{-- Step Bar --}}
                 <div class="tab-stepper" id="tabStepper">
                     <div class="tab-step active" id="step-tab-1" onclick="goTab(1)">
                         <div class="tab-step-num" id="step-num-1">1</div>
@@ -429,15 +428,15 @@
                     </div>
                 </div>
 
-                @* Panel Wrapper *@
+                {{-- Panel Wrapper --}}
                 <div class="tab-panels">
 
-                    @* SEKME 1: BAGAJ *@
+                    {{-- SEKME 1: BAGAJ --}}
                     <div class="tab-panel active" id="panel-1">
                         <div class="tab-panel-title">Bagaj Seçimi</div>
                         <div class="tab-panel-desc">Yolculuğunuz için uygun bagaj seçeneğini belirleyin.</div>
 
-                        @* Kabin Bagajı *@
+                        {{-- Kabin Bagajı --}}
                         <div class="baggage-section">
                             <div class="baggage-section-title">
                                 <i class="bi bi-briefcase-fill" style="color:#2563eb;"></i>
@@ -469,7 +468,7 @@
                             </div>
                         </div>
 
-                        @* Uçak Altı Bagaj *@
+                        {{-- Uçak Altı Bagaj --}}
                         <div class="baggage-section">
                             <div class="baggage-section-title">
                                 <i class="bi bi-archive-fill" style="color:#7c3aed;"></i>
@@ -498,7 +497,7 @@
                             </div>
                         </div>
 
-                        @* Özel Bagaj *@
+                        {{-- Özel Bagaj --}}
                         <div class="baggage-section">
                             <div class="baggage-section-title">
                                 <i class="bi bi-bicycle" style="color:#d97706;"></i>
@@ -537,7 +536,7 @@
                         </div>
                     </div>
 
-                    @* SEKME 2: KOLTUK *@
+                    {{-- SEKME 2: KOLTUK --}}
                     <div class="tab-panel" id="panel-2">
                         <div class="tab-panel-title">Koltuk Seçimi</div>
                         <div class="tab-panel-desc">Tercih ettiğiniz koltuğu seçin. Gri koltuklar dolu.</div>
@@ -581,7 +580,7 @@
                         </div>
                     </div>
 
-                    @* SEKME 3: YEMEK *@
+                    {{-- SEKME 3: YEMEK --}}
                     <div class="tab-panel" id="panel-3">
                         <div class="tab-panel-title">Yemek Seçimi</div>
                         <div class="tab-panel-desc">Uçuşunuz için özel menünüzü seçin. Bir seçim yapılabilir.</div>
@@ -607,7 +606,7 @@
                         </div>
                     </div>
 
-                    @* SEKME 4: EK HİZMETLER *@
+                    {{-- SEKME 4: EK HİZMETLER --}}
                     <div class="tab-panel" id="panel-4">
                         <div class="tab-panel-title">Ek Hizmetler</div>
                         <div class="tab-panel-desc">Yolculuğunuzu konforlu hale getirecek hizmetleri seçin.</div>
@@ -624,7 +623,7 @@
                         </div>
                     </div>
 
-                    @* SEKME 5: ÖZET & ONAY *@
+                    {{-- SEKME 5: ÖZET & ONAY --}}
                     <div class="tab-panel" id="panel-5">
                         <div class="tab-panel-title">Gözden Geçir &amp; Onayla</div>
                         <div class="tab-panel-desc">Seçimlerinizi kontrol edin ve check-in işlemini tamamlayın.</div>
@@ -650,10 +649,10 @@
                 </div>
             </div>
 
-            @* Sağ: Fiyat + Hızlı Özet *@
+            {{-- Sağ: Fiyat + Hızlı Özet --}}
             <div class="ci-col-side">
 
-                @* Fiyat Özeti *@
+                {{-- Fiyat Özeti --}}
                 <div class="ci-side-card">
                     <div class="ci-side-card-head">
                         <div class="ci-side-ico" style="background:#f5f3ff;color:#7c3aed;">
@@ -677,7 +676,7 @@
                     </div>
                 </div>
 
-                @* Seçim Özeti *@
+                {{-- Seçim Özeti --}}
                 <div class="ci-side-card">
                     <div class="ci-side-card-head">
                         <div class="ci-side-ico" style="background:#f0fdf4;color:#16a34a;">
@@ -705,7 +704,7 @@
                     </div>
                 </div>
 
-                @* Progress *@
+                {{-- Progress --}}
                 <div class="ci-side-card">
                     <div class="ci-side-card-head">
                         <div class="ci-side-ico" style="background:#eff6ff;color:#2563eb;">
@@ -728,13 +727,13 @@
         </div>
 
     </form>
-    @* FORM SONU *@
+    {{-- FORM SONU --}}
 
 </div>
 </div>
 </main>
 
-@* Başarı Modalı *@
+{{-- Başarı Modalı --}}
 <div class="ci-modal-overlay" id="ciModal">
     <div class="ci-modal-box">
         <div class="ci-modal-ico"><i class="bi bi-check-lg"></i></div>
@@ -811,7 +810,7 @@
         </div>
 
         <div class="modal-btn-row">
-            @* Asıl form submit *@
+            {{-- Asıl form submit --}}
             <button type="button" class="btn-ci btn-ci-success flex-fill" onclick="submitCheckIn()">
                 <i class="bi bi-check-circle-fill"></i> Onayla &amp; Kaydet
             </button>
@@ -833,7 +832,8 @@
    innerHTML üzerinden render edilmez — doğrudan JS değişkeni.
 ═══════════════════════════════════════════════════════════ */
 var BASE_PRICE = @(ViewBag.BasePrice != null ? ViewBag.BasePrice.ToString().Replace(',', '.') : "0");
-
+// ⚠️  Currency sembolünü HTML encode olmadan JS string'e aktarıyoruz.
+//     Razor @() ifadesi HTML encode yapar, bu yüzden JS string literal olarak yazıyoruz.
 var CURRENCY   = '@Html.Raw(currencySymbol)';
 
 var ROWS     = 20;

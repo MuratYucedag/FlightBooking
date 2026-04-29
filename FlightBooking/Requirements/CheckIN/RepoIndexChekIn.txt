@@ -1,0 +1,2568 @@
+﻿@* ============================================================
+   Areas/Admin/Views/Bookings/CheckIn.cshtml
+   SADECE CONTENT — Layout hazır
+   ViewBag: FlightNumber, AirlineCode,
+            DepartureAirportCode, DepartureAirportName,
+            ArrivalAirportCode,   ArrivalAirportName,
+            DepartureTime, ArrivalTime,
+            PassengerName, Pnr, Gate,
+            BasePrice, Currency
+============================================================ *@
+
+@{
+    Layout = "~/Areas/Admin/Views/Layout/AdminLayout.cshtml";
+    ViewData["Title"] = "Check-In";
+}
+
+@section Styles {
+    <style>
+
+        .ci-page {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* ── Flight Banner ────────────────────────────────────── */
+        .ci-banner {
+            background: #0B1B3A;
+            border-radius: 14px;
+            padding: 22px 28px;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .ci-banner::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: repeating-linear-gradient(-45deg,rgba(255,255,255,.018) 0,rgba(255,255,255,.018) 1px,transparent 1px,transparent 9px);
+                pointer-events: none;
+            }
+
+        .ci-banner-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .ci-route {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .ci-apt-code {
+            font-family: 'Syne',sans-serif;
+            font-size: 32px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -.4px;
+            line-height: 1;
+        }
+
+        .ci-apt-name {
+            font-size: 10.5px;
+            color: rgba(255,255,255,.3);
+            margin-top: 2px;
+            text-align: center;
+        }
+
+        .ci-route-mid {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            flex-shrink: 0;
+        }
+
+        .ci-route-line {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+            .ci-route-line::before, .ci-route-line::after {
+                content: '';
+                display: block;
+                height: 1px;
+                width: 28px;
+                background: rgba(255,255,255,.2);
+            }
+
+            .ci-route-line i {
+                font-size: 15px;
+                color: #3B8EF5;
+            }
+
+        .ci-route-dur {
+            font-size: 10px;
+            color: rgba(255,255,255,.3);
+            font-weight: 600;
+            letter-spacing: .4px;
+        }
+
+        .ci-bp-divider {
+            border: none;
+            border-top: 2px dashed rgba(255,255,255,.1);
+            margin: 16px 0;
+        }
+
+        .ci-banner-meta {
+            display: grid;
+            grid-template-columns: repeat(6,auto);
+            gap: 16px 32px;
+        }
+
+        .ci-meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .ci-meta-key {
+            font-size: 9.5px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,.3);
+        }
+
+        .ci-meta-val {
+            font-size: 13.5px;
+            font-weight: 600;
+            color: rgba(255,255,255,.85);
+        }
+
+        .ci-status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 13px;
+            border-radius: 99px;
+            font-size: 12px;
+            font-weight: 700;
+            background: rgba(16,185,129,.2);
+            color: #6EE7B7;
+            border: 1px solid rgba(16,185,129,.25);
+        }
+
+            .ci-status-badge .dot {
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: #10B981;
+                flex-shrink: 0;
+                animation: ci-blink 1.4s ease-in-out infinite;
+            }
+
+        @@keyframes ci-blink {
+            0%, 100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: .2
+            }
+        }
+
+        /* ── Layout ───────────────────────────────────────────── */
+        .ci-layout {
+            display: grid;
+            grid-template-columns: 1fr 290px;
+            gap: 20px;
+            align-items: start;
+        }
+
+        .ci-col-main {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .ci-col-side {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            position: sticky;
+            top: 80px;
+        }
+
+        /* ── Tab Stepper ──────────────────────────────────────── */
+        .tab-stepper {
+            display: flex;
+            align-items: stretch;
+            background: #fff;
+            border: 1px solid #e8edf5;
+            border-radius: 14px 14px 0 0;
+            border-bottom: none;
+            overflow: hidden;
+        }
+
+        .tab-step {
+            flex: 1;
+            padding: 16px 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            border-right: 1px solid #f1f5f9;
+            border-bottom: 3px solid transparent;
+            transition: all .18s;
+            position: relative;
+            background: #f8fafc;
+            user-select: none;
+        }
+
+            .tab-step:last-child {
+                border-right: none;
+            }
+
+            .tab-step.active {
+                background: #fff;
+                border-bottom-color: #2563eb;
+            }
+
+            .tab-step.done {
+                background: #f0fdf4;
+                border-bottom-color: #10B981;
+            }
+
+        .tab-step-num {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 800;
+            flex-shrink: 0;
+            background: #e2e8f0;
+            color: #64748b;
+            transition: all .18s;
+        }
+
+        .tab-step.active .tab-step-num {
+            background: #2563eb;
+            color: #fff;
+        }
+
+        .tab-step.done .tab-step-num {
+            background: #10B981;
+            color: #fff;
+        }
+
+        .tab-step-text {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+        }
+
+        .tab-step-title {
+            font-size: 12.5px;
+            font-weight: 700;
+            color: #0f172a;
+            white-space: nowrap;
+        }
+
+        .tab-step-desc {
+            font-size: 10.5px;
+            color: #94a3b8;
+            white-space: nowrap;
+        }
+
+        .tab-step.active .tab-step-title {
+            color: #2563eb;
+        }
+
+        .tab-step.done .tab-step-title {
+            color: #16a34a;
+        }
+
+        /* ── Tab Panels ───────────────────────────────────────── */
+        .tab-panels {
+            background: #fff;
+            border: 1px solid #e8edf5;
+            border-radius: 0 0 14px 14px;
+            box-shadow: 0 1px 4px rgba(15,23,42,.06);
+        }
+
+        .tab-panel {
+            display: none;
+            padding: 24px;
+        }
+
+            .tab-panel.active {
+                display: block;
+                animation: ci-fade-in .2s ease;
+            }
+
+        @@keyframes ci-fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(6px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .tab-panel-title {
+            font-family: 'Syne',sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 4px;
+        }
+
+        .tab-panel-desc {
+            font-size: 12.5px;
+            color: #94a3b8;
+            margin-bottom: 20px;
+        }
+
+        /* ── Tab Navigation Buttons ───────────────────────────── */
+        .tab-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .btn-tab-nav {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 9px 20px;
+            border-radius: 8px;
+            font-family: 'DM Sans',sans-serif;
+            font-size: 13.5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .15s;
+        }
+
+        .btn-tab-prev {
+            background: #f8fafc;
+            color: #64748b;
+            border: 1.5px solid #e2e8f0;
+        }
+
+            .btn-tab-prev:hover {
+                border-color: #94a3b8;
+                color: #0f172a;
+            }
+
+        .btn-tab-next {
+            background: #2563eb;
+            color: #fff;
+            border: none;
+        }
+
+            .btn-tab-next:hover {
+                background: #1d4ed8;
+                box-shadow: 0 4px 14px rgba(37,99,235,.35);
+            }
+
+            .btn-tab-next:disabled {
+                background: #e2e8f0;
+                color: #94a3b8;
+                cursor: not-allowed;
+                box-shadow: none;
+            }
+
+        /* ── Bagaj ────────────────────────────────────────────── */
+        .baggage-section {
+            margin-bottom: 28px;
+        }
+
+            .baggage-section:last-child {
+                margin-bottom: 0;
+            }
+
+        .baggage-section-title {
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .baggage-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill,minmax(200px,1fr));
+            gap: 12px;
+        }
+
+        .baggage-card {
+            border: 1.5px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 16px;
+            background: #fff;
+            cursor: pointer;
+            transition: all .15s;
+            position: relative;
+            user-select: none;
+        }
+
+            .baggage-card:hover {
+                border-color: #93c5fd;
+                box-shadow: 0 3px 10px rgba(59,130,246,.1);
+            }
+
+            .baggage-card.selected {
+                border-color: #2563eb;
+                background: #eff6ff;
+            }
+
+            .baggage-card input {
+                position: absolute;
+                opacity: 0;
+                pointer-events: none;
+            }
+
+        .bc-check {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 1.5px solid #e2e8f0;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            color: transparent;
+            transition: all .15s;
+        }
+
+        .baggage-card.selected .bc-check {
+            background: #2563eb;
+            border-color: #2563eb;
+            color: #fff;
+        }
+
+        .bc-icon {
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .bc-name {
+            font-size: 13px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 2px;
+        }
+
+        .bc-sub {
+            font-size: 11.5px;
+            color: #64748b;
+            margin-bottom: 10px;
+        }
+
+        .bc-price {
+            font-family: 'Syne',sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: #2563eb;
+        }
+
+        /* Kg Slider */
+        .kg-slider-wrap {
+            margin-top: 16px;
+            padding: 16px;
+            background: #f8fafc;
+            border-radius: 10px;
+            border: 1px solid #f1f5f9;
+        }
+
+        .kg-slider-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .kg-slider-label {
+            font-size: 12.5px;
+            font-weight: 600;
+            color: #475569;
+        }
+
+        .kg-display {
+            font-family: 'Syne',sans-serif;
+            font-size: 16px;
+            font-weight: 800;
+            color: #2563eb;
+            background: #eff6ff;
+            padding: 2px 12px;
+            border-radius: 6px;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .kg-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 6px;
+            border-radius: 99px;
+            background: linear-gradient(to right,#2563eb 0%,#2563eb var(--val,50%),#e2e8f0 var(--val,50%));
+            outline: none;
+            cursor: pointer;
+            transition: background .15s;
+        }
+
+            .kg-slider::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                appearance: none;
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background: #2563eb;
+                cursor: pointer;
+                box-shadow: 0 2px 8px rgba(37,99,235,.4);
+                border: 2px solid #fff;
+            }
+
+            .kg-slider::-moz-range-thumb {
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background: #2563eb;
+                cursor: pointer;
+                box-shadow: 0 2px 8px rgba(37,99,235,.4);
+                border: 2px solid #fff;
+            }
+
+        .kg-ticks {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 6px;
+        }
+
+        .kg-tick {
+            font-size: 10px;
+            color: #94a3b8;
+            font-weight: 600;
+        }
+
+        /* ── Koltuk ───────────────────────────────────────────── */
+        .smap-wrap {
+            overflow-x: auto;
+            padding-bottom: 6px;
+        }
+
+        .smap {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            min-width: 300px;
+        }
+
+        .smap-hdr {
+            display: grid;
+            grid-template-columns: 26px repeat(3,31px) 22px repeat(3,31px);
+            gap: 4px;
+            justify-content: center;
+            margin-bottom: 6px;
+        }
+
+        .smap-col-lbl {
+            text-align: center;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .7px;
+            color: #94a3b8;
+            text-transform: uppercase;
+        }
+
+        .smap-row {
+            display: grid;
+            grid-template-columns: 26px repeat(3,31px) 22px repeat(3,31px);
+            gap: 4px;
+            justify-content: center;
+            margin-bottom: 4px;
+        }
+
+        .smap-row-num {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            font-size: 10px;
+            font-weight: 600;
+            color: #94a3b8;
+            padding-right: 3px;
+        }
+
+        .seat {
+            width: 31px;
+            height: 31px;
+            border-radius: 5px 5px 3px 3px;
+            border: 1.5px solid #e2e8f0;
+            background: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            font-weight: 700;
+            color: #94a3b8;
+            transition: all .13s;
+            position: relative;
+            user-select: none;
+        }
+
+            .seat::before {
+                content: '';
+                position: absolute;
+                top: -5px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 17px;
+                height: 5px;
+                background: #f1f5f9;
+                border-radius: 3px 3px 0 0;
+                border: 1.5px solid #e2e8f0;
+                border-bottom: none;
+                transition: background .13s,border-color .13s;
+            }
+
+            .seat:hover:not(.occupied):not(.selected) {
+                border-color: #3b82f6;
+                background: #eff6ff;
+                color: #2563eb;
+                transform: translateY(-1px);
+                box-shadow: 0 3px 8px rgba(59,130,246,.18);
+            }
+
+                .seat:hover:not(.occupied):not(.selected)::before {
+                    background: #eff6ff;
+                    border-color: #3b82f6;
+                }
+
+            .seat.selected {
+                background: #2563eb;
+                border-color: #2563eb;
+                color: #fff;
+                box-shadow: 0 3px 10px rgba(37,99,235,.35);
+                transform: translateY(-1px);
+            }
+
+                .seat.selected::before {
+                    background: #3b82f6;
+                    border-color: #3b82f6;
+                }
+
+            .seat.occupied {
+                background: #f8fafc;
+                border-color: #f1f5f9;
+                color: #e2e8f0;
+                cursor: not-allowed;
+            }
+
+                .seat.occupied::before {
+                    background: #f1f5f9;
+                    border-color: #f1f5f9;
+                }
+
+            .seat.window {
+            }
+
+                .seat.window::after {
+                    content: '';
+                    position: absolute;
+                    right: -1px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    width: 3px;
+                    height: 14px;
+                    background: rgba(59,130,246,.15);
+                    border-radius: 2px;
+                }
+
+        .seat-legend {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: #94a3b8;
+        }
+
+        .legend-dot {
+            width: 13px;
+            height: 13px;
+            border-radius: 3px;
+            border: 1.5px solid #e2e8f0;
+            background: #fff;
+            flex-shrink: 0;
+        }
+
+            .legend-dot.ld-sel {
+                background: #2563eb;
+                border-color: #2563eb;
+            }
+
+            .legend-dot.ld-occ {
+                background: #f8fafc;
+                border-color: #f1f5f9;
+            }
+
+        .sel-seat-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 5px 13px;
+            border-radius: 99px;
+            border: 1.5px solid #bfdbfe;
+            background: #eff6ff;
+            font-size: 12.5px;
+            font-weight: 600;
+            color: #2563eb;
+            transition: all .15s;
+        }
+
+            .sel-seat-tag.empty {
+                background: #f8fafc;
+                border-color: #e2e8f0;
+                color: #94a3b8;
+            }
+
+        /* Seat filters */
+        .seat-filters {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+
+        .seat-filter-btn {
+            padding: 5px 13px;
+            border-radius: 99px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1.5px solid #e2e8f0;
+            background: #f8fafc;
+            color: #64748b;
+            transition: all .15s;
+        }
+
+            .seat-filter-btn.active {
+                background: #eff6ff;
+                border-color: #bfdbfe;
+                color: #2563eb;
+            }
+
+        /* ── Yemek ────────────────────────────────────────────── */
+        .meal-categories {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .meal-cat-btn {
+            padding: 6px 14px;
+            border-radius: 99px;
+            font-size: 12.5px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1.5px solid #e2e8f0;
+            background: #f8fafc;
+            color: #64748b;
+            transition: all .15s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+            .meal-cat-btn.active {
+                background: #eff6ff;
+                border-color: #bfdbfe;
+                color: #2563eb;
+            }
+
+        .meal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill,minmax(210px,1fr));
+            gap: 12px;
+        }
+
+        .meal-card {
+            border: 1.5px solid #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #fff;
+            cursor: pointer;
+            transition: all .15s;
+            position: relative;
+        }
+
+            .meal-card:hover {
+                border-color: #93c5fd;
+                box-shadow: 0 3px 10px rgba(59,130,246,.1);
+                transform: translateY(-1px);
+            }
+
+            .meal-card.selected {
+                border-color: #2563eb;
+            }
+
+        .meal-img {
+            height: 90px;
+            background: #f8fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            border-bottom: 1px solid #f1f5f9;
+            transition: background .15s;
+        }
+
+        .meal-card.selected .meal-img {
+            background: #eff6ff;
+        }
+
+        .meal-check {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #fff;
+            border: 1.5px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            color: transparent;
+            transition: all .15s;
+            box-shadow: 0 1px 4px rgba(0,0,0,.1);
+        }
+
+        .meal-card.selected .meal-check {
+            background: #2563eb;
+            border-color: #2563eb;
+            color: #fff;
+        }
+
+        .meal-info {
+            padding: 12px;
+        }
+
+        .meal-name {
+            font-size: 13px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 2px;
+        }
+
+        .meal-desc {
+            font-size: 11px;
+            color: #94a3b8;
+            margin-bottom: 6px;
+            line-height: 1.5;
+        }
+
+        .meal-tags {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+
+        .meal-tag {
+            font-size: 10px;
+            font-weight: 600;
+            padding: 2px 7px;
+            border-radius: 4px;
+            background: #f1f5f9;
+            color: #64748b;
+        }
+
+            .meal-tag.veg {
+                background: #f0fdf4;
+                color: #16a34a;
+            }
+
+            .meal-tag.hal {
+                background: #fefce8;
+                color: #a16207;
+            }
+
+            .meal-tag.hot {
+                background: #fef2f2;
+                color: #dc2626;
+            }
+
+            .meal-tag.cold {
+                background: #eff6ff;
+                color: #2563eb;
+            }
+
+        .meal-price {
+            font-family: 'Syne',sans-serif;
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #2563eb;
+        }
+
+        .meal-free {
+            font-family: 'Syne',sans-serif;
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #16a34a;
+        }
+
+        /* ── Ekstra Hizmetler ─────────────────────────────────── */
+        .extras-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill,minmax(200px,1fr));
+            gap: 12px;
+        }
+
+        .extra-card {
+            padding: 15px;
+            border-radius: 10px;
+            border: 1.5px solid #e2e8f0;
+            background: #fff;
+            cursor: pointer;
+            transition: all .15s;
+            position: relative;
+            user-select: none;
+        }
+
+            .extra-card:hover {
+                border-color: #93c5fd;
+                box-shadow: 0 3px 10px rgba(59,130,246,.1);
+            }
+
+            .extra-card.selected {
+                border-color: #2563eb;
+                background: #eff6ff;
+            }
+
+            .extra-card input {
+                position: absolute;
+                opacity: 0;
+                pointer-events: none;
+            }
+
+        .ec-check {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 1.5px solid #e2e8f0;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            color: transparent;
+            transition: all .15s;
+        }
+
+        .extra-card.selected .ec-check {
+            background: #2563eb;
+            border-color: #2563eb;
+            color: #fff;
+        }
+
+        .ec-ico {
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            margin-bottom: 9px;
+        }
+
+        .ec-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 2px;
+        }
+
+        .ec-desc {
+            font-size: 11px;
+            color: #94a3b8;
+            margin-bottom: 7px;
+        }
+
+        .ec-price {
+            font-family: 'Syne',sans-serif;
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #2563eb;
+        }
+
+        /* ── Özet & Onay ──────────────────────────────────────── */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .summary-block {
+            background: #f8fafc;
+            border: 1px solid #f1f5f9;
+            border-radius: 10px;
+            padding: 16px;
+        }
+
+        .sb-title {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .6px;
+            color: #94a3b8;
+            margin-bottom: 10px;
+        }
+
+        .sb-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            margin-bottom: 6px;
+        }
+
+            .sb-row:last-child {
+                margin-bottom: 0;
+            }
+
+        .sb-lbl {
+            color: #64748b;
+        }
+
+        .sb-val {
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        .sb-empty {
+            font-size: 12px;
+            color: #94a3b8;
+            font-style: italic;
+        }
+
+        /* ── Price Summary (side) ─────────────────────────────── */
+        .pr-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            font-size: 13px;
+        }
+
+            .pr-row + .pr-row {
+                border-top: 1px solid #f1f5f9;
+            }
+
+        .pr-lbl {
+            color: #94a3b8;
+        }
+
+        .pr-val {
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        .pr-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0 0;
+            border-top: 2px solid #f1f5f9;
+            margin-top: 4px;
+        }
+
+        .pr-total-lbl {
+            font-family: 'Syne',sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            color: #0f172a;
+        }
+
+        .pr-total-val {
+            font-family: 'Syne',sans-serif;
+            font-weight: 800;
+            font-size: 20px;
+            color: #2563eb;
+        }
+
+        /* ── Side Card ────────────────────────────────────────── */
+        .ci-side-card {
+            background: #fff;
+            border: 1px solid #e8edf5;
+            border-radius: 14px;
+            box-shadow: 0 1px 4px rgba(15,23,42,.06);
+            overflow: hidden;
+        }
+
+        .ci-side-card-head {
+            padding: 14px 18px;
+            border-bottom: 1px solid #f1f5f9;
+            background: #f8fafc;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .ci-side-ico {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .ci-side-title {
+            font-family: 'Syne',sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .ci-side-desc {
+            font-size: 11px;
+            color: #94a3b8;
+            margin-top: 1px;
+        }
+
+        .ci-side-body {
+            padding: 16px 18px;
+        }
+
+        /* ── Buttons ──────────────────────────────────────────── */
+        .btn-ci {
+            width: 100%;
+            padding: 11px;
+            border: none;
+            border-radius: 9px;
+            font-family: 'DM Sans',sans-serif;
+            font-size: 13.5px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all .15s;
+        }
+
+        .btn-ci-primary {
+            background: #2563eb;
+            color: #fff;
+        }
+
+            .btn-ci-primary:hover {
+                background: #1d4ed8;
+                box-shadow: 0 4px 14px rgba(37,99,235,.35);
+            }
+
+        .btn-ci-secondary {
+            background: #fff;
+            color: #64748b;
+            border: 1.5px solid #e2e8f0;
+        }
+
+            .btn-ci-secondary:hover {
+                border-color: #94a3b8;
+                color: #0f172a;
+            }
+
+        .btn-ci-success {
+            background: #16a34a;
+            color: #fff;
+        }
+
+            .btn-ci-success:hover {
+                background: #15803d;
+                box-shadow: 0 4px 14px rgba(22,163,74,.35);
+            }
+
+        /* ── Info Note ────────────────────────────────────────── */
+        .ci-info-note {
+            background: #eff6ff;
+            border: 1px solid rgba(37,99,235,.15);
+            border-radius: 8px;
+            padding: 9px 12px;
+            font-size: 11.5px;
+            color: #2563eb;
+            display: flex;
+            gap: 7px;
+            align-items: flex-start;
+        }
+
+        .ci-warn-note {
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            border-radius: 8px;
+            padding: 9px 12px;
+            font-size: 11.5px;
+            color: #d97706;
+            display: flex;
+            gap: 7px;
+            align-items: flex-start;
+        }
+
+        /* ── Modal ────────────────────────────────────────────── */
+        .ci-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(11,27,58,.5);
+            backdrop-filter: blur(5px);
+            z-index: 9000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+            .ci-modal-overlay.open {
+                display: flex;
+                animation: ci-fade .2s ease;
+            }
+
+        @@keyframes ci-fade {
+            from {
+                opacity: 0
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        .ci-modal-box {
+            background: #fff;
+            border-radius: 16px;
+            width: min(500px,calc(100vw - 40px));
+            box-shadow: 0 8px 36px rgba(11,27,58,.18);
+            padding: 30px 28px;
+            text-align: center;
+            animation: ci-scale .2s ease;
+        }
+
+        @@keyframes ci-scale {
+            from {
+                transform: scale(.94);
+                opacity: 0
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1
+            }
+        }
+
+        .ci-modal-ico {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: #f0fdf4;
+            color: #16a34a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 14px;
+            font-size: 28px;
+        }
+
+        .ci-modal-title {
+            font-family: 'Syne',sans-serif;
+            font-size: 18px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 6px;
+        }
+
+        .ci-modal-desc {
+            font-size: 13px;
+            color: #94a3b8;
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        /* Boarding pass style */
+        .ci-boarding-pass {
+            background: #0B1B3A;
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin-bottom: 18px;
+            text-align: left;
+        }
+
+        .bp-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+        }
+
+        .bp-airline {
+            font-family: 'Syne',sans-serif;
+            font-size: 13px;
+            font-weight: 800;
+            color: #fff;
+        }
+
+        .bp-type {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .8px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,.3);
+        }
+
+        .bp-route {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .bp-apt-code {
+            font-family: 'Syne',sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            color: #fff;
+            line-height: 1;
+        }
+
+        .bp-apt-name {
+            font-size: 10px;
+            color: rgba(255,255,255,.3);
+            margin-top: 2px;
+        }
+
+        .bp-route-mid {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            flex: 1;
+        }
+
+        .bp-route-line {
+            width: 100%;
+            height: 1px;
+            background: rgba(255,255,255,.15);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+            .bp-route-line i {
+                font-size: 14px;
+                color: #3B8EF5;
+                background: #0B1B3A;
+                padding: 0 6px;
+            }
+
+        .bp-divider {
+            border: none;
+            border-top: 2px dashed rgba(255,255,255,.1);
+            margin: 14px 0;
+        }
+
+        .bp-grid {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 12px;
+        }
+
+        .bp-item {
+        }
+
+        .bp-item-key {
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: .8px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,.3);
+        }
+
+        .bp-item-val {
+            font-size: 13px;
+            font-weight: 600;
+            color: rgba(255,255,255,.85);
+            margin-top: 2px;
+        }
+
+        .bp-barcode {
+            background: rgba(255,255,255,.05);
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 14px;
+            text-align: center;
+        }
+
+        .bp-barcode-bars {
+            display: flex;
+            gap: 2px;
+            justify-content: center;
+            align-items: flex-end;
+            height: 36px;
+            margin-bottom: 6px;
+        }
+
+        .bp-bar {
+            background: rgba(255,255,255,.7);
+            border-radius: 1px;
+        }
+
+        .bp-pnr {
+            font-family: monospace;
+            font-size: 14px;
+            font-weight: 700;
+            color: rgba(255,255,255,.5);
+            letter-spacing: 2px;
+        }
+
+        .modal-btn-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* ── Responsive ───────────────────────────────────────── */
+        @@media (max-width:1000px) {
+            .ci-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .ci-col-side {
+                position: static;
+            }
+
+            .ci-banner-meta {
+                grid-template-columns: repeat(3,auto);
+            }
+
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @@media (max-width:768px) {
+            .ci-banner {
+                padding: 16px;
+            }
+
+            .ci-apt-code {
+                font-size: 26px;
+            }
+
+            .ci-banner-meta {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .tab-step-desc {
+                display: none;
+            }
+
+            .tab-stepper {
+                overflow-x: auto;
+            }
+
+            .meal-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .extras-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @@media (max-width:500px) {
+            .baggage-cards, .meal-grid, .extras-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tab-step-title {
+                font-size: 11px;
+            }
+
+            .tab-step-num {
+                width: 22px;
+                height: 22px;
+                font-size: 10px;
+            }
+
+            .tab-step {
+                gap: 6px;
+                padding: 12px 8px;
+            }
+        }
+    </style>
+}
+
+<main class="main-content" id="main-content">
+    <div class="container-fluid px-4 py-4">
+        <div class="ci-page">
+
+            @* ── Başlık ── *@
+            <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+                <div>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb mb-1" style="font-size:12.5px;">
+                            <li class="breadcrumb-item"><a href="#" class="text-decoration-none text-muted">Dashboard</a></li>
+                            <li class="breadcrumb-item">
+                                <a asp-area="Admin" asp-controller="Bookings" asp-action="BookingList" class="text-decoration-none text-muted">Rezervasyonlar</a>
+                            </li>
+                            <li class="breadcrumb-item active">Check-In</li>
+                        </ol>
+                    </nav>
+                    <h4 class="fw-bold mb-1" style="color:#0f172a;">Check-In İşlemi</h4>
+                    <p class="text-muted mb-0" style="font-size:13px;">Adımları sırasıyla tamamlayın ve check-in'i onaylayın.</p>
+                </div>
+                <a asp-area="Admin" asp-controller="Bookings" asp-action="BookingList"
+                   class="btn btn-outline-secondary btn-sm px-3" style="border-radius:8px;font-size:13px;">
+                    <i class="bi bi-arrow-left me-1"></i> Geri
+                </a>
+            </div>
+
+            @* ── Flight Banner ── *@
+            <div class="ci-banner">
+                <div class="ci-banner-top">
+                    <div class="ci-route">
+                        <div style="text-align:center;">
+                            <div class="ci-apt-code">@ViewBag.DepartureAirportCode</div>
+                            <div class="ci-apt-name">@ViewBag.DepartureAirportName</div>
+                        </div>
+                        <div class="ci-route-mid">
+                            <div class="ci-route-line"><i class="bi bi-airplane-fill"></i></div>
+                            <div class="ci-route-dur" id="bannerDur">— dk</div>
+                        </div>
+                        <div style="text-align:center;">
+                            <div class="ci-apt-code">@ViewBag.ArrivalAirportCode</div>
+                            <div class="ci-apt-name">@ViewBag.ArrivalAirportName</div>
+                        </div>
+                    </div>
+                    <span class="ci-status-badge">
+                        <span class="dot"></span> Planlandı
+                    </span>
+                </div>
+                <hr class="ci-bp-divider" />
+                <div class="ci-banner-meta">
+                    <div class="ci-meta-item">
+                        <span class="ci-meta-key">Uçuş Kodu</span>
+                        <span class="ci-meta-val">@ViewBag.FlightNumber</span>
+                    </div>
+                    <div class="ci-meta-item">
+                        <span class="ci-meta-key">Tarih</span>
+                        <span class="ci-meta-val">
+                            @(ViewBag.DepartureTime != null ? ((DateTime)ViewBag.DepartureTime).ToString("dd MMM yyyy", new System.Globalization.CultureInfo("tr-TR")) : "—")
+                        </span>
+                    </div>
+                    <div class="ci-meta-item">
+                        <span class="ci-meta-key">Saat</span>
+                        <span class="ci-meta-val">
+                            @(ViewBag.DepartureTime != null ? ((DateTime)ViewBag.DepartureTime).ToString("HH:mm") : "—") →
+                            @(ViewBag.ArrivalTime != null ? ((DateTime)ViewBag.ArrivalTime).ToString("HH:mm") : "—")
+                        </span>
+                    </div>
+                    <div class="ci-meta-item">
+                        <span class="ci-meta-key">Yolcu</span>
+                        <span class="ci-meta-val">@ViewBag.Name @ViewBag.Surname</span>
+                    </div>
+                    <div class="ci-meta-item">
+                        <span class="ci-meta-key">PNR</span>
+                        <span class="ci-meta-val" style="font-family:monospace;letter-spacing:.8px;">@ViewBag.PnrNumber</span>
+                    </div>
+                    <div class="ci-meta-item">
+                        <span class="ci-meta-key">Kapı</span>
+                        <span class="ci-meta-val">@ViewBag.Gate</span>
+                    </div>
+                </div>
+            </div>
+
+            @* ── Layout ── *@
+            <div class="ci-layout">
+
+                @* ── Sol: Sekmeli Form ── *@
+                <div class="ci-col-main">
+
+                    @* Step Bar *@
+                    <div class="tab-stepper" id="tabStepper">
+                        <div class="tab-step active" id="step-tab-1" onclick="goTab(1)">
+                            <div class="tab-step-num" id="step-num-1">1</div>
+                            <div class="tab-step-text">
+                                <div class="tab-step-title">Bagaj</div>
+                                <div class="tab-step-desc">Ağırlık seçimi</div>
+                            </div>
+                        </div>
+                        <div class="tab-step" id="step-tab-2" onclick="goTab(2)">
+                            <div class="tab-step-num" id="step-num-2">2</div>
+                            <div class="tab-step-text">
+                                <div class="tab-step-title">Koltuk</div>
+                                <div class="tab-step-desc">Koltuk seç</div>
+                            </div>
+                        </div>
+                        <div class="tab-step" id="step-tab-3" onclick="goTab(3)">
+                            <div class="tab-step-num" id="step-num-3">3</div>
+                            <div class="tab-step-text">
+                                <div class="tab-step-title">Yemek</div>
+                                <div class="tab-step-desc">Menü seçimi</div>
+                            </div>
+                        </div>
+                        <div class="tab-step" id="step-tab-4" onclick="goTab(4)">
+                            <div class="tab-step-num" id="step-num-4">4</div>
+                            <div class="tab-step-text">
+                                <div class="tab-step-title">Hizmetler</div>
+                                <div class="tab-step-desc">Ekstra seç</div>
+                            </div>
+                        </div>
+                        <div class="tab-step" id="step-tab-5" onclick="goTab(5)">
+                            <div class="tab-step-num" id="step-num-5">5</div>
+                            <div class="tab-step-text">
+                                <div class="tab-step-title">Onay</div>
+                                <div class="tab-step-desc">Gözden geçir</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @* Panel Wrapper *@
+                    <div class="tab-panels">
+
+                        @* ══════════════════════════════════════════════
+                   SEKME 1: BAGAJ
+                ══════════════════════════════════════════════ *@
+                        <div class="tab-panel active" id="panel-1">
+                            <div class="tab-panel-title">Bagaj Seçimi</div>
+                            <div class="tab-panel-desc">Yolculuğunuz için uygun bagaj seçeneğini belirleyin.</div>
+
+                            @* Kabin Bagajı *@
+                            <div class="baggage-section">
+                                <div class="baggage-section-title">
+                                    <i class="bi bi-briefcase-fill" style="color:#2563eb;"></i>
+                                    Kabin Bagajı
+                                    <span style="font-size:11px;color:#94a3b8;font-weight:400;">(uçağa alınabilir)</span>
+                                </div>
+                                <div class="baggage-cards">
+                                    <label class="baggage-card selected" id="cabin-free" onclick="selectBaggage('cabin','free',0)">
+                                        <input type="radio" name="cabin_bag" />
+                                        <div class="bc-check"><i class="bi bi-check-lg"></i></div>
+                                        <div class="bc-icon">🎒</div>
+                                        <div class="bc-name">Kişisel Eşya</div>
+                                        <div class="bc-sub">Maks. 40×30×15 cm · 6 kg</div>
+                                        <div class="bc-price" style="color:#16a34a;">Ücretsiz</div>
+                                    </label>
+                                    <label class="baggage-card" id="cabin-small" onclick="selectBaggage('cabin','small',80)">
+                                        <input type="radio" name="cabin_bag" />
+                                        <div class="bc-check"><i class="bi bi-check-lg"></i></div>
+                                        <div class="bc-icon">💼</div>
+                                        <div class="bc-name">Kabin Valizi (S)</div>
+                                        <div class="bc-sub">Maks. 55×40×20 cm · 8 kg</div>
+                                        <div class="bc-price">+ 80 @ViewBag.Currency</div>
+                                    </label>
+                                    <label class="baggage-card" id="cabin-large" onclick="selectBaggage('cabin','large',120)">
+                                        <input type="radio" name="cabin_bag" />
+                                        <div class="bc-check"><i class="bi bi-check-lg"></i></div>
+                                        <div class="bc-icon">🧳</div>
+                                        <div class="bc-name">Kabin Valizi (L)</div>
+                                        <div class="bc-sub">Maks. 55×40×25 cm · 10 kg</div>
+                                        <div class="bc-price">+ 120 @ViewBag.Currency</div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            @* Uçak Altı Bagaj + Slider *@
+                            <div class="baggage-section">
+                                <div class="baggage-section-title">
+                                    <i class="bi bi-archive-fill" style="color:#7c3aed;"></i>
+                                    Uçak Altı Bagaj
+                                    <span style="font-size:11px;color:#94a3b8;font-weight:400;">(ambar bagajı)</span>
+                                </div>
+
+                                <div class="kg-slider-wrap" id="hold-slider-wrap">
+                                    <div class="kg-slider-header">
+                                        <span class="kg-slider-label">Bagaj Ağırlığı Seçin</span>
+                                        <span class="kg-display" id="holdKgDisplay">0 kg</span>
+                                    </div>
+                                    <input type="range" class="kg-slider" id="holdKgSlider"
+                                           min="0" max="32" step="8" value="0"
+                                           oninput="updateHoldSlider(this.value)" />
+                                    <div class="kg-ticks">
+                                        <span class="kg-tick">0 kg<br><span style="color:#16a34a;font-size:9px;">Ücretsiz</span></span>
+                                        <span class="kg-tick">8 kg<br><span style="font-size:9px;">100 @ViewBag.Currency</span></span>
+                                        <span class="kg-tick">16 kg<br><span style="font-size:9px;">180 @ViewBag.Currency</span></span>
+                                        <span class="kg-tick">24 kg<br><span style="font-size:9px;">240 @ViewBag.Currency</span></span>
+                                        <span class="kg-tick">32 kg<br><span style="font-size:9px;">300 @ViewBag.Currency</span></span>
+                                    </div>
+                                </div>
+
+                                <div class="ci-info-note mt-3">
+                                    <i class="bi bi-info-circle-fill" style="flex-shrink:0;margin-top:1px;"></i>
+                                    <span>Uçak altı bagaj en az 72 saat önceden satın alındığında %20 daha ucuzdur. Check-in'de ek ücret uygulanabilir.</span>
+                                </div>
+                            </div>
+
+                            @* Özel Bagaj *@
+                            <div class="baggage-section">
+                                <div class="baggage-section-title">
+                                    <i class="bi bi-bicycle" style="color:#d97706;"></i>
+                                    Özel & Fazla Bagaj
+                                </div>
+                                <div class="baggage-cards">
+                                    <label class="baggage-card" id="special-sport" onclick="toggleSpecial('sport',150)">
+                                        <input type="checkbox" />
+                                        <div class="bc-check"><i class="bi bi-check-lg"></i></div>
+                                        <div class="bc-icon">🎿</div>
+                                        <div class="bc-name">Spor Ekipmanı</div>
+                                        <div class="bc-sub">Kayak, sörf, bisiklet vb.</div>
+                                        <div class="bc-price">+ 150 @ViewBag.Currency</div>
+                                    </label>
+                                    <label class="baggage-card" id="special-golf" onclick="toggleSpecial('golf',120)">
+                                        <input type="checkbox" />
+                                        <div class="bc-check"><i class="bi bi-check-lg"></i></div>
+                                        <div class="bc-icon">⛳</div>
+                                        <div class="bc-name">Golf Ekipmanı</div>
+                                        <div class="bc-sub">Golf çantası + aksesuarlar</div>
+                                        <div class="bc-price">+ 120 @ViewBag.Currency</div>
+                                    </label>
+                                    <label class="baggage-card" id="special-pet" onclick="toggleSpecial('pet',200)">
+                                        <input type="checkbox" />
+                                        <div class="bc-check"><i class="bi bi-check-lg"></i></div>
+                                        <div class="bc-icon">🐾</div>
+                                        <div class="bc-name">Evcil Hayvan</div>
+                                        <div class="bc-sub">Kabin ya da ambar taşımacılık</div>
+                                        <div class="bc-price">+ 200 @ViewBag.Currency</div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="tab-nav">
+                                <div></div>
+                                <button class="btn-tab-nav btn-tab-next" onclick="goTab(2)">
+                                    Koltuk Seçimine Geç <i class="bi bi-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        @* ══════════════════════════════════════════════
+                   SEKME 2: KOLTUK
+                ══════════════════════════════════════════════ *@
+                        <div class="tab-panel" id="panel-2">
+                            <div class="tab-panel-title">Koltuk Seçimi</div>
+                            <div class="tab-panel-desc">Tercih ettiğiniz koltuğu seçin. Gri koltuklar dolu.</div>
+
+                            <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
+                                <div class="seat-filters">
+                                    <button class="seat-filter-btn active" onclick="filterSeats('all',this)">Tümü</button>
+                                    <button class="seat-filter-btn" onclick="filterSeats('window',this)">
+                                        <i class="bi bi-square" style="font-size:10px;"></i> Pencere
+                                    </button>
+                                    <button class="seat-filter-btn" onclick="filterSeats('middle',this)">Orta</button>
+                                    <button class="seat-filter-btn" onclick="filterSeats('aisle',this)">Koridor</button>
+                                    <button class="seat-filter-btn" onclick="filterSeats('front',this)">Ön Sıra</button>
+                                    <button class="seat-filter-btn" onclick="filterSeats('exit',this)">
+                                        <i class="bi bi-door-open" style="font-size:10px;"></i> Çıkış Sırası
+                                    </button>
+                                </div>
+                                <span class="sel-seat-tag empty" id="selectedTag">
+                                    <i class="bi bi-geo-alt"></i>
+                                    <span id="selectedLabel">Koltuk seçilmedi</span>
+                                </span>
+                            </div>
+
+                            <div class="smap-wrap">
+                                <div class="smap" id="seatMap"></div>
+                            </div>
+
+                            <div class="seat-legend">
+                                <div class="legend-item"><div class="legend-dot"></div><span>Müsait</span></div>
+                                <div class="legend-item"><div class="legend-dot ld-sel"></div><span>Seçili</span></div>
+                                <div class="legend-item"><div class="legend-dot ld-occ"></div><span>Dolu</span></div>
+                                <div class="legend-item">
+                                    <div class="legend-dot" style="background:#fefce8;border-color:#fde68a;"></div>
+                                    <span>Ücretli</span>
+                                </div>
+                            </div>
+
+                            <div class="tab-nav">
+                                <button class="btn-tab-nav btn-tab-prev" onclick="goTab(1)">
+                                    <i class="bi bi-arrow-left"></i> Geri
+                                </button>
+                                <button class="btn-tab-nav btn-tab-next" onclick="goTab(3)">
+                                    Yemek Seçimine Geç <i class="bi bi-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        @* ══════════════════════════════════════════════
+                   SEKME 3: YEMEK
+                ══════════════════════════════════════════════ *@
+                        <div class="tab-panel" id="panel-3">
+                            <div class="tab-panel-title">Yemek Seçimi</div>
+                            <div class="tab-panel-desc">Uçuşunuz için özel menünüzü seçin. Bir seçim yapılabilir.</div>
+
+                            <div class="meal-categories" id="mealCats">
+                                <button class="meal-cat-btn active" onclick="filterMeals('all',this)">
+                                    <i class="bi bi-grid-fill"></i> Tümü
+                                </button>
+                                <button class="meal-cat-btn" onclick="filterMeals('hot',this)">
+                                    <i class="bi bi-fire"></i> Sıcak
+                                </button>
+                                <button class="meal-cat-btn" onclick="filterMeals('cold',this)">
+                                    <i class="bi bi-snow"></i> Soğuk
+                                </button>
+                                <button class="meal-cat-btn" onclick="filterMeals('veg',this)">
+                                    <i class="bi bi-leaf-fill"></i> Vejetaryen
+                                </button>
+                                <button class="meal-cat-btn" onclick="filterMeals('hal',this)">
+                                    Helal
+                                </button>
+                                <button class="meal-cat-btn" onclick="filterMeals('snack',this)">
+                                    <i class="bi bi-cup-straw"></i> Atıştırmalık
+                                </button>
+                            </div>
+
+                            <div class="meal-grid" id="mealGrid"></div>
+
+                            <div class="tab-nav">
+                                <button class="btn-tab-nav btn-tab-prev" onclick="goTab(2)">
+                                    <i class="bi bi-arrow-left"></i> Geri
+                                </button>
+                                <button class="btn-tab-nav btn-tab-next" onclick="goTab(4)">
+                                    Hizmetlere Geç <i class="bi bi-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        @* ══════════════════════════════════════════════
+                   SEKME 4: EK HİZMETLER
+                ══════════════════════════════════════════════ *@
+                        <div class="tab-panel" id="panel-4">
+                            <div class="tab-panel-title">Ek Hizmetler</div>
+                            <div class="tab-panel-desc">Yolculuğunuzu konforlu hale getirecek hizmetleri seçin.</div>
+
+                            <div class="extras-grid" id="extrasGrid"></div>
+
+                            <div class="tab-nav">
+                                <button class="btn-tab-nav btn-tab-prev" onclick="goTab(3)">
+                                    <i class="bi bi-arrow-left"></i> Geri
+                                </button>
+                                <button class="btn-tab-nav btn-tab-next" onclick="goTab(5)">
+                                    Özete Geç <i class="bi bi-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        @* ══════════════════════════════════════════════
+                   SEKME 5: ÖZET & ONAY
+                ══════════════════════════════════════════════ *@
+                        <div class="tab-panel" id="panel-5">
+                            <div class="tab-panel-title">Gözden Geçir & Onayla</div>
+                            <div class="tab-panel-desc">Seçimlerinizi kontrol edin ve check-in işlemini tamamlayın.</div>
+
+                            <div class="summary-grid" id="summaryGrid">
+                                @* JS tarafından doldurulur *@
+                            </div>
+
+                            <div class="ci-warn-note mt-3">
+                                <i class="bi bi-exclamation-triangle-fill" style="flex-shrink:0;margin-top:1px;"></i>
+                                <span>Check-in onaylandıktan sonra koltuk ve bagaj değişikliği yapılamaz. Lütfen bilgileri dikkatlice kontrol edin.</span>
+                            </div>
+
+                            <div class="tab-nav">
+                                <button class="btn-tab-nav btn-tab-prev" onclick="goTab(4)">
+                                    <i class="bi bi-arrow-left"></i> Geri
+                                </button>
+                                <button class="btn-tab-nav btn-tab-next" onclick="completeCheckin()"
+                                        style="background:#16a34a;">
+                                    <i class="bi bi-check-circle-fill"></i> Check-In Tamamla
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                @* ── Sağ: Fiyat + Hızlı Özet ── *@
+                <div class="ci-col-side">
+
+                    @* Fiyat Özeti *@
+                    <div class="ci-side-card">
+                        <div class="ci-side-card-head">
+                            <div class="ci-side-ico" style="background:#f5f3ff;color:#7c3aed;">
+                                <i class="bi bi-receipt-cutoff"></i>
+                            </div>
+                            <div>
+                                <div class="ci-side-title">Fiyat Özeti</div>
+                                <div class="ci-side-desc">Anlık güncellenir</div>
+                            </div>
+                        </div>
+                        <div class="ci-side-body">
+                            <div class="pr-row">
+                                <span class="pr-lbl">Bilet</span>
+                                <span class="pr-val">@ViewBag.BasePrice @ViewBag.Currency</span>
+                            </div>
+                            <div id="priceBreakdown"></div>
+                            <div class="pr-total">
+                                <span class="pr-total-lbl">Toplam</span>
+                                <span class="pr-total-val" id="totalPrice">780 ₺@* @ViewBag.BasePrice @ViewBag.Currency *@</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    @* Seçim Özeti *@
+                    <div class="ci-side-card">
+                        <div class="ci-side-card-head">
+                            <div class="ci-side-ico" style="background:#f0fdf4;color:#16a34a;">
+                                <i class="bi bi-clipboard-check-fill"></i>
+                            </div>
+                            <div>
+                                <div class="ci-side-title">Seçimleriniz</div>
+                            </div>
+                        </div>
+                        <div class="ci-side-body" style="font-size:12.5px;">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span style="color:#94a3b8;">Koltuk</span>
+                                <span class="fw-semibold" id="sideSeat" style="color:#0f172a;">—</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span style="color:#94a3b8;">Kabin Bagaj</span>
+                                <span class="fw-semibold" id="sideCabin" style="color:#0f172a;">Kişisel Eşya</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span style="color:#94a3b8;">Uçak Altı</span>
+                                <span class="fw-semibold" id="sideHold" style="color:#0f172a;">—</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span style="color:#94a3b8;">Yemek</span>
+                                <span class="fw-semibold" id="sideMeal" style="color:#0f172a;">—</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    @* Progress *@
+                    <div class="ci-side-card">
+                        <div class="ci-side-card-head">
+                            <div class="ci-side-ico" style="background:#eff6ff;color:#2563eb;">
+                                <i class="bi bi-bar-chart-steps"></i>
+                            </div>
+                            <div>
+                                <div class="ci-side-title">İlerleme</div>
+                            </div>
+                        </div>
+                        <div class="ci-side-body">
+                            <div style="height:6px;background:#f1f5f9;border-radius:99px;overflow:hidden;margin-bottom:8px;">
+                                <div id="progressBar" style="height:100%;background:linear-gradient(90deg,#2563eb,#3b82f6);border-radius:99px;width:20%;transition:width .4s ease;"></div>
+                            </div>
+                            <div style="display:flex;justify-content:space-between;font-size:11px;color:#94a3b8;">
+                                <span id="progressLabel">Adım 1 / 5</span>
+                                <span id="progressPct">%20</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+@* ── Başarı Modalı ── *@
+<div class="ci-modal-overlay" id="ciModal">
+    <div class="ci-modal-box">
+        <div class="ci-modal-ico"><i class="bi bi-check-lg"></i></div>
+        <div class="ci-modal-title">Check-In Tamamlandı! 🎉</div>
+        <div class="ci-modal-desc">
+            Başarıyla check-in yapıldı. Biniş kartınız aşağıda yer almaktadır.
+        </div>
+
+        @* Boarding Pass *@
+        <div class="ci-boarding-pass">
+            <div class="bp-header">
+                <div>
+                    <div class="bp-airline">@ViewBag.AirlineCode — @ViewBag.FlightNumber</div>
+                    <div class="bp-type">Boarding Pass</div>
+                </div>
+                <span class="ci-status-badge" style="font-size:11px;">
+                    <span class="dot"></span> Check-In Yapıldı
+                </span>
+            </div>
+
+            <div class="bp-route">
+                <div>
+                    <div class="bp-apt-code">@ViewBag.DepartureAirportCode</div>
+                    <div class="bp-apt-name">@ViewBag.DepartureAirportName</div>
+                </div>
+                <div class="bp-route-mid">
+                    <div class="bp-route-line"><i class="bi bi-airplane-fill"></i></div>
+                </div>
+                <div>
+                    <div class="bp-apt-code">@ViewBag.ArrivalAirportCode</div>
+                    <div class="bp-apt-name">@ViewBag.ArrivalAirportName</div>
+                </div>
+            </div>
+
+            <hr class="bp-divider" />
+
+            <div class="bp-grid">
+                <div class="bp-item">
+                    <div class="bp-item-key">Yolcu</div>
+                    <div class="bp-item-val">@ViewBag.PassengerName</div>
+                </div>
+                <div class="bp-item">
+                    <div class="bp-item-key">Koltuk</div>
+                    <div class="bp-item-val" id="modalSeat">—</div>
+                </div>
+                <div class="bp-item">
+                    <div class="bp-item-key">Saat</div>
+                    <div class="bp-item-val">
+                        @(ViewBag.DepartureTime != null ? ((DateTime)ViewBag.DepartureTime).ToString("HH:mm") : "—")
+                    </div>
+                </div>
+                <div class="bp-item">
+                    <div class="bp-item-key">Kapı</div>
+                    <div class="bp-item-val">@(ViewBag.Gate ?? "—")</div>
+                </div>
+                <div class="bp-item">
+                    <div class="bp-item-key">Toplam</div>
+                    <div class="bp-item-val" id="modalTotal">—</div>
+                </div>
+                <div class="bp-item">
+                    <div class="bp-item-key">Tarih</div>
+                    <div class="bp-item-val">
+                        @(ViewBag.DepartureTime != null ? ((DateTime)ViewBag.DepartureTime).ToString("dd MMM", new System.Globalization.CultureInfo("tr-TR")) : "—")
+                    </div>
+                </div>
+            </div>
+
+            <div class="bp-barcode" id="barcodeArea">
+                <div class="bp-barcode-bars" id="barcodeBars"></div>
+                <div class="bp-pnr">@ViewBag.Pnr</div>
+            </div>
+        </div>
+
+        <div class="modal-btn-row">
+            <button class="btn-ci btn-ci-primary flex-fill" onclick="downloadTicket()">
+                <i class="bi bi-download"></i> Bileti İndir
+            </button>
+            <button class="btn-ci btn-ci-success" onclick="printTicket()" style="width:auto;padding:11px 16px;">
+                <i class="bi bi-printer-fill"></i>
+            </button>
+            <button class="btn-ci btn-ci-secondary" onclick="closeModal()" style="width:auto;padding:11px 16px;">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+
+        /* ── Config ──────────────────────────────────────────── */
+        var BASE_PRICE = parseFloat('@(ViewBag.BasePrice ?? 0)') || 0;
+        var CURRENCY   = '@(ViewBag.Currency ?? "₺")';
+        var ROWS = 20;
+        var COLS = ['A','B','C','D','E','F'];
+
+        var OCCUPIED = [
+            '1A','1B','2C','3D','4A','4F','5B','5E',
+            '6C','7A','7D','8B','8F','9C','10A','10E',
+            '11B','12D','13A','13C','14F','15B','15E',
+            '16A','17C','18D','19B','20F','3B','6E'
+        ];
+
+        /* Premium koltuklar (ücretli) */
+        var PREMIUM = ['1C','1D','2A','2F','3A','3F','4C','4D'];
+
+        /* ── State ───────────────────────────────────────────── */
+        var currentTab  = 1;
+        var selectedSeat = null;
+        var selectedMeal = null;
+        var selectedExtras = [];
+        var specialBags  = {};
+        var cabinChoice  = { id:'free', price:0, name:'Kişisel Eşya' };
+        var holdKg       = 0;
+        var holdPrice    = 0;
+
+        var HOLD_PRICES = { 0:0, 8:100, 16:180, 24:240, 32:300 };
+
+        /* ── Meals Data ──────────────────────────────────────── */
+        var meals = [
+            { id:'pasta', name:'Fırın Makarna',     desc:'Domates soslu, peynirli fırın makarnası', emoji:'🍝', tags:['hot','veg'], price:0,   free:true,  cat:'hot' },
+            { id:'chicken', name:'Izgara Tavuk',    desc:'Sebzeli pirinç pilavı ve mevsim salatası', emoji:'🍗', tags:['hot','hal'], price:0,   free:true,  cat:'hot' },
+            { id:'beef',  name:'Et Sote',           desc:'Mantar soslu biftek, patates püresiyle',  emoji:'🥩', tags:['hot','hal'], price:30,  free:false, cat:'hot' },
+            { id:'salad', name:'Akdeniz Salatası',  desc:'Taze sebzeler, zeytinyağı, limon',        emoji:'🥗', tags:['cold','veg'], price:0,  free:true,  cat:'cold' },
+            { id:'wrap',  name:'Tavuklu Wrap',      desc:'Marul, domates, özel sos ile wrap',       emoji:'🌯', tags:['cold','hal'], price:0,  free:true,  cat:'cold' },
+            { id:'sushi', name:'Sushi Tabağı',      desc:'8 parça sushi, wasabi ve soya sosu',      emoji:'🍱', tags:['cold'],        price:50,  free:false, cat:'cold' },
+            { id:'veg',   name:'Vejetaryen Köfte',  desc:'Mercimek ve sebze köftesi, yoğurt sosu',  emoji:'🧆', tags:['hot','veg'],   price:0,   free:true,  cat:'veg' },
+            { id:'fruit', name:'Meyve Tabağı',      desc:'Mevsim meyveleri, bal, granola',          emoji:'🍓', tags:['cold','veg'],  price:0,   free:true,  cat:'snack' },
+            { id:'sand',  name:'Sandviç Menü',      desc:'Peynirli sandviç + çips + içecek',        emoji:'🥪', tags:['cold'],         price:25,  free:false, cat:'snack' },
+            { id:'cake',  name:'Çikolatalı Kek',    desc:'Fındıklı çikolata sos ile servis edilir', emoji:'🍰', tags:['cold'],         price:20,  free:false, cat:'snack' },
+            { id:'halal', name:'Helal Tabak',       desc:'Helal sertifikalı et + pilav + salata',   emoji:'🍛', tags:['hot','hal'],    price:0,   free:true,  cat:'hal' },
+            { id:'kid',   name:'Çocuk Menüsü',      desc:'Nugget, patates, meyve suyu',             emoji:'🍟', tags:['hot'],           price:0,   free:true,  cat:'hot' },
+        ];
+
+        /* ── Extras Data ─────────────────────────────────────── */
+        var extras = [
+            { id:'priority', name:'Öncelikli Biniş',   desc:'İlk binen yolcu',       price:120, icon:'bi-lightning-charge-fill', bg:'#fefce8', fg:'#ca8a04' },
+            { id:'comfort',  name:'Konfor Paketi',      desc:'Battaniye + yastık + maske', price:90, icon:'bi-stars',            bg:'#f5f3ff', fg:'#7c3aed' },
+            { id:'insurance',name:'Seyahat Sigortası',  desc:'Tam kapsamlı sigorta',  price:200, icon:'bi-shield-check-fill',   bg:'#f0fdf4', fg:'#16a34a' },
+            { id:'lounge',   name:'Lounge Erişimi',     desc:'VIP bekleme salonu',    price:350, icon:'bi-gem',                  bg:'#fff1f2', fg:'#e11d48' },
+            { id:'wifi',     name:'Uçuş içi Wi-Fi',     desc:'Tüm uçuş boyunca',      price:80,  icon:'bi-wifi',                bg:'#eff6ff', fg:'#2563eb' },
+            { id:'assist',   name:'Özel Yardım',        desc:'Tekerlekli sandalye vb.',price:0,   icon:'bi-person-heart',        bg:'#f0fdf4', fg:'#16a34a' },
+        ];
+
+        /* ══════════════════════════════════════════════════════
+           TAB NAVIGATION
+        ══════════════════════════════════════════════════════ */
+        function goTab(n) {
+            /* Önceki paneli kapat */
+            document.getElementById('panel-' + currentTab).classList.remove('active');
+            document.getElementById('step-tab-' + currentTab).classList.remove('active');
+
+            /* Done işaretle */
+            if (n > currentTab) {
+                document.getElementById('step-tab-' + currentTab).classList.add('done');
+                document.getElementById('step-num-' + currentTab).innerHTML = '<i class="bi bi-check-lg" style="font-size:11px;"></i>';
+            } else {
+                /* Geri gidince done kaldır */
+                for (var i = n; i <= 5; i++) {
+                    document.getElementById('step-tab-' + i).classList.remove('done');
+                    document.getElementById('step-num-' + i).textContent = i;
+                }
+            }
+
+            currentTab = n;
+            document.getElementById('panel-' + n).classList.add('active');
+            document.getElementById('step-tab-' + n).classList.add('active');
+
+            /* Progress bar */
+            var pct = Math.round(n / 5 * 100);
+            document.getElementById('progressBar').style.width = pct + '%';
+            document.getElementById('progressLabel').textContent = 'Adım ' + n + ' / 5';
+            document.getElementById('progressPct').textContent   = '%' + pct;
+
+            /* Özet paneli güncelle */
+            if (n === 5) buildSummary();
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /* ══════════════════════════════════════════════════════
+           BAGAJ
+        ══════════════════════════════════════════════════════ */
+        function selectBaggage(group, id, price) {
+            /* Önceki seçimi kaldır */
+            document.querySelectorAll('[id^="cabin-"]').forEach(function(el){ el.classList.remove('selected'); });
+            document.getElementById('cabin-' + id).classList.add('selected');
+            var names = { free:'Kişisel Eşya', small:'Kabin (S)', large:'Kabin (L)' };
+            cabinChoice = { id:id, price:price, name:names[id] };
+            document.getElementById('sideCabin').textContent = names[id];
+            updatePrice();
+        }
+
+        function updateHoldSlider(val) {
+            val = parseInt(val);
+            holdKg    = val;
+            holdPrice = HOLD_PRICES[val] || 0;
+
+            var slider = document.getElementById('holdKgSlider');
+            var pct    = (val / 32) * 100;
+            slider.style.setProperty('--val', pct + '%');
+
+            var display = document.getElementById('holdKgDisplay');
+            if (val === 0) {
+                display.textContent = '0 kg';
+                document.getElementById('sideHold').textContent = '—';
+            } else {
+                display.textContent = val + ' kg';
+                document.getElementById('sideHold').textContent = val + ' kg · ' + holdPrice + ' ' + CURRENCY;
+            }
+
+            updatePrice();
+        }
+
+        function toggleSpecial(id, price) {
+            var card = document.getElementById('special-' + id);
+            if (specialBags[id]) {
+                delete specialBags[id];
+                card.classList.remove('selected');
+            } else {
+                specialBags[id] = price;
+                card.classList.add('selected');
+            }
+            updatePrice();
+        }
+
+        /* ══════════════════════════════════════════════════════
+           KOLTUK HARİTASI
+        ══════════════════════════════════════════════════════ */
+        function buildSeatMap() {
+            var map  = document.getElementById('seatMap');
+            var html = '';
+
+            html += '<div class="smap-hdr"><div></div>';
+            ['A','B','C'].forEach(function(c){ html += '<div class="smap-col-lbl">' + c + '</div>'; });
+            html += '<div></div>';
+            ['D','E','F'].forEach(function(c){ html += '<div class="smap-col-lbl">' + c + '</div>'; });
+            html += '</div>';
+
+            for (var r = 1; r <= ROWS; r++) {
+                html += '<div class="smap-row"><div class="smap-row-num">' + r + '</div>';
+
+                for (var i = 0; i < 3; i++) {
+                    var sid = r + COLS[i];
+                    html += makeSeatBtn(sid, i);
+                }
+
+                html += '<div></div>';
+
+                for (var j = 3; j < 6; j++) {
+                    var sid2 = r + COLS[j];
+                    html += makeSeatBtn(sid2, j);
+                }
+
+                html += '</div>';
+            }
+
+            map.innerHTML = html;
+
+            /* Slider başlangıç rengi */
+            updateHoldSlider(0);
+        }
+
+        function makeSeatBtn(sid, colIdx) {
+            var occ  = OCCUPIED.indexOf(sid) !== -1;
+            var prem = PREMIUM.indexOf(sid)  !== -1;
+            var cls  = 'seat';
+            if (occ)  cls += ' occupied';
+            if (prem && !occ) cls += ' window'; /* sarı arka plan ipucu */
+
+            var style = (prem && !occ) ? 'style="background:#fefce8;border-color:#fde68a;"' : '';
+
+            return '<button class="' + cls + '" id="s-' + sid + '"' +
+                (occ ? ' disabled' : ' onclick="pickSeat(\'' + sid + '\'' + (prem ? ',true' : ',false') + ')"') +
+                ' ' + style + '>' + sid + '</button>';
+        }
+
+        function pickSeat(id, premium) {
+            if (selectedSeat) {
+                var prev = document.getElementById('s-' + selectedSeat);
+                if (prev) {
+                    prev.classList.remove('selected');
+                    if (PREMIUM.indexOf(selectedSeat) !== -1) {
+                        prev.style.background = '#fefce8'; prev.style.borderColor = '#fde68a';
+                    }
+                }
+            }
+
+            selectedSeat = (selectedSeat === id) ? null : id;
+
+            var tag   = document.getElementById('selectedTag');
+            var label = document.getElementById('selectedLabel');
+
+            if (selectedSeat) {
+                var el = document.getElementById('s-' + selectedSeat);
+                el.classList.add('selected');
+                el.style.background = ''; el.style.borderColor = '';
+                tag.classList.remove('empty');
+                label.textContent = 'Seçilen: ' + selectedSeat + (premium ? ' (Ücretli)' : '');
+                document.getElementById('sideSeat').textContent = selectedSeat;
+            } else {
+                tag.classList.add('empty');
+                label.textContent = 'Koltuk seçilmedi';
+                document.getElementById('sideSeat').textContent = '—';
+            }
+        }
+
+        function filterSeats(type, btn) {
+            document.querySelectorAll('.seat-filter-btn').forEach(function(b){ b.classList.remove('active'); });
+            btn.classList.add('active');
+
+            for (var r = 1; r <= ROWS; r++) {
+                for (var ci = 0; ci < COLS.length; ci++) {
+                    var sid = r + COLS[ci];
+                    var el  = document.getElementById('s-' + sid);
+                    if (!el || el.classList.contains('occupied')) continue;
+
+                    var show = true;
+                    if (type === 'window') show = (ci === 0 || ci === 5);
+                    else if (type === 'middle') show = (ci === 1 || ci === 4);
+                    else if (type === 'aisle')  show = (ci === 2 || ci === 3);
+                    else if (type === 'front')  show = r <= 5;
+                    else if (type === 'exit')   show = (r === 10 || r === 11);
+
+                    el.style.opacity = show ? '1' : '.25';
+                    el.style.pointerEvents = show ? '' : 'none';
+                }
+            }
+        }
+
+        /* ══════════════════════════════════════════════════════
+           YEMEK
+        ══════════════════════════════════════════════════════ */
+        function buildMeals(cat) {
+            cat = cat || 'all';
+            var list = meals.filter(function(m){ return cat === 'all' || m.cat === cat; });
+
+            document.getElementById('mealGrid').innerHTML = list.map(function(m) {
+                var tagHtml = m.tags.map(function(t) {
+                    var labels = { hot:'Sıcak', cold:'Soğuk', veg:'Vejetaryen', hal:'Helal' };
+                    return '<span class="meal-tag ' + t + '">' + (labels[t] || t) + '</span>';
+                }).join('');
+
+                return '<div class="meal-card' + (selectedMeal === m.id ? ' selected' : '') + '"' +
+                    ' id="meal-' + m.id + '" onclick="pickMeal(\'' + m.id + '\',' + m.price + ')">' +
+                    '<div class="meal-check"><i class="bi bi-check-lg"></i></div>' +
+                    '<div class="meal-img">' + m.emoji + '</div>' +
+                    '<div class="meal-info">' +
+                        '<div class="meal-name">' + m.name + '</div>' +
+                        '<div class="meal-desc">' + m.desc + '</div>' +
+                        '<div class="meal-tags">' + tagHtml + '</div>' +
+                        (m.free
+                            ? '<div class="meal-free">Ücretsiz</div>'
+                            : '<div class="meal-price">+ ' + m.price + ' ' + CURRENCY + '</div>') +
+                    '</div>' +
+                '</div>';
+            }).join('');
+        }
+
+        var mealPrice = 0;
+
+        function pickMeal(id, price) {
+            if (selectedMeal === id) {
+                selectedMeal = null; mealPrice = 0;
+            } else {
+                selectedMeal = id; mealPrice = price;
+            }
+
+            document.querySelectorAll('.meal-card').forEach(function(c){ c.classList.remove('selected'); });
+            if (selectedMeal) {
+                var el = document.getElementById('meal-' + selectedMeal);
+                if (el) el.classList.add('selected');
+                var m = meals.find(function(x){ return x.id === id; });
+                document.getElementById('sideMeal').textContent = m ? m.name : '—';
+            } else {
+                document.getElementById('sideMeal').textContent = '—';
+            }
+
+            updatePrice();
+        }
+
+        function filterMeals(cat, btn) {
+            document.querySelectorAll('.meal-cat-btn').forEach(function(b){ b.classList.remove('active'); });
+            btn.classList.add('active');
+            buildMeals(cat);
+        }
+
+        /* ══════════════════════════════════════════════════════
+           EK HİZMETLER
+        ══════════════════════════════════════════════════════ */
+        function buildExtras() {
+            document.getElementById('extrasGrid').innerHTML = extras.map(function(e) {
+                var freeTag = e.price === 0
+                    ? '<div class="ec-price" style="color:#16a34a;">Ücretsiz</div>'
+                    : '<div class="ec-price">+ ' + e.price + ' ' + CURRENCY + '</div>';
+
+                return '<label class="extra-card' + (selectedExtras.indexOf(e.id) !== -1 ? ' selected' : '') + '"' +
+                    ' id="ex-' + e.id + '" onclick="toggleExtra(\'' + e.id + '\',' + e.price + ')">' +
+                    '<input type="checkbox" />' +
+                    '<div class="ec-check"><i class="bi bi-check-lg"></i></div>' +
+                    '<div class="ec-ico" style="background:' + e.bg + ';color:' + e.fg + ';"><i class="bi ' + e.icon + '"></i></div>' +
+                    '<div class="ec-name">' + e.name + '</div>' +
+                    '<div class="ec-desc">' + e.desc + '</div>' +
+                    freeTag +
+                '</label>';
+            }).join('');
+        }
+
+        function toggleExtra(id, price) {
+            var idx  = selectedExtras.indexOf(id);
+            var card = document.getElementById('ex-' + id);
+
+            if (idx === -1) { selectedExtras.push(id); card.classList.add('selected'); }
+            else            { selectedExtras.splice(idx, 1); card.classList.remove('selected'); }
+
+            updatePrice();
+        }
+
+        /* ══════════════════════════════════════════════════════
+           PRICE
+        ══════════════════════════════════════════════════════ */
+        function updatePrice() {
+            var total     = BASE_PRICE;
+            var breakdown = '';
+
+            /* Kabin */
+            if (cabinChoice.price > 0) {
+                total += cabinChoice.price;
+                breakdown += '<div class="pr-row"><span class="pr-lbl">' + cabinChoice.name + '</span><span class="pr-val">+ ' + cabinChoice.price + ' ' + CURRENCY + '</span></div>';
+            }
+
+            /* Hold bagaj */
+            if (holdPrice > 0) {
+                total += holdPrice;
+                breakdown += '<div class="pr-row"><span class="pr-lbl">Ambar bagaj ' + holdKg + ' kg</span><span class="pr-val">+ ' + holdPrice + ' ' + CURRENCY + '</span></div>';
+            }
+
+            /* Özel bagaj */
+            Object.keys(specialBags).forEach(function(k) {
+                total += specialBags[k];
+                var n = { sport:'Spor Ekipmanı', golf:'Golf Ekipmanı', pet:'Evcil Hayvan' };
+                breakdown += '<div class="pr-row"><span class="pr-lbl">' + n[k] + '</span><span class="pr-val">+ ' + specialBags[k] + ' ' + CURRENCY + '</span></div>';
+            });
+
+            /* Yemek */
+            if (mealPrice > 0) {
+                total += mealPrice;
+                breakdown += '<div class="pr-row"><span class="pr-lbl">Yemek</span><span class="pr-val">+ ' + mealPrice + ' ' + CURRENCY + '</span></div>';
+            }
+
+            /* Ekstralar */
+            selectedExtras.forEach(function(id) {
+                var ex = extras.find(function(e){ return e.id === id; });
+                if (!ex || ex.price === 0) return;
+                total += ex.price;
+                breakdown += '<div class="pr-row"><span class="pr-lbl">' + ex.name + '</span><span class="pr-val">+ ' + ex.price + ' ' + CURRENCY + '</span></div>';
+            });
+
+            document.getElementById('priceBreakdown').innerHTML = breakdown;
+            document.getElementById('totalPrice').textContent   = total + ' ' + CURRENCY;
+
+            return total;
+        }
+
+        /* ══════════════════════════════════════════════════════
+           ÖZET (Tab 5)
+        ══════════════════════════════════════════════════════ */
+        function buildSummary() {
+            var mealObj = meals.find(function(m){ return m.id === selectedMeal; });
+            var extList = selectedExtras.map(function(id){ return extras.find(function(e){ return e.id === id; }); }).filter(Boolean);
+
+            var html =
+                /* Koltuk */
+                '<div class="summary-block">' +
+                    '<div class="sb-title"><i class="bi bi-grid-3x3-gap me-1"></i> Koltuk</div>' +
+                    '<div class="sb-row"><span class="sb-lbl">Seçilen Koltuk</span><span class="sb-val">' + (selectedSeat || '—') + '</span></div>' +
+                '</div>' +
+
+                /* Bagaj */
+                '<div class="summary-block">' +
+                    '<div class="sb-title"><i class="bi bi-luggage me-1"></i> Bagaj</div>' +
+                    '<div class="sb-row"><span class="sb-lbl">Kabin</span><span class="sb-val">' + cabinChoice.name + '</span></div>' +
+                    '<div class="sb-row"><span class="sb-lbl">Uçak Altı</span><span class="sb-val">' + (holdKg > 0 ? holdKg + ' kg' : 'Yok') + '</span></div>' +
+                    '<div class="sb-row"><span class="sb-lbl">Özel</span><span class="sb-val">' + (Object.keys(specialBags).length > 0 ? Object.keys(specialBags).length + ' kalem' : 'Yok') + '</span></div>' +
+                '</div>' +
+
+                /* Yemek */
+                '<div class="summary-block">' +
+                    '<div class="sb-title"><i class="bi bi-cup-hot me-1"></i> Yemek</div>' +
+                    '<div class="sb-row"><span class="sb-lbl">Seçilen</span><span class="sb-val">' + (mealObj ? mealObj.name : '—') + '</span></div>' +
+                '</div>' +
+
+                /* Ekstralar */
+                '<div class="summary-block">' +
+                    '<div class="sb-title"><i class="bi bi-bag-check me-1"></i> Ek Hizmetler</div>' +
+                    (extList.length > 0
+                        ? extList.map(function(e){ return '<div class="sb-row"><span class="sb-lbl">' + e.name + '</span><span class="sb-val">' + (e.price > 0 ? e.price + ' ' + CURRENCY : 'Ücretsiz') + '</span></div>'; }).join('')
+                        : '<div class="sb-empty">Seçilmedi</div>') +
+                '</div>';
+
+            document.getElementById('summaryGrid').innerHTML = html;
+        }
+
+        /* ══════════════════════════════════════════════════════
+           CHECK-IN
+        ══════════════════════════════════════════════════════ */
+        function completeCheckin() {
+            if (!selectedSeat) {
+                alert('Lütfen önce koltuk seçin (Adım 2).');
+                goTab(2);
+                return;
+            }
+
+            var total = updatePrice();
+            document.getElementById('modalSeat').textContent  = selectedSeat;
+            document.getElementById('modalTotal').textContent = total + ' ' + CURRENCY;
+
+            /* Barkod animasyonu */
+            generateBarcode();
+
+            document.getElementById('ciModal').classList.add('open');
+        }
+
+        function generateBarcode() {
+            var bars   = document.getElementById('barcodeBars');
+            var html   = '';
+            var widths = [2,1,3,1,2,4,1,2,1,3,2,1,4,1,2,1,3,2,1,4,2,1,3,1,2,4,1,2,3,1,2,1];
+            var heights = [36,28,36,20,36,32,24,36,20,36,28,36,24,36,20,36,32,28,36,24,36,20,36,28,32,20,36,28,24,36,20,36];
+
+            widths.forEach(function(w, i) {
+                html += '<div class="bp-bar" style="width:' + w + 'px;height:' + heights[i] + 'px;"></div>';
+            });
+
+            bars.innerHTML = html;
+        }
+
+        function downloadTicket() {
+            alert('Biniş kartı PDF formatında indirilecek. (Demo)');
+        }
+
+        function printTicket() {
+            window.print();
+        }
+
+        function closeModal() {
+            document.getElementById('ciModal').classList.remove('open');
+        }
+
+        document.getElementById('ciModal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+
+        /* ══════════════════════════════════════════════════════
+           INIT
+        ══════════════════════════════════════════════════════ */
+        document.addEventListener('DOMContentLoaded', function() {
+            buildSeatMap();
+            buildMeals('all');
+            buildExtras();
+            updatePrice();
+
+            /* Slider başlangıç değeri */
+            var s = document.getElementById('holdKgSlider');
+            s.style.setProperty('--val', '0%');
+        });
+
+    </script>
+}
