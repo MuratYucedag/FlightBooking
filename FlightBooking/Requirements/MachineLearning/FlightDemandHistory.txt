@@ -1,0 +1,1152 @@
+﻿[
+{ "route": "SAW-BGY", "flightDate": "2026-01-01", "flightType": "Morning", "passengerCount": 145, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-01-01", "flightType": "Evening", "passengerCount": 165, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-01-02", "flightType": "Morning", "passengerCount": 138, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-01-02", "flightType": "Evening", "passengerCount": 158, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-01-03", "flightType": "Morning", "passengerCount": 142, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-01-03", "flightType": "Evening", "passengerCount": 160, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-01-04", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-01-04", "flightType": "Evening", "passengerCount": 168, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-01-05", "flightType": "Morning", "passengerCount": 155, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-01-05", "flightType": "Evening", "passengerCount": 172, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-01-06", "flightType": "Morning", "passengerCount": 148, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-01-06", "flightType": "Evening", "passengerCount": 166, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-01-07", "flightType": "Morning", "passengerCount": 140, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-01-07", "flightType": "Evening", "passengerCount": 158, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-01-08", "flightType": "Morning", "passengerCount": 135, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-01-08", "flightType": "Evening", "passengerCount": 150, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-01-09", "flightType": "Morning", "passengerCount": 132, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-01-09", "flightType": "Evening", "passengerCount": 148, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-01-10", "flightType": "Morning", "passengerCount": 160, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-01-10", "flightType": "Evening", "passengerCount": 175, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-01-11", "flightType": "Morning", "passengerCount": 162, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-01-11", "flightType": "Evening", "passengerCount": 178, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-01-12", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-01-12", "flightType": "Evening", "passengerCount": 170, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-01-13", "flightType": "Morning", "passengerCount": 145, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-01-13", "flightType": "Evening", "passengerCount": 165, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-01-14", "flightType": "Morning", "passengerCount": 138, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-01-14", "flightType": "Evening", "passengerCount": 158, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-01-15", "flightType": "Morning", "passengerCount": 142, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-01-15", "flightType": "Evening", "passengerCount": 160, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-01-16", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-01-16", "flightType": "Evening", "passengerCount": 168, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-01-17", "flightType": "Morning", "passengerCount": 155, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-01-17", "flightType": "Evening", "passengerCount": 172, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-01-18", "flightType": "Morning", "passengerCount": 148, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-01-18", "flightType": "Evening", "passengerCount": 166, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-01-19", "flightType": "Morning", "passengerCount": 140, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-01-19", "flightType": "Evening", "passengerCount": 158, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-01-20", "flightType": "Morning", "passengerCount": 135, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-01-20", "flightType": "Evening", "passengerCount": 150, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-01-21", "flightType": "Morning", "passengerCount": 132, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-01-21", "flightType": "Evening", "passengerCount": 148, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-01-22", "flightType": "Morning", "passengerCount": 160, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-01-22", "flightType": "Evening", "passengerCount": 175, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-01-23", "flightType": "Morning", "passengerCount": 162, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-01-23", "flightType": "Evening", "passengerCount": 178, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-01-24", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-01-24", "flightType": "Evening", "passengerCount": 170, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-01-25", "flightType": "Morning", "passengerCount": 145, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-01-25", "flightType": "Evening", "passengerCount": 165, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-01-26", "flightType": "Morning", "passengerCount": 138, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-01-26", "flightType": "Evening", "passengerCount": 158, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-01-27", "flightType": "Morning", "passengerCount": 142, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-01-27", "flightType": "Evening", "passengerCount": 160, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-01-28", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-01-28", "flightType": "Evening", "passengerCount": 168, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-01-29", "flightType": "Morning", "passengerCount": 155, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-01-29", "flightType": "Evening", "passengerCount": 172, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-01-30", "flightType": "Morning", "passengerCount": 148, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-01-30", "flightType": "Evening", "passengerCount": 166, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-01-31", "flightType": "Morning", "passengerCount": 140, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-01-31", "flightType": "Evening", "passengerCount": 158, "capacity": 180 }
+]
+
+---------------------------------------------------------
+
+[
+{ "route": "SAW-BGY", "flightDate": "2026-02-01", "flightType": "Morning", "passengerCount": 140, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-02-01", "flightType": "Evening", "passengerCount": 160, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-02-02", "flightType": "Morning", "passengerCount": 135, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-02-02", "flightType": "Evening", "passengerCount": 155, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-02-03", "flightType": "Morning", "passengerCount": 138, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-02-03", "flightType": "Evening", "passengerCount": 158, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-02-04", "flightType": "Morning", "passengerCount": 145, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-02-04", "flightType": "Evening", "passengerCount": 165, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-02-05", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-02-05", "flightType": "Evening", "passengerCount": 170, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-02-06", "flightType": "Morning", "passengerCount": 142, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-02-06", "flightType": "Evening", "passengerCount": 162, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-02-07", "flightType": "Morning", "passengerCount": 148, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-02-07", "flightType": "Evening", "passengerCount": 168, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-02-08", "flightType": "Morning", "passengerCount": 152, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-02-08", "flightType": "Evening", "passengerCount": 172, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-02-09", "flightType": "Morning", "passengerCount": 140, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-02-09", "flightType": "Evening", "passengerCount": 160, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-02-10", "flightType": "Morning", "passengerCount": 138, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-02-10", "flightType": "Evening", "passengerCount": 158, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-02-11", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-02-11", "flightType": "Evening", "passengerCount": 170, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-02-12", "flightType": "Morning", "passengerCount": 155, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-02-12", "flightType": "Evening", "passengerCount": 175, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-02-13", "flightType": "Morning", "passengerCount": 148, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-02-13", "flightType": "Evening", "passengerCount": 168, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-02-14", "flightType": "Morning", "passengerCount": 160, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-02-14", "flightType": "Evening", "passengerCount": 178, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-02-15", "flightType": "Morning", "passengerCount": 158, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-02-15", "flightType": "Evening", "passengerCount": 176, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-02-16", "flightType": "Morning", "passengerCount": 145, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-02-16", "flightType": "Evening", "passengerCount": 165, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-02-17", "flightType": "Morning", "passengerCount": 142, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-02-17", "flightType": "Evening", "passengerCount": 162, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-02-18", "flightType": "Morning", "passengerCount": 148, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-02-18", "flightType": "Evening", "passengerCount": 168, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-02-19", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-02-19", "flightType": "Evening", "passengerCount": 170, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-02-20", "flightType": "Morning", "passengerCount": 138, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-02-20", "flightType": "Evening", "passengerCount": 158, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-02-21", "flightType": "Morning", "passengerCount": 160, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-02-21", "flightType": "Evening", "passengerCount": 178, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-02-22", "flightType": "Morning", "passengerCount": 162, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-02-22", "flightType": "Evening", "passengerCount": 179, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-02-23", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-02-23", "flightType": "Evening", "passengerCount": 170, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-02-24", "flightType": "Morning", "passengerCount": 145, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-02-24", "flightType": "Evening", "passengerCount": 165, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-02-25", "flightType": "Morning", "passengerCount": 148, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-02-25", "flightType": "Evening", "passengerCount": 168, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-02-26", "flightType": "Morning", "passengerCount": 152, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-02-26", "flightType": "Evening", "passengerCount": 172, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-02-27", "flightType": "Morning", "passengerCount": 155, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-02-27", "flightType": "Evening", "passengerCount": 175, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-02-28", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-02-28", "flightType": "Evening", "passengerCount": 170, "capacity": 180 },
+
+
+
+{ "route": "SAW-BGY", "flightDate": "2026-03-01", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-03-01", "flightType": "Evening", "passengerCount": 170, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-03-02", "flightType": "Morning", "passengerCount": 145, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-03-02", "flightType": "Evening", "passengerCount": 165, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-03-03", "flightType": "Morning", "passengerCount": 148, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-03-03", "flightType": "Evening", "passengerCount": 168, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-03-04", "flightType": "Morning", "passengerCount": 152, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-03-04", "flightType": "Evening", "passengerCount": 172, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-03-05", "flightType": "Morning", "passengerCount": 155, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-03-05", "flightType": "Evening", "passengerCount": 175, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-03-06", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-03-06", "flightType": "Evening", "passengerCount": 170, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-03-07", "flightType": "Morning", "passengerCount": 158, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-03-07", "flightType": "Evening", "passengerCount": 178, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-03-08", "flightType": "Morning", "passengerCount": 160, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-03-08", "flightType": "Evening", "passengerCount": 179, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-03-09", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-03-09", "flightType": "Evening", "passengerCount": 170, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-03-10", "flightType": "Morning", "passengerCount": 145, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-03-10", "flightType": "Evening", "passengerCount": 165, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-03-11", "flightType": "Morning", "passengerCount": 148, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-03-11", "flightType": "Evening", "passengerCount": 168, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-03-12", "flightType": "Morning", "passengerCount": 152, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-03-12", "flightType": "Evening", "passengerCount": 172, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-03-13", "flightType": "Morning", "passengerCount": 155, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-03-13", "flightType": "Evening", "passengerCount": 175, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-03-14", "flightType": "Morning", "passengerCount": 160, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-03-14", "flightType": "Evening", "passengerCount": 179, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-03-15", "flightType": "Morning", "passengerCount": 158, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-03-15", "flightType": "Evening", "passengerCount": 178, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-03-16", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-03-16", "flightType": "Evening", "passengerCount": 170, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-03-17", "flightType": "Morning", "passengerCount": 145, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-03-17", "flightType": "Evening", "passengerCount": 165, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-03-18", "flightType": "Morning", "passengerCount": 148, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-03-18", "flightType": "Evening", "passengerCount": 168, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-03-19", "flightType": "Morning", "passengerCount": 152, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-03-19", "flightType": "Evening", "passengerCount": 172, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-03-20", "flightType": "Morning", "passengerCount": 155, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-03-20", "flightType": "Evening", "passengerCount": 175, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-03-21", "flightType": "Morning", "passengerCount": 160, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-03-21", "flightType": "Evening", "passengerCount": 179, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-03-22", "flightType": "Morning", "passengerCount": 158, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-03-22", "flightType": "Evening", "passengerCount": 178, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-03-23", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-03-23", "flightType": "Evening", "passengerCount": 170, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-03-24", "flightType": "Morning", "passengerCount": 145, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-03-24", "flightType": "Evening", "passengerCount": 165, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-03-25", "flightType": "Morning", "passengerCount": 148, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-03-25", "flightType": "Evening", "passengerCount": 168, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-03-26", "flightType": "Morning", "passengerCount": 152, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-03-26", "flightType": "Evening", "passengerCount": 172, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-03-27", "flightType": "Morning", "passengerCount": 155, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-03-27", "flightType": "Evening", "passengerCount": 175, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-03-28", "flightType": "Morning", "passengerCount": 160, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-03-28", "flightType": "Evening", "passengerCount": 179, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-03-29", "flightType": "Morning", "passengerCount": 158, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-03-29", "flightType": "Evening", "passengerCount": 178, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-03-30", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-03-30", "flightType": "Evening", "passengerCount": 170, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-03-31", "flightType": "Morning", "passengerCount": 145, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-03-31", "flightType": "Evening", "passengerCount": 165, "capacity": 180 }
+]
+
+
+-------------------------------------------------------------
+
+NISAN
+
+[
+{ "route": "SAW-BGY", "flightDate": "2026-04-01", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-04-01", "flightType": "Evening", "passengerCount": 170, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-04-02", "flightType": "Morning", "passengerCount": 148, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-04-02", "flightType": "Evening", "passengerCount": 168, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-04-03", "flightType": "Morning", "passengerCount": 152, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-04-03", "flightType": "Evening", "passengerCount": 172, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-04-04", "flightType": "Morning", "passengerCount": 160, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-04-04", "flightType": "Evening", "passengerCount": 178, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-04-05", "flightType": "Morning", "passengerCount": 162, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-04-05", "flightType": "Evening", "passengerCount": 179, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-04-06", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-04-06", "flightType": "Evening", "passengerCount": 170, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-04-07", "flightType": "Morning", "passengerCount": 148, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-04-07", "flightType": "Evening", "passengerCount": 168, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-04-08", "flightType": "Morning", "passengerCount": 152, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-04-08", "flightType": "Evening", "passengerCount": 172, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-04-09", "flightType": "Morning", "passengerCount": 155, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-04-09", "flightType": "Evening", "passengerCount": 175, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-04-10", "flightType": "Morning", "passengerCount": 160, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-04-10", "flightType": "Evening", "passengerCount": 179, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-04-11", "flightType": "Morning", "passengerCount": 162, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-04-11", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-04-12", "flightType": "Morning", "passengerCount": 158, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-04-12", "flightType": "Evening", "passengerCount": 178, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-04-13", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-04-13", "flightType": "Evening", "passengerCount": 170, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-04-14", "flightType": "Morning", "passengerCount": 148, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-04-14", "flightType": "Evening", "passengerCount": 168, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-04-15", "flightType": "Morning", "passengerCount": 152, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-04-15", "flightType": "Evening", "passengerCount": 172, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-04-16", "flightType": "Morning", "passengerCount": 155, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-04-16", "flightType": "Evening", "passengerCount": 175, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-04-17", "flightType": "Morning", "passengerCount": 160, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-04-17", "flightType": "Evening", "passengerCount": 179, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-04-18", "flightType": "Morning", "passengerCount": 165, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-04-18", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-04-19", "flightType": "Morning", "passengerCount": 162, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-04-19", "flightType": "Evening", "passengerCount": 179, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-04-20", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-04-20", "flightType": "Evening", "passengerCount": 170, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-04-21", "flightType": "Morning", "passengerCount": 148, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-04-21", "flightType": "Evening", "passengerCount": 168, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-04-22", "flightType": "Morning", "passengerCount": 152, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-04-22", "flightType": "Evening", "passengerCount": 172, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-04-23", "flightType": "Morning", "passengerCount": 155, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-04-23", "flightType": "Evening", "passengerCount": 175, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-04-24", "flightType": "Morning", "passengerCount": 160, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-04-24", "flightType": "Evening", "passengerCount": 179, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-04-25", "flightType": "Morning", "passengerCount": 165, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-04-25", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-04-26", "flightType": "Morning", "passengerCount": 162, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-04-26", "flightType": "Evening", "passengerCount": 179, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-04-27", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-04-27", "flightType": "Evening", "passengerCount": 170, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-04-28", "flightType": "Morning", "passengerCount": 148, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-04-28", "flightType": "Evening", "passengerCount": 168, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-04-29", "flightType": "Morning", "passengerCount": 152, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-04-29", "flightType": "Evening", "passengerCount": 172, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-04-30", "flightType": "Morning", "passengerCount": 155, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-04-30", "flightType": "Evening", "passengerCount": 175, "capacity": 180 }
+]
+----------------------
+
+MAYIS
+
+
+[
+{ "route": "SAW-BGY", "flightDate": "2026-05-01", "flightType": "Morning", "passengerCount": 155, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-05-01", "flightType": "Evening", "passengerCount": 175, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-05-02", "flightType": "Morning", "passengerCount": 160, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-05-02", "flightType": "Evening", "passengerCount": 178, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-05-03", "flightType": "Morning", "passengerCount": 162, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-05-03", "flightType": "Evening", "passengerCount": 179, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-05-04", "flightType": "Morning", "passengerCount": 155, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-05-04", "flightType": "Evening", "passengerCount": 175, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-05-05", "flightType": "Morning", "passengerCount": 158, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-05-05", "flightType": "Evening", "passengerCount": 178, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-05-06", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-05-06", "flightType": "Evening", "passengerCount": 170, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-05-07", "flightType": "Morning", "passengerCount": 148, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-05-07", "flightType": "Evening", "passengerCount": 168, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-05-08", "flightType": "Morning", "passengerCount": 152, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-05-08", "flightType": "Evening", "passengerCount": 172, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-05-09", "flightType": "Morning", "passengerCount": 160, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-05-09", "flightType": "Evening", "passengerCount": 179, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-05-10", "flightType": "Morning", "passengerCount": 162, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-05-10", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-05-11", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-05-11", "flightType": "Evening", "passengerCount": 170, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-05-12", "flightType": "Morning", "passengerCount": 148, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-05-12", "flightType": "Evening", "passengerCount": 168, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-05-13", "flightType": "Morning", "passengerCount": 152, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-05-13", "flightType": "Evening", "passengerCount": 172, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-05-14", "flightType": "Morning", "passengerCount": 155, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-05-14", "flightType": "Evening", "passengerCount": 175, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-05-15", "flightType": "Morning", "passengerCount": 160, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-05-15", "flightType": "Evening", "passengerCount": 179, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-05-16", "flightType": "Morning", "passengerCount": 165, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-05-16", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-05-17", "flightType": "Morning", "passengerCount": 162, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-05-17", "flightType": "Evening", "passengerCount": 179, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-05-18", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-05-18", "flightType": "Evening", "passengerCount": 170, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-05-19", "flightType": "Morning", "passengerCount": 148, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-05-19", "flightType": "Evening", "passengerCount": 168, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-05-20", "flightType": "Morning", "passengerCount": 152, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-05-20", "flightType": "Evening", "passengerCount": 172, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-05-21", "flightType": "Morning", "passengerCount": 155, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-05-21", "flightType": "Evening", "passengerCount": 175, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-05-22", "flightType": "Morning", "passengerCount": 160, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-05-22", "flightType": "Evening", "passengerCount": 179, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-05-23", "flightType": "Morning", "passengerCount": 165, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-05-23", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-05-24", "flightType": "Morning", "passengerCount": 162, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-05-24", "flightType": "Evening", "passengerCount": 179, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-05-25", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-05-25", "flightType": "Evening", "passengerCount": 170, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-05-26", "flightType": "Morning", "passengerCount": 148, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-05-26", "flightType": "Evening", "passengerCount": 168, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-05-27", "flightType": "Morning", "passengerCount": 152, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-05-27", "flightType": "Evening", "passengerCount": 172, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-05-28", "flightType": "Morning", "passengerCount": 155, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-05-28", "flightType": "Evening", "passengerCount": 175, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-05-29", "flightType": "Morning", "passengerCount": 160, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-05-29", "flightType": "Evening", "passengerCount": 179, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-05-30", "flightType": "Morning", "passengerCount": 165, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-05-30", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-05-31", "flightType": "Morning", "passengerCount": 162, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-05-31", "flightType": "Evening", "passengerCount": 179, "capacity": 180 }
+]
+
+
+-----------------------------------------------
+
+HAZİRAN
+
+[
+{ "route": "SAW-BGY", "flightDate": "2026-06-01", "flightType": "Morning", "passengerCount": 165, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-06-01", "flightType": "Evening", "passengerCount": 179, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-06-02", "flightType": "Morning", "passengerCount": 168, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-06-02", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-06-03", "flightType": "Morning", "passengerCount": 170, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-06-03", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-06-04", "flightType": "Morning", "passengerCount": 172, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-06-04", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-06-05", "flightType": "Morning", "passengerCount": 175, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-06-05", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-06-06", "flightType": "Morning", "passengerCount": 178, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-06-06", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-06-07", "flightType": "Morning", "passengerCount": 180, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-06-07", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-06-08", "flightType": "Morning", "passengerCount": 170, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-06-08", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-06-09", "flightType": "Morning", "passengerCount": 168, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-06-09", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-06-10", "flightType": "Morning", "passengerCount": 165, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-06-10", "flightType": "Evening", "passengerCount": 179, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-06-11", "flightType": "Morning", "passengerCount": 172, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-06-11", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-06-12", "flightType": "Morning", "passengerCount": 175, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-06-12", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-06-13", "flightType": "Morning", "passengerCount": 178, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-06-13", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-06-14", "flightType": "Morning", "passengerCount": 180, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-06-14", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-06-15", "flightType": "Morning", "passengerCount": 170, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-06-15", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-06-16", "flightType": "Morning", "passengerCount": 168, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-06-16", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-06-17", "flightType": "Morning", "passengerCount": 165, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-06-17", "flightType": "Evening", "passengerCount": 179, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-06-18", "flightType": "Morning", "passengerCount": 172, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-06-18", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-06-19", "flightType": "Morning", "passengerCount": 175, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-06-19", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-06-20", "flightType": "Morning", "passengerCount": 178, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-06-20", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-06-21", "flightType": "Morning", "passengerCount": 180, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-06-21", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-06-22", "flightType": "Morning", "passengerCount": 170, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-06-22", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-06-23", "flightType": "Morning", "passengerCount": 168, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-06-23", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-06-24", "flightType": "Morning", "passengerCount": 165, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-06-24", "flightType": "Evening", "passengerCount": 179, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-06-25", "flightType": "Morning", "passengerCount": 172, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-06-25", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-06-26", "flightType": "Morning", "passengerCount": 175, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-06-26", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-06-27", "flightType": "Morning", "passengerCount": 178, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-06-27", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-06-28", "flightType": "Morning", "passengerCount": 180, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-06-28", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-06-29", "flightType": "Morning", "passengerCount": 170, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-06-29", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-06-30", "flightType": "Morning", "passengerCount": 168, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-06-30", "flightType": "Evening", "passengerCount": 180, "capacity": 180 }
+]
+
+
+----------------------------------------------------------------------
+
+ TEMMUZ AĞUSTOS
+
+[
+{ "route": "SAW-BGY", "flightDate": "2026-07-01", "flightType": "Morning", "passengerCount": 175, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-07-01", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-07-02", "flightType": "Morning", "passengerCount": 178, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-07-02", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-07-03", "flightType": "Morning", "passengerCount": 180, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-07-03", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-07-04", "flightType": "Morning", "passengerCount": 180, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-07-04", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-07-05", "flightType": "Morning", "passengerCount": 179, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-07-05", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-07-06", "flightType": "Morning", "passengerCount": 178, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-07-06", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-07-07", "flightType": "Morning", "passengerCount": 175, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-07-07", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-07-08", "flightType": "Morning", "passengerCount": 178, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-07-08", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-07-09", "flightType": "Morning", "passengerCount": 180, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-07-09", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-07-10", "flightType": "Morning", "passengerCount": 179, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-07-10", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-07-11", "flightType": "Morning", "passengerCount": 180, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-07-11", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-07-12", "flightType": "Morning", "passengerCount": 178, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-07-12", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-07-13", "flightType": "Morning", "passengerCount": 175, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-07-13", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-07-14", "flightType": "Morning", "passengerCount": 178, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-07-14", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-07-15", "flightType": "Morning", "passengerCount": 180, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-07-15", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-07-16", "flightType": "Morning", "passengerCount": 179, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-07-16", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-07-17", "flightType": "Morning", "passengerCount": 180, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-07-17", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-07-18", "flightType": "Morning", "passengerCount": 180, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-07-18", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-07-19", "flightType": "Morning", "passengerCount": 179, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-07-19", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-07-20", "flightType": "Morning", "passengerCount": 178, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-07-20", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-07-21", "flightType": "Morning", "passengerCount": 175, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-07-21", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-07-22", "flightType": "Morning", "passengerCount": 178, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-07-22", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-07-23", "flightType": "Morning", "passengerCount": 180, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-07-23", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-07-24", "flightType": "Morning", "passengerCount": 179, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-07-24", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-07-25", "flightType": "Morning", "passengerCount": 180, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-07-25", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-07-26", "flightType": "Morning", "passengerCount": 178, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-07-26", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-07-27", "flightType": "Morning", "passengerCount": 175, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-07-27", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-07-28", "flightType": "Morning", "passengerCount": 178, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-07-28", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-07-29", "flightType": "Morning", "passengerCount": 180, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-07-29", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-07-30", "flightType": "Morning", "passengerCount": 179, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-07-30", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-07-31", "flightType": "Morning", "passengerCount": 180, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-07-31", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+
+
+{ "route": "SAW-BGY", "flightDate": "2026-08-01", "flightType": "Morning", "passengerCount": 178, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-08-01", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-08-02", "flightType": "Morning", "passengerCount": 180, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-08-02", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-08-03", "flightType": "Morning", "passengerCount": 179, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-08-03", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-08-04", "flightType": "Morning", "passengerCount": 178, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-08-04", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-08-05", "flightType": "Morning", "passengerCount": 180, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-08-05", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-08-06", "flightType": "Morning", "passengerCount": 179, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-08-06", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-08-07", "flightType": "Morning", "passengerCount": 178, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-08-07", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-08-08", "flightType": "Morning", "passengerCount": 180, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-08-08", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-08-09", "flightType": "Morning", "passengerCount": 179, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-08-09", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-08-10", "flightType": "Morning", "passengerCount": 178, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-08-10", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-08-11", "flightType": "Morning", "passengerCount": 180, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-08-11", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-08-12", "flightType": "Morning", "passengerCount": 179, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-08-12", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-08-13", "flightType": "Morning", "passengerCount": 178, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-08-13", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-08-14", "flightType": "Morning", "passengerCount": 180, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-08-14", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-08-15", "flightType": "Morning", "passengerCount": 179, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-08-15", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-08-16", "flightType": "Morning", "passengerCount": 178, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-08-16", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-08-17", "flightType": "Morning", "passengerCount": 180, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-08-17", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-08-18", "flightType": "Morning", "passengerCount": 179, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-08-18", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-08-19", "flightType": "Morning", "passengerCount": 178, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-08-19", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-08-20", "flightType": "Morning", "passengerCount": 180, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-08-20", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-08-21", "flightType": "Morning", "passengerCount": 179, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-08-21", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-08-22", "flightType": "Morning", "passengerCount": 178, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-08-22", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-08-23", "flightType": "Morning", "passengerCount": 180, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-08-23", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-08-24", "flightType": "Morning", "passengerCount": 179, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-08-24", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-08-25", "flightType": "Morning", "passengerCount": 178, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-08-25", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-08-26", "flightType": "Morning", "passengerCount": 180, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-08-26", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-08-27", "flightType": "Morning", "passengerCount": 179, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-08-27", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-08-28", "flightType": "Morning", "passengerCount": 178, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-08-28", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-08-29", "flightType": "Morning", "passengerCount": 180, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-08-29", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-08-30", "flightType": "Morning", "passengerCount": 179, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-08-30", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-08-31", "flightType": "Morning", "passengerCount": 178, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-08-31", "flightType": "Evening", "passengerCount": 180, "capacity": 180 }
+]
+
+----------------------------------
+
+EYLÜL
+
+[
+{ "route": "SAW-BGY", "flightDate": "2026-09-01", "flightType": "Morning", "passengerCount": 170, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-09-01", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-09-02", "flightType": "Morning", "passengerCount": 168, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-09-02", "flightType": "Evening", "passengerCount": 178, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-09-03", "flightType": "Morning", "passengerCount": 165, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-09-03", "flightType": "Evening", "passengerCount": 175, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-09-04", "flightType": "Morning", "passengerCount": 170, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-09-04", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-09-05", "flightType": "Morning", "passengerCount": 172, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-09-05", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-09-06", "flightType": "Morning", "passengerCount": 170, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-09-06", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-09-07", "flightType": "Morning", "passengerCount": 165, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-09-07", "flightType": "Evening", "passengerCount": 175, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-09-08", "flightType": "Morning", "passengerCount": 162, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-09-08", "flightType": "Evening", "passengerCount": 172, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-09-09", "flightType": "Morning", "passengerCount": 160, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-09-09", "flightType": "Evening", "passengerCount": 170, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-09-10", "flightType": "Morning", "passengerCount": 158, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-09-10", "flightType": "Evening", "passengerCount": 168, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-09-11", "flightType": "Morning", "passengerCount": 162, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-09-11", "flightType": "Evening", "passengerCount": 172, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-09-12", "flightType": "Morning", "passengerCount": 165, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-09-12", "flightType": "Evening", "passengerCount": 175, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-09-13", "flightType": "Morning", "passengerCount": 168, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-09-13", "flightType": "Evening", "passengerCount": 178, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-09-14", "flightType": "Morning", "passengerCount": 160, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-09-14", "flightType": "Evening", "passengerCount": 170, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-09-15", "flightType": "Morning", "passengerCount": 158, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-09-15", "flightType": "Evening", "passengerCount": 168, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-09-16", "flightType": "Morning", "passengerCount": 155, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-09-16", "flightType": "Evening", "passengerCount": 165, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-09-17", "flightType": "Morning", "passengerCount": 152, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-09-17", "flightType": "Evening", "passengerCount": 162, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-09-18", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-09-18", "flightType": "Evening", "passengerCount": 160, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-09-19", "flightType": "Morning", "passengerCount": 155, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-09-19", "flightType": "Evening", "passengerCount": 165, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-09-20", "flightType": "Morning", "passengerCount": 158, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-09-20", "flightType": "Evening", "passengerCount": 168, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-09-21", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-09-21", "flightType": "Evening", "passengerCount": 160, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-09-22", "flightType": "Morning", "passengerCount": 148, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-09-22", "flightType": "Evening", "passengerCount": 158, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-09-23", "flightType": "Morning", "passengerCount": 145, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-09-23", "flightType": "Evening", "passengerCount": 155, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-09-24", "flightType": "Morning", "passengerCount": 142, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-09-24", "flightType": "Evening", "passengerCount": 152, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-09-25", "flightType": "Morning", "passengerCount": 140, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-09-25", "flightType": "Evening", "passengerCount": 150, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-09-26", "flightType": "Morning", "passengerCount": 145, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-09-26", "flightType": "Evening", "passengerCount": 155, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-09-27", "flightType": "Morning", "passengerCount": 148, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-09-27", "flightType": "Evening", "passengerCount": 158, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-09-28", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-09-28", "flightType": "Evening", "passengerCount": 160, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-09-29", "flightType": "Morning", "passengerCount": 152, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-09-29", "flightType": "Evening", "passengerCount": 162, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-09-30", "flightType": "Morning", "passengerCount": 155, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-09-30", "flightType": "Evening", "passengerCount": 165, "capacity": 180 }
+]
+
+----------------------------------------------------
+EKIM
+
+[
+{ "route": "SAW-BGY", "flightDate": "2026-10-01", "flightType": "Morning", "passengerCount": 155, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-10-01", "flightType": "Evening", "passengerCount": 170, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-10-02", "flightType": "Morning", "passengerCount": 152, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-10-02", "flightType": "Evening", "passengerCount": 168, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-10-03", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-10-03", "flightType": "Evening", "passengerCount": 165, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-10-04", "flightType": "Morning", "passengerCount": 148, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-10-04", "flightType": "Evening", "passengerCount": 162, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-10-05", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-10-05", "flightType": "Evening", "passengerCount": 165, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-10-06", "flightType": "Morning", "passengerCount": 152, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-10-06", "flightType": "Evening", "passengerCount": 168, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-10-07", "flightType": "Morning", "passengerCount": 155, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-10-07", "flightType": "Evening", "passengerCount": 170, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-10-08", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-10-08", "flightType": "Evening", "passengerCount": 165, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-10-09", "flightType": "Morning", "passengerCount": 148, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-10-09", "flightType": "Evening", "passengerCount": 162, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-10-10", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-10-10", "flightType": "Evening", "passengerCount": 165, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-10-11", "flightType": "Morning", "passengerCount": 152, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-10-11", "flightType": "Evening", "passengerCount": 168, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-10-12", "flightType": "Morning", "passengerCount": 155, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-10-12", "flightType": "Evening", "passengerCount": 170, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-10-13", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-10-13", "flightType": "Evening", "passengerCount": 165, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-10-14", "flightType": "Morning", "passengerCount": 148, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-10-14", "flightType": "Evening", "passengerCount": 162, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-10-15", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-10-15", "flightType": "Evening", "passengerCount": 165, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-10-16", "flightType": "Morning", "passengerCount": 152, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-10-16", "flightType": "Evening", "passengerCount": 168, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-10-17", "flightType": "Morning", "passengerCount": 155, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-10-17", "flightType": "Evening", "passengerCount": 170, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-10-18", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-10-18", "flightType": "Evening", "passengerCount": 165, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-10-19", "flightType": "Morning", "passengerCount": 148, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-10-19", "flightType": "Evening", "passengerCount": 162, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-10-20", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-10-20", "flightType": "Evening", "passengerCount": 165, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-10-21", "flightType": "Morning", "passengerCount": 152, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-10-21", "flightType": "Evening", "passengerCount": 168, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-10-22", "flightType": "Morning", "passengerCount": 155, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-10-22", "flightType": "Evening", "passengerCount": 170, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-10-23", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-10-23", "flightType": "Evening", "passengerCount": 165, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-10-24", "flightType": "Morning", "passengerCount": 148, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-10-24", "flightType": "Evening", "passengerCount": 162, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-10-25", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-10-25", "flightType": "Evening", "passengerCount": 165, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-10-26", "flightType": "Morning", "passengerCount": 152, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-10-26", "flightType": "Evening", "passengerCount": 168, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-10-27", "flightType": "Morning", "passengerCount": 155, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-10-27", "flightType": "Evening", "passengerCount": 170, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-10-28", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-10-28", "flightType": "Evening", "passengerCount": 165, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-10-29", "flightType": "Morning", "passengerCount": 148, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-10-29", "flightType": "Evening", "passengerCount": 162, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-10-30", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-10-30", "flightType": "Evening", "passengerCount": 165, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-10-31", "flightType": "Morning", "passengerCount": 152, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-10-31", "flightType": "Evening", "passengerCount": 168, "capacity": 180 }
+]
+
+--------------------
+
+KASIM ARALIK
+
+[
+{ "route": "SAW-BGY", "flightDate": "2026-11-01", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-11-01", "flightType": "Evening", "passengerCount": 165, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-11-02", "flightType": "Morning", "passengerCount": 148, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-11-02", "flightType": "Evening", "passengerCount": 162, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-11-03", "flightType": "Morning", "passengerCount": 145, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-11-03", "flightType": "Evening", "passengerCount": 160, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-11-04", "flightType": "Morning", "passengerCount": 148, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-11-04", "flightType": "Evening", "passengerCount": 162, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-11-05", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-11-05", "flightType": "Evening", "passengerCount": 165, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-11-06", "flightType": "Morning", "passengerCount": 152, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-11-06", "flightType": "Evening", "passengerCount": 168, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-11-07", "flightType": "Morning", "passengerCount": 155, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-11-07", "flightType": "Evening", "passengerCount": 170, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-11-08", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-11-08", "flightType": "Evening", "passengerCount": 165, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-11-09", "flightType": "Morning", "passengerCount": 148, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-11-09", "flightType": "Evening", "passengerCount": 162, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-11-10", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-11-10", "flightType": "Evening", "passengerCount": 165, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-11-11", "flightType": "Morning", "passengerCount": 152, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-11-11", "flightType": "Evening", "passengerCount": 168, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-11-12", "flightType": "Morning", "passengerCount": 155, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-11-12", "flightType": "Evening", "passengerCount": 170, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-11-13", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-11-13", "flightType": "Evening", "passengerCount": 165, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-11-14", "flightType": "Morning", "passengerCount": 148, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-11-14", "flightType": "Evening", "passengerCount": 162, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-11-15", "flightType": "Morning", "passengerCount": 150, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-11-15", "flightType": "Evening", "passengerCount": 165, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-11-16", "flightType": "Morning", "passengerCount": 152, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-11-16", "flightType": "Evening", "passengerCount": 168, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-11-17", "flightType": "Morning", "passengerCount": 155, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-11-17", "flightType": "Evening", "passengerCount": 170, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-11-18", "flightType": "Morning", "passengerCount": 158, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-11-18", "flightType": "Evening", "passengerCount": 172, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-11-19", "flightType": "Morning", "passengerCount": 160, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-11-19", "flightType": "Evening", "passengerCount": 175, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-11-20", "flightType": "Morning", "passengerCount": 162, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-11-20", "flightType": "Evening", "passengerCount": 178, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-11-21", "flightType": "Morning", "passengerCount": 165, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-11-21", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-11-22", "flightType": "Morning", "passengerCount": 162, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-11-22", "flightType": "Evening", "passengerCount": 178, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-11-23", "flightType": "Morning", "passengerCount": 165, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-11-23", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-11-24", "flightType": "Morning", "passengerCount": 168, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-11-24", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-11-25", "flightType": "Morning", "passengerCount": 170, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-11-25", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-11-26", "flightType": "Morning", "passengerCount": 172, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-11-26", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-11-27", "flightType": "Morning", "passengerCount": 175, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-11-27", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-11-28", "flightType": "Morning", "passengerCount": 178, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-11-28", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-11-29", "flightType": "Morning", "passengerCount": 175, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-11-29", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-11-30", "flightType": "Morning", "passengerCount": 178, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-11-30", "flightType": "Evening", "passengerCount": 180, "capacity": 180 }
+]
+
+
+
+[
+{ "route": "SAW-BGY", "flightDate": "2026-12-01", "flightType": "Morning", "passengerCount": 165, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-12-01", "flightType": "Evening", "passengerCount": 175, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-12-02", "flightType": "Morning", "passengerCount": 168, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-12-02", "flightType": "Evening", "passengerCount": 178, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-12-03", "flightType": "Morning", "passengerCount": 170, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-12-03", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-12-04", "flightType": "Morning", "passengerCount": 172, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-12-04", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-12-05", "flightType": "Morning", "passengerCount": 175, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-12-05", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-12-06", "flightType": "Morning", "passengerCount": 178, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-12-06", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-12-07", "flightType": "Morning", "passengerCount": 180, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-12-07", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-12-08", "flightType": "Morning", "passengerCount": 178, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-12-08", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-12-09", "flightType": "Morning", "passengerCount": 175, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-12-09", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-12-10", "flightType": "Morning", "passengerCount": 178, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-12-10", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-12-11", "flightType": "Morning", "passengerCount": 180, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-12-11", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-12-12", "flightType": "Morning", "passengerCount": 180, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-12-12", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-12-13", "flightType": "Morning", "passengerCount": 178, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-12-13", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-12-14", "flightType": "Morning", "passengerCount": 180, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-12-14", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-12-15", "flightType": "Morning", "passengerCount": 180, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-12-15", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-12-16", "flightType": "Morning", "passengerCount": 180, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-12-16", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-12-17", "flightType": "Morning", "passengerCount": 180, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-12-17", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-12-18", "flightType": "Morning", "passengerCount": 180, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-12-18", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-12-19", "flightType": "Morning", "passengerCount": 180, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-12-19", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-12-20", "flightType": "Morning", "passengerCount": 180, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-12-20", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-12-21", "flightType": "Morning", "passengerCount": 180, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-12-21", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-12-22", "flightType": "Morning", "passengerCount": 180, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-12-22", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-12-23", "flightType": "Morning", "passengerCount": 180, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-12-23", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-12-24", "flightType": "Morning", "passengerCount": 180, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-12-24", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-12-25", "flightType": "Morning", "passengerCount": 180, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-12-25", "flightType": "Evening", "passengerCount": 180, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-12-26", "flightType": "Morning", "passengerCount": 170, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-12-26", "flightType": "Evening", "passengerCount": 175, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-12-27", "flightType": "Morning", "passengerCount": 165, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-12-27", "flightType": "Evening", "passengerCount": 170, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-12-28", "flightType": "Morning", "passengerCount": 160, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-12-28", "flightType": "Evening", "passengerCount": 165, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-12-29", "flightType": "Morning", "passengerCount": 158, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-12-29", "flightType": "Evening", "passengerCount": 162, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-12-30", "flightType": "Morning", "passengerCount": 160, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-12-30", "flightType": "Evening", "passengerCount": 165, "capacity": 180 },
+
+{ "route": "SAW-BGY", "flightDate": "2026-12-31", "flightType": "Morning", "passengerCount": 165, "capacity": 180 },
+{ "route": "SAW-BGY", "flightDate": "2026-12-31", "flightType": "Evening", "passengerCount": 170, "capacity": 180 }
+]
