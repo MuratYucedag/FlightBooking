@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Predict";
+    Layout = "~/Areas/Admin/Views/Layout/AdminLayout.cshtml";
+}
+
+<main class="main-content" id="main-content">
+
+    <h2>Uçuş Doluluk Tahmini</h2>
+
+    <form method="post">
+
+        <label>Uçuş Tarihi</label>
+        <br />
+        <input type="date" name="flightDate" class="form-control" />
+
+        <br />
+
+        <label>Uçuş Tipi</label>
+        <br />
+        <select name="flightType" class="form-control">
+            <option value="Morning">Morning</option>
+            <option value="Evening">Evening</option>
+        </select>
+
+        <br /><br />
+
+        <button class="btn btn-primary">Tahmin Yap</button>
+
+    </form>
+
+    @if (ViewBag.Result != null)
+    {
+        <hr />
+
+        <h3>@ViewBag.Result</h3>
+
+        <h4>
+            Doluluk Olasılığı:
+            %@((ViewBag.Probability * 100).ToString("0.00"))
+        </h4>
+    }
+
+</main>

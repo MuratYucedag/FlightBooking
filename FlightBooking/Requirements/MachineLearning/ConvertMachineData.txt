@@ -1,0 +1,17 @@
+﻿public async Task<List<FlightData>> ConvertToMlDataAsync()
+{
+    var rawData = await GetAllAsync();
+
+    var mlData = rawData.Select(x => new FlightData
+    {
+        Month = DateTime.Parse(x.FlightDate).Month,
+
+        DayOfWeek = (float)DateTime.Parse(x.FlightDate).DayOfWeek,
+
+        FlightType = x.FlightType == "Morning" ? 0 : 1,
+
+        IsFull = x.PassengerCount >= x.Capacity * 0.9
+    }).ToList();
+
+    return mlData;
+}
