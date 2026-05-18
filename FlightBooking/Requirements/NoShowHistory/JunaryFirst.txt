@@ -1,0 +1,62 @@
+﻿[
+  {
+    "route": "SAW-BGY",
+    "flightDate": "2026-01-01",
+    "flightSlot": "Morning-1",
+    "aircraftType": "Airbus A320",
+    "capacity": 180,
+    "soldTickets": 176,
+    "onlineCheckedIn": 118,
+    "airportCheckedIn": 49,
+    "boardedPassenger": 167,
+    "noShowPassenger": 9,
+    "onlineCheckInNoShow": 3,
+    "missedConnection": 2,
+    "cancelledPassenger": 1
+  },
+  {
+    "route": "SAW-BGY",
+    "flightDate": "2026-01-01",
+    "flightSlot": "Morning-2",
+    "aircraftType": "Boeing 737 MAX",
+    "capacity": 189,
+    "soldTickets": 191,
+    "onlineCheckedIn": 136,
+    "airportCheckedIn": 46,
+    "boardedPassenger": 182,
+    "noShowPassenger": 9,
+    "onlineCheckInNoShow": 4,
+    "missedConnection": 2,
+    "cancelledPassenger": 1
+  },
+  {
+    "route": "SAW-BGY",
+    "flightDate": "2026-01-01",
+    "flightSlot": "Evening-1",
+    "aircraftType": "Airbus A321",
+    "capacity": 220,
+    "soldTickets": 228,
+    "onlineCheckedIn": 168,
+    "airportCheckedIn": 48,
+    "boardedPassenger": 216,
+    "noShowPassenger": 12,
+    "onlineCheckInNoShow": 5,
+    "missedConnection": 4,
+    "cancelledPassenger": 2
+  },
+  {
+    "route": "SAW-BGY",
+    "flightDate": "2026-01-01",
+    "flightSlot": "Evening-2",
+    "aircraftType": "Airbus A321neo High Density",
+    "capacity": 240,
+    "soldTickets": 247,
+    "onlineCheckedIn": 186,
+    "airportCheckedIn": 49,
+    "boardedPassenger": 235,
+    "noShowPassenger": 12,
+    "onlineCheckInNoShow": 6,
+    "missedConnection": 3,
+    "cancelledPassenger": 2
+  }
+]

@@ -1,5 +1,6 @@
 ﻿using FlightBooking.MachineLearningModels;
 using FlightBooking.Services.MachineLearningServices;
+using FlightBooking.Services.NoShowServices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FlightBooking.Areas.Admin.Controllers
@@ -9,11 +10,20 @@ namespace FlightBooking.Areas.Admin.Controllers
     {
         private readonly MongoFlightDataService _mongoFlightDataService;
         private readonly FlightMlService _flightMlService;
+        private readonly NoShowService _noShowService;
 
-        public ForecastController(MongoFlightDataService mongoFlightDataService, FlightMlService flightMlService)
+        public ForecastController(MongoFlightDataService mongoFlightDataService, FlightMlService flightMlService, NoShowService noShowService)
         {
             _mongoFlightDataService = mongoFlightDataService;
             _flightMlService = flightMlService;
+            _noShowService = noShowService;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> NoShowAnalysis()
+        {
+            var values = await _noShowService.GetSlotBasedNoShowRatesAsync();
+            return View(values);
         }
 
         public async Task<IActionResult> TrainModel()
