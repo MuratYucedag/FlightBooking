@@ -1,0 +1,82 @@
+﻿using FlightBooking.MachineLearningOverbookingModels;
+
+namespace FlightBooking.Services
+{
+    public class OverbookingRecommendationService
+    {
+        private readonly MongoNoShowService _mongoNoShowService;
+
+        public OverbookingRecommendationService(
+            MongoNoShowService mongoNoShowService)
+        {
+            _mongoNoShowService = mongoNoShowService;
+        }
+
+        public async Task<OverbookingRecommendationResult>
+            GenerateRecommendationAsync(
+                string flightDate,
+                string flightSlot,
+                int forecastPassenger,
+                int capacity)
+        {
+            var slotRates =
+                await _mongoNoShowService
+                    .GetSlotBasedNoShowRatesAsync();
+
+            double noShowRate = 0;
+
+            if (slotRates.ContainsKey(flightSlot))
+            {
+                noShowRate = slotRates[flightSlot];
+            }
+
+            int expectedNoShowPassenger =
+                (int)Math.Round(
+                    forecastPassenger * (noShowRate / 100));
+
+            int recommendedMaxSale =
+                capacity + expectedNoShowPassenger;
+
+            int extraSellableSeat =
+                recommendedMaxSale - capacity;
+
+            string riskLevel = "Low";
+
+            if (noShowRate >= 7)
+                riskLevel = "High";
+
+            else if (noShowRate >= 5)
+                riskLevel = "Medium";
+
+            string recommendation =
+                riskLevel switch
+                {
+                    "High" =>
+                        "Agresif overbooking uygulanabilir",
+
+                    "Medium" =>
+                        "Kontrollü overbooking önerilir",
+
+                    _ =>
+                        "Standart satış politikası önerilir"
+                };
+
+            return new OverbookingRecommendationResult
+            {
+                FlightDate = flightDate,
+                FlightSlot = flightSlot,
+                ForecastPassengerCount = forecastPassenger,
+                Capacity = capacity,
+                ExpectedNoShowRate = noShowRate,
+                ExpectedNoShowPassenger =
+                    expectedNoShowPassenger,
+                RecommendedMaxTicketSale =
+                    recommendedMaxSale,
+                ExtraSellableSeatCount =
+                    extraSellableSeat,
+                RiskLevel = riskLevel,
+                Recommendation = recommendation
+            };
+        }
+    }
+}
