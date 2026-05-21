@@ -1,0 +1,177 @@
+﻿  private readonly IMongoCollection<NoShowHistory>
+            _noShowCollection;
+
+        private readonly MLContext _mlContext;
+
+        public NoShowPredictionService(
+            IConfiguration configuration)
+        {
+            var client = new MongoClient(
+                configuration["MongoDbSettings:ConnectionString"]);
+
+            var database = client.GetDatabase(
+                configuration["MongoDbSettings:DatabaseName"]);
+
+            _noShowCollection =
+                database.GetCollection<NoShowHistory>(
+                    "NoShowHistories");
+
+            _mlContext = new MLContext();
+        }
+
+        public async Task<List<string>>
+            PredictJanuary2027Async()
+        {
+            var historicalData =
+                await _noShowCollection
+                    .Find(_ => true)
+                    .ToListAsync();
+
+            var trainingData =
+                historicalData.Select(x =>
+                    new NoShowPredictionData
+                    {
+                        Month =
+                            DateTime.Parse(x.FlightDate).Month,
+
+                        DayOfWeek =
+                            (float)DateTime.Parse(
+                                x.FlightDate).DayOfWeek,
+
+                        FlightSlot =
+                            ConvertFlightSlotToNumber(
+                                x.FlightSlot),
+
+                        Capacity = x.Capacity,
+
+                        SoldTickets = x.SoldTickets,
+
+                        OnlineCheckedIn =
+                            x.OnlineCheckedIn,
+
+                        AirportCheckedIn =
+                            x.AirportCheckedIn,
+
+                        MissedConnection =
+                            x.MissedConnection,
+
+                        CancelledPassenger =
+                            x.CancelledPassenger,
+
+                        NoShowPassenger =
+                            x.NoShowPassenger
+                    }).ToList();
+
+            var dataView =
+                _mlContext.Data.LoadFromEnumerable(
+                    trainingData);
+
+            var pipeline =
+                _mlContext.Transforms.Concatenate(
+                        "Features",
+                        nameof(NoShowPredictionData.Month),
+                        nameof(NoShowPredictionData.DayOfWeek),
+                        nameof(NoShowPredictionData.FlightSlot),
+                        nameof(NoShowPredictionData.Capacity),
+                        nameof(NoShowPredictionData.SoldTickets),
+                        nameof(NoShowPredictionData.OnlineCheckedIn),
+                        nameof(NoShowPredictionData.AirportCheckedIn),
+                        nameof(NoShowPredictionData.MissedConnection),
+                        nameof(NoShowPredictionData.CancelledPassenger)
+                    )
+                    .Append(
+                        _mlContext.Regression.Trainers
+                            .FastTree(
+                                labelColumnName:
+                                    "NoShowPassenger",
+                                featureColumnName:
+                                    "Features"));
+
+            var model = pipeline.Fit(dataView);
+
+            var predictionEngine =
+                _mlContext.Model.CreatePredictionEngine
+                    <NoShowPredictionData,
+                     NoShowPredictionResult>(model);
+
+            var results = new List<string>();
+
+            for (int day = 1; day <= 31; day++)
+            {
+                var date = new DateTime(2027, 1, day);
+
+                var slots = new List<(string Slot,
+                    int Capacity)>
+                {
+                    ("Morning-1",180),
+                    ("Morning-2",189),
+                    ("Evening-1",220),
+                    ("Evening-2",240)
+                };
+
+                foreach (var slot in slots)
+                {
+                    var sample =
+                        new NoShowPredictionData
+                        {
+                            Month = 1,
+
+                            DayOfWeek =
+                                (float)date.DayOfWeek,
+
+                            FlightSlot =
+                                ConvertFlightSlotToNumber(
+                                    slot.Slot),
+
+                            Capacity = slot.Capacity,
+
+                            SoldTickets =
+                                slot.Capacity,
+
+                            OnlineCheckedIn =
+                                slot.Capacity * 0.70f,
+
+                            AirportCheckedIn =
+                                slot.Capacity * 0.20f,
+
+                            MissedConnection = 2,
+
+                            CancelledPassenger = 1
+                        };
+
+                    var prediction =
+                        predictionEngine.Predict(sample);
+
+                    var predictedNoShow =
+                        (int)Math.Round(
+                            prediction.Score);
+
+                    var recommendedMaxSale =
+                        slot.Capacity +
+                        predictedNoShow;
+
+                    results.Add(
+                        $"{date:dd.MM.yyyy} | " +
+                        $"{slot.Slot} | " +
+                        $"Tahmini NoShow: " +
+                        $"{predictedNoShow} | " +
+                        $"Önerilen Max Satış: " +
+                        $"{recommendedMaxSale}");
+                }
+            }
+
+            return results;
+        }
+
+        private float ConvertFlightSlotToNumber(
+            string slot)
+        {
+            return slot switch
+            {
+                "Morning-1" => 1,
+                "Morning-2" => 2,
+                "Evening-1" => 3,
+                "Evening-2" => 4,
+                _ => 0
+            };
+        }

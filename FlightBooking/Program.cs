@@ -3,6 +3,7 @@ using FlightBooking.Services.CheckInServices;
 using FlightBooking.Services.FlightServices;
 using FlightBooking.Services.MachineLearningServices;
 using FlightBooking.Services.NoShowServices;
+using FlightBooking.Services.OverBookingNoShowServices;
 using FlightBooking.Settings;
 using Microsoft.Extensions.Options;
 using System.Reflection;
@@ -16,6 +17,7 @@ builder.Services.AddScoped<ICheckInService, CheckInService>();
 builder.Services.AddSingleton<FlightRegressionService>();
 builder.Services.AddScoped<NoShowService>();
 builder.Services.AddScoped<OverbookingRecommendationService>();
+builder.Services.AddScoped<NoShowPredictionService>();
 
 builder.Services.AddSingleton<FlightMlService>();
 builder.Services.AddScoped<MongoFlightDataService>();

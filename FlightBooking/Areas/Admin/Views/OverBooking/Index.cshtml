@@ -1581,8 +1581,7 @@
                             <tr>
                                 <th>Tarih</th>
                                 <th>Slot</th>
-                                <th>Gerçek Pax</th>
-                                <th>Tahmin Pax</th>
+                                <th>Boarded Passenger</th>
                                 <th style="min-width:110px;">Kapasite</th>
                                 <th>Bek. No-Show</th>
                                 <th>Önerilen Satış</th>
@@ -1618,7 +1617,6 @@
                                                 @rec.FlightSlot
                                             </span>
                                         </td>
-                                        <td><span class="ob-num">@rec.ActualPassengerCount</span></td>
                                         <td><span style="color:#7c3aed;font-weight:600;">@(rec.ForecastPassengerCount.HasValue? rec.ForecastPassengerCount.Value.ToString() : "—")</span></td>
                                         <td>
                                             <div class="cap-bar-wrap">

@@ -1,0 +1,1990 @@
+﻿@model List<OverbookingForecastResultDto>
+
+@{
+    ViewData["Title"] = "2027 AI Overbooking Forecast Dashboard";
+    Layout = "~/Areas/Admin/Views/Layout/AdminLayout.cshtml";
+
+    @* ── Razor KPI Hesapları ── *@
+    double avgNoShow = Model.Count > 0 ? Model.Average(r => r.PredictedNoShow) : 0;
+    double avgExtra = Model.Count > 0 ? Model.Average(r => r.ExtraSeatCount) : 0;
+    int totalExtra = Model.Sum(r => r.ExtraSeatCount);
+    double totalRevenue = Model.Sum(r => r.EstimatedRevenue);
+    int totalFlights = Model.Count;
+
+    @* En riskli / güvenli slot *@
+    var slotGroups = Model
+        .GroupBy(r => r.FlightSlot)
+        .Select(g => new { Slot = g.Key, AvgNS = g.Average(x => x.PredictedNoShow) })
+        .OrderByDescending(x => x.AvgNS).ToList();
+    string riskySlot = slotGroups.Any() ? slotGroups.First().Slot : "—";
+    string safeSlot = slotGroups.Any() ? slotGroups.Last().Slot : "—";
+
+    @* Risk yardımcıları *@
+    Func<string, string> rc = (r) => r == "Critical" ? "#dc2626" : r == "High" ? "#ea580c" : r == "Medium" ? "#d97706" : "#16a34a";
+    Func<string, string> rbg = (r) => r == "Critical" ? "#fef2f2" : r == "High" ? "#fff7ed" : r == "Medium" ? "#fffbeb" : "#f0fdf4";
+    Func<string, string> rbd = (r) => r == "Critical" ? "#fecaca" : r == "High" ? "#fed7aa" : r == "Medium" ? "#fde68a" : "#bbf7d0";
+    Func<string, string> rlb = (r) => r == "Critical" ? "Kritik" : r == "High" ? "Yüksek" : r == "Medium" ? "Orta" : "Düşük";
+    Func<string, string> rio = (r) => r == "Critical" ? "bi-fire" : r == "High" ? "bi-exclamation-triangle-fill" : r == "Medium" ? "bi-dash-circle" : "bi-check-circle";
+
+    @* Slot renk sistemi *@
+    Func<string, string> slotColor = (s) =>
+        s == "Morning-1" ? "#2563eb" :
+        s == "Morning-2" ? "#0891b2" :
+        s == "Evening-1" ? "#7c3aed" :
+        s == "Evening-2" ? "#a21caf" : "#475569";
+    Func<string, string> slotBg = (s) =>
+        s == "Morning-1" ? "#eff6ff" :
+        s == "Morning-2" ? "#ecfeff" :
+        s == "Evening-1" ? "#f5f3ff" :
+        s == "Evening-2" ? "#fdf4ff" : "#f8fafc";
+    Func<string, string> slotBd = (s) =>
+        s == "Morning-1" ? "#bfdbfe" :
+        s == "Morning-2" ? "#a5f3fc" :
+        s == "Evening-1" ? "#ddd6fe" :
+        s == "Evening-2" ? "#f0abfc" : "#e2e8f0";
+    Func<string, string> slotIcon = (s) =>
+        s.StartsWith("Morning") ? "bi-sunrise-fill" : "bi-moon-stars-fill";
+
+    @* Uçak badge rengi *@
+    Func<string, string> aircraftColor = (a) =>
+        a != null && a.Contains("A321") ? "#0891b2" :
+        a != null && a.Contains("A320") ? "#2563eb" :
+        a != null && a.Contains("737") ? "#ea580c" : "#7c3aed";
+    Func<string, string> aircraftBg = (a) =>
+        a != null && a.Contains("A321") ? "#ecfeff" :
+        a != null && a.Contains("A320") ? "#eff6ff" :
+        a != null && a.Contains("737") ? "#fff7ed" : "#f5f3ff";
+}
+
+@section Styles {
+    <style>
+        /* ════════════════════════════════════════
+               GLOBAL
+            ════════════════════════════════════════ */
+        .ob-page {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            font-family: 'DM Sans', system-ui, sans-serif;
+        }
+
+        /* ════════════════════════════════════════
+               PAGE HEADER
+            ════════════════════════════════════════ */
+        .pg-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .pg-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: #0f172a;
+            margin: 0 0 4px;
+            letter-spacing: -.4px;
+        }
+
+        .pg-sub {
+            font-size: 13px;
+            color: #64748b;
+            margin: 0;
+        }
+
+        .pg-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .pg-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 9px 20px;
+            border-radius: 9px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .15s;
+            border: none;
+            text-decoration: none;
+        }
+
+        .pg-btn-primary {
+            background: #2563eb;
+            color: #fff;
+        }
+
+            .pg-btn-primary:hover {
+                background: #1d4ed8;
+                box-shadow: 0 4px 14px rgba(37,99,235,.3);
+                color: #fff;
+            }
+
+        .pg-btn-outline {
+            background: #fff;
+            color: #475569;
+            border: 1.5px solid #e2e8f0;
+        }
+
+            .pg-btn-outline:hover {
+                border-color: #94a3b8;
+                color: #0f172a;
+            }
+
+        /* ════════════════════════════════════════
+               HERO
+            ════════════════════════════════════════ */
+        .hero {
+            background: #fff;
+            border: 1px solid #e8edf5;
+            border-radius: 16px;
+            padding: 28px 32px 24px;
+            box-shadow: 0 1px 6px rgba(15,23,42,.06);
+            position: relative;
+            overflow: hidden;
+        }
+
+            .hero::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                width: 4px;
+                background: linear-gradient(180deg, #2563eb 0%, #7c3aed 55%, #0891b2 100%);
+                border-radius: 16px 0 0 16px;
+            }
+
+            .hero::after {
+                content: '';
+                position: absolute;
+                right: 0;
+                top: 0;
+                width: 320px;
+                height: 100%;
+                background: linear-gradient(135deg, transparent 0%, rgba(37,99,235,.03) 100%);
+                pointer-events: none;
+            }
+
+        .hero-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin-bottom: 22px;
+        }
+
+        .hero-eyebrow {
+            font-size: 10.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: #2563eb;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+
+        .hero-eyebrow-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #2563eb;
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+
+        @@keyframes pulse-dot {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: .4;
+                transform: scale(.8);
+            }
+        }
+
+        .hero-title {
+            font-size: 21px;
+            font-weight: 800;
+            color: #0f172a;
+            margin: 0 0 5px;
+            letter-spacing: -.4px;
+        }
+
+        .hero-desc {
+            font-size: 13px;
+            color: #64748b;
+            margin: 0 0 14px;
+        }
+
+        .hero-chips {
+            display: flex;
+            gap: 7px;
+            flex-wrap: wrap;
+        }
+
+        .hero-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 12px;
+            border-radius: 99px;
+            font-size: 11.5px;
+            font-weight: 600;
+            border: 1.5px solid transparent;
+        }
+
+        .hc-blue {
+            background: #eff6ff;
+            color: #2563eb;
+            border-color: #bfdbfe;
+        }
+
+        .hc-purple {
+            background: #f5f3ff;
+            color: #7c3aed;
+            border-color: #ddd6fe;
+        }
+
+        .hc-green {
+            background: #f0fdf4;
+            color: #16a34a;
+            border-color: #bbf7d0;
+        }
+
+        .hc-orange {
+            background: #fff7ed;
+            color: #ea580c;
+            border-color: #fed7aa;
+        }
+
+        .hc-teal {
+            background: #ecfeff;
+            color: #0891b2;
+            border-color: #a5f3fc;
+        }
+
+        .hc-ai {
+            background: linear-gradient(135deg, #eff6ff, #f5f3ff);
+            color: #2563eb;
+            border-color: #c7d2fe;
+            font-weight: 700;
+        }
+
+        /* Route Vis */
+        .hero-route {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            background: #f8fafc;
+            border: 1px solid #f1f5f9;
+            border-radius: 12px;
+            padding: 16px 22px;
+            min-width: 340px;
+        }
+
+        .hero-apt {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .hero-apt-right {
+            text-align: right;
+        }
+
+        .hero-iata {
+            font-size: 30px;
+            font-weight: 900;
+            color: #0f172a;
+            letter-spacing: -.5px;
+            line-height: 1;
+        }
+
+        .hero-apt-name {
+            font-size: 10.5px;
+            font-weight: 600;
+            color: #475569;
+        }
+
+        .hero-apt-country {
+            font-size: 9.5px;
+            color: #94a3b8;
+        }
+
+        .hero-connector {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            flex: 1;
+            min-width: 100px;
+        }
+
+        .hero-conn-line {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            width: 100%;
+        }
+
+        .hero-conn-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #2563eb;
+            flex-shrink: 0;
+        }
+
+        .hero-conn-dash {
+            flex: 1;
+            height: 1.5px;
+            background: repeating-linear-gradient(90deg, #bfdbfe 0, #bfdbfe 5px, transparent 5px, transparent 9px);
+        }
+
+        .hero-plane {
+            font-size: 18px;
+            color: #2563eb;
+            flex-shrink: 0;
+        }
+
+        .hero-conn-meta {
+            display: flex;
+            gap: 10px;
+            font-size: 10px;
+            color: #94a3b8;
+            font-weight: 600;
+        }
+
+        /* Hero Stats Bar */
+        .hero-stats {
+            display: flex;
+            align-items: stretch;
+            gap: 0;
+            border-top: 1px solid #f1f5f9;
+            padding-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .hs-item {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 0 24px;
+            flex: 1;
+            min-width: 140px;
+        }
+
+            .hs-item:first-child {
+                padding-left: 0;
+            }
+
+        .hs-sep {
+            width: 1px;
+            background: #f1f5f9;
+            align-self: stretch;
+            min-height: 44px;
+            flex-shrink: 0;
+        }
+
+        .hs-ico {
+            width: 34px;
+            height: 34px;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            flex-shrink: 0;
+        }
+
+        .hs-body {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .hs-lbl {
+            font-size: 9.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .7px;
+            color: #94a3b8;
+        }
+
+        .hs-val {
+            font-size: 13px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .hs-sub {
+            font-size: 10.5px;
+            color: #94a3b8;
+        }
+
+        .ai-mod-chips {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+            margin-top: 2px;
+        }
+
+        .ai-mod {
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 700;
+            background: #fff7ed;
+            color: #ea580c;
+            border: 1px solid #fed7aa;
+        }
+
+        /* ════════════════════════════════════════
+               KPI CARDS
+            ════════════════════════════════════════ */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 14px;
+        }
+
+        .kpi-card {
+            background: #fff;
+            border: 1px solid #e8edf5;
+            border-radius: 14px;
+            padding: 18px 18px 16px;
+            box-shadow: 0 1px 4px rgba(15,23,42,.05);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            position: relative;
+            overflow: hidden;
+            transition: box-shadow .18s, transform .18s;
+        }
+
+            .kpi-card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 3px;
+                border-radius: 14px 14px 0 0;
+            }
+
+            .kpi-card:hover {
+                box-shadow: 0 6px 24px rgba(15,23,42,.09);
+                transform: translateY(-2px);
+            }
+
+        .kc-1::before {
+            background: linear-gradient(90deg, #2563eb, #60a5fa);
+        }
+
+        .kc-2::before {
+            background: linear-gradient(90deg, #16a34a, #4ade80);
+        }
+
+        .kc-3::before {
+            background: linear-gradient(90deg, #0891b2, #22d3ee);
+        }
+
+        .kc-4::before {
+            background: linear-gradient(90deg, #7c3aed, #a78bfa);
+        }
+
+        .kc-5::before {
+            background: linear-gradient(90deg, #dc2626, #f87171);
+        }
+
+        .kc-6::before {
+            background: linear-gradient(90deg, #059669, #34d399);
+        }
+
+        .kpi-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .kpi-lbl {
+            font-size: 10.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .7px;
+            color: #94a3b8;
+        }
+
+        .kpi-ico {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .kpi-val {
+            font-size: 26px;
+            font-weight: 800;
+            color: #0f172a;
+            letter-spacing: -.5px;
+            line-height: 1;
+        }
+
+        .kpi-val-sm {
+            font-size: 16px;
+            font-weight: 800;
+            color: #0f172a;
+            line-height: 1.3;
+            margin-top: 2px;
+        }
+
+        .kpi-foot {
+            font-size: 11.5px;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .kpi-bdg {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            font-size: 10.5px;
+            font-weight: 600;
+            padding: 2px 7px;
+            border-radius: 5px;
+        }
+
+        .kb-blue {
+            background: #eff6ff;
+            color: #2563eb;
+        }
+
+        .kb-green {
+            background: #f0fdf4;
+            color: #16a34a;
+        }
+
+        .kb-teal {
+            background: #ecfeff;
+            color: #0891b2;
+        }
+
+        .kb-purple {
+            background: #f5f3ff;
+            color: #7c3aed;
+        }
+
+        .kb-red {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        .kb-em {
+            background: #ecfdf5;
+            color: #059669;
+        }
+
+        /* ════════════════════════════════════════
+               MAIN TABLE
+            ════════════════════════════════════════ */
+        .tbl-card {
+            background: #fff;
+            border: 1px solid #e8edf5;
+            border-radius: 14px;
+            box-shadow: 0 1px 4px rgba(15,23,42,.05);
+            overflow: hidden;
+        }
+
+        .tbl-head {
+            padding: 14px 20px;
+            border-bottom: 1px solid #f1f5f9;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            background: #fafbfd;
+            flex-wrap: wrap;
+        }
+
+        .tbl-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+            .tbl-title i {
+                color: #2563eb;
+            }
+
+        .tbl-count {
+            font-size: 12px;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+
+        .tbl-filters {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            padding: 10px 20px;
+            border-bottom: 1px solid #f1f5f9;
+            background: #fafbfd;
+        }
+
+        .t-chip {
+            padding: 4px 12px;
+            border-radius: 99px;
+            font-size: 11.5px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1.5px solid #e2e8f0;
+            background: #fff;
+            color: #64748b;
+            transition: all .13s;
+        }
+
+            .t-chip.active, .t-chip:hover {
+                background: #eff6ff;
+                border-color: #bfdbfe;
+                color: #2563eb;
+            }
+
+        .t-search {
+            margin-left: auto;
+            position: relative;
+        }
+
+            .t-search i {
+                position: absolute;
+                left: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+                color: #94a3b8;
+                font-size: 12px;
+            }
+
+            .t-search input {
+                padding: 6px 10px 6px 30px;
+                border-radius: 8px;
+                border: 1.5px solid #e2e8f0;
+                font-size: 12.5px;
+                color: #0f172a;
+                background: #fff;
+                outline: none;
+                width: 190px;
+                transition: border-color .15s;
+            }
+
+                .t-search input:focus {
+                    border-color: #93c5fd;
+                }
+
+        .main-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12.5px;
+        }
+
+            .main-table thead tr {
+                background: #f8fafc;
+                border-bottom: 2px solid #f1f5f9;
+            }
+
+            .main-table thead th {
+                padding: 10px 14px;
+                font-size: 10.5px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: .6px;
+                color: #94a3b8;
+                text-align: left;
+                white-space: nowrap;
+                position: sticky;
+                top: 0;
+                background: #f8fafc;
+                z-index: 1;
+            }
+
+            .main-table tbody tr {
+                border-bottom: 1px solid #f8fafc;
+                transition: background .12s;
+            }
+
+                .main-table tbody tr:last-child {
+                    border-bottom: none;
+                }
+
+                .main-table tbody tr:hover {
+                    background: #fafbfd;
+                }
+
+            .main-table td {
+                padding: 12px 14px;
+                vertical-align: middle;
+            }
+
+        .date-cell {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+        }
+
+        .date-main {
+            font-weight: 700;
+            color: #0f172a;
+            font-size: 13px;
+        }
+
+        .date-day {
+            font-size: 10.5px;
+            color: #94a3b8;
+        }
+
+        .slot-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 3px 10px;
+            border-radius: 99px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .aircraft-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 9px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .cap-num {
+            font-weight: 700;
+            color: #475569;
+            font-size: 13px;
+        }
+
+        .ns-wrap {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 100px;
+        }
+
+        .ns-bar-bg {
+            flex: 1;
+            height: 5px;
+            background: #f1f5f9;
+            border-radius: 99px;
+            overflow: hidden;
+        }
+
+        .ns-bar-fill {
+            height: 100%;
+            border-radius: 99px;
+        }
+
+        .ns-num {
+            font-size: 12.5px;
+            font-weight: 700;
+            min-width: 24px;
+            text-align: right;
+        }
+
+        .max-sale-num {
+            font-weight: 700;
+            color: #0f172a;
+            font-size: 13px;
+        }
+
+        .extra-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 10px;
+            border-radius: 99px;
+            font-size: 11.5px;
+            font-weight: 700;
+            background: #eff6ff;
+            color: #2563eb;
+            border: 1px solid #bfdbfe;
+        }
+
+        .risk-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11.5px;
+            font-weight: 700;
+        }
+
+        .rev-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 10px;
+            border-radius: 99px;
+            font-size: 11.5px;
+            font-weight: 700;
+            background: #f0fdf4;
+            color: #16a34a;
+            border: 1px solid #bbf7d0;
+        }
+
+        /* ════════════════════════════════════════
+               SLOT INTELLIGENCE
+            ════════════════════════════════════════ */
+        .slot-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+        }
+
+        .slot-card {
+            background: #fff;
+            border: 1px solid #e8edf5;
+            border-radius: 12px;
+            padding: 16px 18px;
+            box-shadow: 0 1px 3px rgba(15,23,42,.04);
+            transition: box-shadow .15s, transform .15s;
+        }
+
+            .slot-card:hover {
+                box-shadow: 0 4px 18px rgba(15,23,42,.08);
+                transform: translateY(-1px);
+            }
+
+        .slot-card-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .slot-card-ico {
+            width: 36px;
+            height: 36px;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .slot-card-name {
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .slot-card-sub {
+            font-size: 10.5px;
+            color: #94a3b8;
+        }
+
+        .slot-metrics {
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+
+        .slot-metric {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .slot-metric-hdr {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+        }
+
+        .slot-metric-lbl {
+            color: #64748b;
+        }
+
+        .slot-metric-val {
+            font-weight: 700;
+        }
+
+        .slot-bar-bg {
+            height: 4px;
+            background: #f1f5f9;
+            border-radius: 99px;
+            overflow: hidden;
+        }
+
+        .slot-bar-fill {
+            height: 100%;
+            border-radius: 99px;
+        }
+
+        .slot-footer {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+
+        .slot-tag {
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        /* ════════════════════════════════════════
+               AI INSIGHTS
+            ════════════════════════════════════════ */
+        .ins-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+
+        .ins-card {
+            background: #fff;
+            border: 1px solid #e8edf5;
+            border-radius: 12px;
+            padding: 16px 18px;
+            display: flex;
+            gap: 13px;
+            align-items: flex-start;
+            box-shadow: 0 1px 3px rgba(15,23,42,.04);
+            transition: box-shadow .15s, transform .15s;
+        }
+
+            .ins-card:hover {
+                box-shadow: 0 4px 18px rgba(15,23,42,.08);
+                transform: translateY(-1px);
+            }
+
+        .ins-ico {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .ins-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 4px;
+        }
+
+        .ins-desc {
+            font-size: 12px;
+            color: #64748b;
+            line-height: 1.55;
+        }
+
+        .ins-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 8px;
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        /* ════════════════════════════════════════
+               REVENUE SECTION
+            ════════════════════════════════════════ */
+        .rev-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+        }
+
+        .rev-card {
+            background: #fff;
+            border: 1px solid #e8edf5;
+            border-radius: 12px;
+            padding: 18px;
+            box-shadow: 0 1px 3px rgba(15,23,42,.04);
+            transition: box-shadow .15s, transform .15s;
+        }
+
+            .rev-card:hover {
+                box-shadow: 0 4px 18px rgba(15,23,42,.08);
+                transform: translateY(-1px);
+            }
+
+        .rev-card-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .rev-card-lbl {
+            font-size: 10.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .6px;
+            color: #94a3b8;
+        }
+
+        .rev-card-ico {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .rev-card-val {
+            font-size: 22px;
+            font-weight: 800;
+            color: #0f172a;
+            letter-spacing: -.4px;
+            margin-bottom: 4px;
+        }
+
+        .rev-card-sub {
+            font-size: 11.5px;
+            color: #64748b;
+        }
+
+        .rev-bar-bg {
+            height: 4px;
+            background: #f1f5f9;
+            border-radius: 99px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .rev-bar-fill {
+            height: 100%;
+            border-radius: 99px;
+        }
+
+        /* ════════════════════════════════════════
+               HEATMAP
+            ════════════════════════════════════════ */
+        .hm-card {
+            background: #fff;
+            border: 1px solid #e8edf5;
+            border-radius: 14px;
+            box-shadow: 0 1px 4px rgba(15,23,42,.05);
+            overflow: hidden;
+        }
+
+        .hm-head {
+            padding: 14px 20px;
+            border-bottom: 1px solid #f1f5f9;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #fafbfd;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .hm-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+            .hm-title i {
+                color: #2563eb;
+            }
+
+        .hm-legend {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .hml-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11.5px;
+            color: #64748b;
+        }
+
+        .hml-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 3px;
+            flex-shrink: 0;
+        }
+
+        .hm-body {
+            padding: 16px 20px;
+        }
+
+        .hm-grid {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        .hm-day {
+            width: 40px;
+            height: 60px;
+            border-radius: 8px;
+            border: 1px solid transparent;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+            cursor: default;
+            transition: transform .13s;
+        }
+
+            .hm-day:hover {
+                transform: scale(1.07);
+                box-shadow: 0 3px 12px rgba(0,0,0,.1);
+            }
+
+        .hm-day-num {
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .hm-day-ns {
+            font-size: 9px;
+            font-weight: 600;
+            opacity: .85;
+        }
+
+        .hm-day-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+        }
+
+        .hm-critical {
+            background: #fef2f2;
+            border-color: #fecaca;
+            color: #dc2626;
+        }
+
+        .hm-high {
+            background: #fff7ed;
+            border-color: #fed7aa;
+            color: #ea580c;
+        }
+
+        .hm-medium {
+            background: #fffbeb;
+            border-color: #fde68a;
+            color: #d97706;
+        }
+
+        .hm-low {
+            background: #f0fdf4;
+            border-color: #bbf7d0;
+            color: #16a34a;
+        }
+
+        .hm-empty {
+            background: #f8fafc;
+            border-color: #f1f5f9;
+            color: #94a3b8;
+        }
+
+        .hm-footer {
+            display: flex;
+            gap: 14px;
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid #f1f5f9;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .hm-f-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11.5px;
+            color: #64748b;
+        }
+
+        .hm-f-box {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+            flex-shrink: 0;
+        }
+
+        /* ════════════════════════════════════════
+               SECTION TITLE
+            ════════════════════════════════════════ */
+        .sec-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #0f172a;
+            margin: 0 0 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+            .sec-title i {
+                color: #2563eb;
+                font-size: 14px;
+            }
+
+        .sec-title-sub {
+            font-size: 11px;
+            font-weight: 500;
+            color: #94a3b8;
+            margin-left: 4px;
+        }
+
+        /* ════════════════════════════════════════
+               RESPONSIVE
+            ════════════════════════════════════════ */
+        @@media (max-width: 1300px) {
+            .kpi-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @@media (max-width: 1000px) {
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .slot-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .rev-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .ins-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero-route {
+                min-width: unset;
+            }
+
+            .hs-sep {
+                display: none;
+            }
+
+            .hs-item {
+                min-width: 130px;
+                padding: 8px 12px;
+            }
+        }
+
+        @@media (max-width: 640px) {
+            .kpi-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .slot-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .rev-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .ins-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+}
+
+<main class="main-content" id="main-content">
+    <div class="container-fluid px-4 py-4">
+        <div class="ob-page">
+
+            @* ══════════════════════════════════════
+       PAGE HEADER
+    ══════════════════════════════════════ *@
+            <div class="pg-header">
+                <div>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb mb-1" style="font-size:12.5px;">
+                            <li class="breadcrumb-item"><a href="#" class="text-decoration-none text-muted">Dashboard</a></li>
+                            <li class="breadcrumb-item active">AI Overbooking Forecast</li>
+                        </ol>
+                    </nav>
+                    <h2 class="pg-title">2027 Ocak AI Overbooking Forecast</h2>
+                    <p class="pg-sub">
+                        <i class="bi bi-robot me-1" style="color:#2563eb;"></i>
+                        ML.NET destekli forecast engine &bull; @totalFlights uçuş tahmini üretildi
+                    </p>
+                </div>
+                <div class="pg-actions">
+                    <button class="pg-btn pg-btn-outline" onclick="exportCSV()">
+                        <i class="bi bi-download"></i> Export CSV
+                    </button>
+                    <button class="pg-btn pg-btn-primary">
+                        <i class="bi bi-stars"></i> AI Forecast Report
+                    </button>
+                </div>
+            </div>
+
+            @* ══════════════════════════════════════
+       HERO
+    ══════════════════════════════════════ *@
+            <div class="hero">
+                <div class="hero-inner">
+                    <div class="hero-top">
+                        <div>
+                            <div class="hero-eyebrow">
+                                <span class="hero-eyebrow-dot"></span>
+                                ML.NET Powered Forecast Engine · Live
+                            </div>
+                            <h3 class="hero-title">AI Airline Overbooking Intelligence Center</h3>
+                            <p class="hero-desc">
+                                1.460 historical flight records analyzed &bull; 2026 no-show patterns &bull; 2027 Ocak forecast output
+                            </p>
+                            <div class="hero-chips">
+                                <span class="hero-chip hc-blue"><i class="bi bi-calendar3"></i> Ocak 2027</span>
+                                <span class="hero-chip hc-ai"><i class="bi bi-robot"></i> ML.NET Active</span>
+                                <span class="hero-chip hc-green"><i class="bi bi-check-circle-fill"></i> SAW → BGY</span>
+                                <span class="hero-chip hc-orange"><i class="bi bi-graph-up-arrow"></i> Revenue Optimization</span>
+                                <span class="hero-chip hc-teal"><i class="bi bi-airplane-engines-fill"></i> 4 Flights / Day</span>
+                                <span class="hero-chip hc-purple"><i class="bi bi-shield-check-fill"></i> Dynamic Overbooking</span>
+                            </div>
+                        </div>
+                        <div class="hero-route">
+                            <div class="hero-apt">
+                                <span class="hero-iata">SAW</span>
+                                <span class="hero-apt-name">İstanbul Sabiha Gökçen</span>
+                                <span class="hero-apt-country">Türkiye · IST</span>
+                            </div>
+                            <div class="hero-connector">
+                                <div class="hero-conn-line">
+                                    <span class="hero-conn-dot"></span>
+                                    <span class="hero-conn-dash"></span>
+                                    <i class="bi bi-airplane-fill hero-plane"></i>
+                                    <span class="hero-conn-dash"></span>
+                                    <span class="hero-conn-dot"></span>
+                                </div>
+                                <div class="hero-conn-meta">
+                                    <span><i class="bi bi-clock me-1"></i>~2h 30m</span>
+                                    <span><i class="bi bi-arrows-expand me-1"></i>1.380 km</span>
+                                </div>
+                            </div>
+                            <div class="hero-apt hero-apt-right">
+                                <span class="hero-iata">BGY</span>
+                                <span class="hero-apt-name">Milano Bergamo</span>
+                                <span class="hero-apt-country">İtalya · MXP</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hero-stats">
+                        <div class="hs-item">
+                            <div class="hs-ico" style="background:#eff6ff;color:#2563eb;"><i class="bi bi-calendar-range"></i></div>
+                            <div class="hs-body">
+                                <span class="hs-lbl">Forecast Dönemi</span>
+                                <span class="hs-val">01 — 31 Ocak 2027</span>
+                                <span class="hs-sub">31 günlük output</span>
+                            </div>
+                        </div>
+                        <div class="hs-sep"></div>
+                        <div class="hs-item">
+                            <div class="hs-ico" style="background:#f5f3ff;color:#7c3aed;"><i class="bi bi-database-fill"></i></div>
+                            <div class="hs-body">
+                                <span class="hs-lbl">Training Data</span>
+                                <span class="hs-val">1.460 Uçuş</span>
+                                <span class="hs-sub">2026 yıllık no-show log</span>
+                            </div>
+                        </div>
+                        <div class="hs-sep"></div>
+                        <div class="hs-item">
+                            <div class="hs-ico" style="background:#fff7ed;color:#ea580c;"><i class="bi bi-cpu-fill"></i></div>
+                            <div class="hs-body">
+                                <span class="hs-lbl">AI Modülleri</span>
+                                <div class="ai-mod-chips">
+                                    <span class="ai-mod">ML.NET</span>
+                                    <span class="ai-mod">NoShow</span>
+                                    <span class="ai-mod">Overbooking</span>
+                                    <span class="ai-mod">Revenue</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hs-sep"></div>
+                        <div class="hs-item">
+                            <div class="hs-ico" style="background:#f0fdf4;color:#16a34a;"><i class="bi bi-airplane-engines-fill"></i></div>
+                            <div class="hs-body">
+                                <span class="hs-lbl">Günlük Operasyon</span>
+                                <span class="hs-val">4 Uçuş / Gün</span>
+                                <span class="hs-sub">M1 · M2 · E1 · E2</span>
+                            </div>
+                        </div>
+                        <div class="hs-sep"></div>
+                        <div class="hs-item">
+                            <div class="hs-ico" style="background:#ecfdf5;color:#059669;"><i class="bi bi-currency-euro"></i></div>
+                            <div class="hs-body">
+                                <span class="hs-lbl">Potansiyel Ek Gelir</span>
+                                <span class="hs-val">€@totalRevenue.ToString("N0")</span>
+                                <span class="hs-sub">@totalExtra ekstra koltuk toplam</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @* ══════════════════════════════════════
+       KPI CARDS
+    ══════════════════════════════════════ *@
+            <div class="kpi-grid">
+
+                <div class="kpi-card kc-1">
+                    <div class="kpi-top">
+                        <div class="kpi-lbl">Ort. Tahmini NoShow</div>
+                        <div class="kpi-ico" style="background:#eff6ff;color:#2563eb;"><i class="bi bi-person-x-fill"></i></div>
+                    </div>
+                    <div class="kpi-val">@avgNoShow.ToString("0.0")<span style="font-size:13px;color:#94a3b8;margin-left:2px;">pax</span></div>
+                    <div class="kpi-foot">
+                        <span class="kpi-bdg kb-blue"><i class="bi bi-bar-chart-fill" style="font-size:9px;"></i> Forecast</span>
+                        slot ortalaması
+                    </div>
+                </div>
+
+                <div class="kpi-card kc-2">
+                    <div class="kpi-top">
+                        <div class="kpi-lbl">Ort. Ekstra Satış</div>
+                        <div class="kpi-ico" style="background:#f0fdf4;color:#16a34a;"><i class="bi bi-ticket-perforated-fill"></i></div>
+                    </div>
+                    <div class="kpi-val">+@avgExtra.ToString("0.0")<span style="font-size:13px;color:#94a3b8;margin-left:2px;">koltuk</span></div>
+                    <div class="kpi-foot">
+                        <span class="kpi-bdg kb-green"><i class="bi bi-arrow-up" style="font-size:9px;"></i> Fırsat</span>
+                        kapasite üzeri
+                    </div>
+                </div>
+
+                <div class="kpi-card kc-3">
+                    <div class="kpi-top">
+                        <div class="kpi-lbl">Toplam Ekstra Koltuk</div>
+                        <div class="kpi-ico" style="background:#ecfeff;color:#0891b2;"><i class="bi bi-collection-fill"></i></div>
+                    </div>
+                    <div class="kpi-val">@totalExtra.ToString("N0")</div>
+                    <div class="kpi-foot">
+                        <span class="kpi-bdg kb-teal">@totalFlights uçuş</span>
+                        toplam ek satış
+                    </div>
+                </div>
+
+                <div class="kpi-card kc-4">
+                    <div class="kpi-top">
+                        <div class="kpi-lbl">Potansiyel Ek Gelir</div>
+                        <div class="kpi-ico" style="background:#f5f3ff;color:#7c3aed;"><i class="bi bi-currency-euro"></i></div>
+                    </div>
+                    <div class="kpi-val" style="font-size:20px;color:#7c3aed;">€@totalRevenue.ToString("N0")</div>
+                    <div class="kpi-foot">
+                        <span class="kpi-bdg kb-purple">Revenue</span>
+                        tahmini ek gelir
+                    </div>
+                </div>
+
+                <div class="kpi-card kc-5">
+                    <div class="kpi-top">
+                        <div class="kpi-lbl">En Riskli Slot</div>
+                        <div class="kpi-ico" style="background:#fef2f2;color:#dc2626;"><i class="bi bi-exclamation-triangle-fill"></i></div>
+                    </div>
+                    <div class="kpi-val-sm">@riskySlot</div>
+                    <div class="kpi-foot">
+                        <span class="kpi-bdg kb-red"><i class="bi bi-fire" style="font-size:9px;"></i> Risk</span>
+                        en yüksek no-show
+                    </div>
+                </div>
+
+                <div class="kpi-card kc-6">
+                    <div class="kpi-top">
+                        <div class="kpi-lbl">En Güvenli Slot</div>
+                        <div class="kpi-ico" style="background:#ecfdf5;color:#059669;"><i class="bi bi-shield-check-fill"></i></div>
+                    </div>
+                    <div class="kpi-val-sm">@safeSlot</div>
+                    <div class="kpi-foot">
+                        <span class="kpi-bdg kb-em"><i class="bi bi-check-lg" style="font-size:9px;"></i> Stabil</span>
+                        en düşük no-show
+                    </div>
+                </div>
+
+            </div>
+
+            @* ══════════════════════════════════════
+       MAIN FORECAST TABLE
+    ══════════════════════════════════════ *@
+            <div class="tbl-card">
+                <div class="tbl-head">
+                    <div class="tbl-title"><i class="bi bi-table"></i> AI Forecast Tablosu — Detaylı Analiz</div>
+                    <span class="tbl-count" id="tblCount">@Model.Count kayıt</span>
+                </div>
+                <div class="tbl-filters">
+                    <span class="t-chip active" onclick="tblFilter('all',this)">Tümü</span>
+                    <span class="t-chip" onclick="tblFilter('Critical',this)">
+                        <i class="bi bi-circle-fill" style="font-size:7px;color:#dc2626;"></i> Kritik
+                    </span>
+                    <span class="t-chip" onclick="tblFilter('High',this)">
+                        <i class="bi bi-circle-fill" style="font-size:7px;color:#ea580c;"></i> Yüksek
+                    </span>
+                    <span class="t-chip" onclick="tblFilter('Medium',this)">
+                        <i class="bi bi-circle-fill" style="font-size:7px;color:#d97706;"></i> Orta
+                    </span>
+                    <span class="t-chip" onclick="tblFilter('Low',this)">
+                        <i class="bi bi-circle-fill" style="font-size:7px;color:#16a34a;"></i> Düşük
+                    </span>
+                    <div class="t-search">
+                        <i class="bi bi-search"></i>
+                        <input type="text" placeholder="Tarih / Slot / Uçak..." oninput="tblSearch(this.value)" />
+                    </div>
+                </div>
+                <div style="overflow-x:auto;max-height:520px;overflow-y:auto;">
+                    <table class="main-table" id="mainTable">
+                        <thead>
+                            <tr>
+                                <th>Tarih</th>
+                                <th>Slot</th>
+                                <th>Uçak Tipi</th>
+                                <th style="text-align:center;">Kapasite</th>
+                                <th style="min-width:120px;">Tahmini NoShow</th>
+                                <th style="text-align:center;">Max Satış</th>
+                                <th>Ekstra Koltuk</th>
+                                <th>Risk</th>
+                                <th>Gelir Pot.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                double nsBarW = item.Capacity > 0
+                                ? Math.Min((double)item.PredictedNoShow / item.Capacity * 100 * 5, 100)
+                                : 0;
+                                string dayName = "";
+                                if (DateTime.TryParse(item.FlightDate, out DateTime fd))
+                                    dayName = fd.ToString("ddd", new System.Globalization.CultureInfo("tr-TR"));
+
+                                <tr class="tbl-row"
+                                    data-risk="@item.RiskLevel"
+                                    data-search="@((item.FlightDate ?? "") + " " + (item.FlightSlot ?? "") + " " + (item.AircraftType ?? ""))" .ToLower()">
+
+                                    <td>
+                                        <div class="date-cell">
+                                            <span class="date-main">@item.FlightDate</span>
+                                            <span class="date-day">@dayName</span>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <span class="slot-pill" style="background:@slotBg(item.FlightSlot);color:@slotColor(item.FlightSlot);border:1px solid @slotBd(item.FlightSlot);">
+                                            <i class="bi @slotIcon(item.FlightSlot)" style="font-size:10px;"></i>
+                                            @item.FlightSlot
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <span class="aircraft-badge" style="background:@aircraftBg(item.AircraftType);color:@aircraftColor(item.AircraftType);">
+                                            <i class="bi bi-airplane-fill" style="font-size:9px;"></i>
+                                            @item.AircraftType
+                                        </span>
+                                    </td>
+
+                                    <td style="text-align:center;">
+                                        <span class="cap-num">@item.Capacity</span>
+                                    </td>
+
+                                    <td>
+                                        <div class="ns-wrap">
+                                            <div class="ns-bar-bg">
+                                                <div class="ns-bar-fill" style="width:@nsBarW.ToString("0", System.Globalization.CultureInfo.InvariantCulture)%;background:@rc(item.RiskLevel);"></div>
+                                            </div>
+                                            <span class="ns-num" style="color:@rc(item.RiskLevel);">@item.PredictedNoShow</span>
+                                        </div>
+                                    </td>
+
+                                    <td style="text-align:center;">
+                                        <span class="max-sale-num">@item.RecommendedMaxSale</span>
+                                    </td>
+
+                                    <td>
+                                        <span class="extra-pill">
+                                            <i class="bi bi-plus-circle" style="font-size:10px;"></i>
+                                            +@item.ExtraSeatCount
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <span class="risk-badge" style="background:@rbg(item.RiskLevel);color:@rc(item.RiskLevel);border:1px solid @rbd(item.RiskLevel);">
+                                            <i class="bi @rio(item.RiskLevel)" style="font-size:10px;"></i>
+                                            @rlb(item.RiskLevel)
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <span class="rev-pill">
+                                            <i class="bi bi-currency-euro" style="font-size:10px;"></i>
+                                            @item.EstimatedRevenue.ToString("N0")
+                                        </span>
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            @* ══════════════════════════════════════
+       SLOT INTELLIGENCE
+    ══════════════════════════════════════ *@
+            <div>
+                <h3 class="sec-title">
+                    <i class="bi bi-grid-3x3-gap-fill"></i>
+                    Slot Intelligence
+                    <span class="sec-title-sub">Slot bazlı AI forecast analizi</span>
+                </h3>
+                <div class="slot-grid">
+                    @{
+                        var slotDefs = new[] {
+                                        ("Morning-1", "bi-sunrise-fill",    "06:00–09:00"),
+                                        ("Morning-2", "bi-sun-fill",        "09:00–12:00"),
+                                        ("Evening-1", "bi-sunset-fill",     "15:00–18:00"),
+                                        ("Evening-2", "bi-moon-stars-fill", "18:00–22:00"),
+                                        };
+                    }
+                    @foreach (var (sName, sIco, sTime) in slotDefs)
+                    {
+                        var sRows = Model.Where(r => r.FlightSlot == sName).ToList();
+                        double sNS = sRows.Any() ? sRows.Average(r => r.PredictedNoShow) : 0;
+                        double sExtra = sRows.Any() ? sRows.Average(r => r.ExtraSeatCount) : 0;
+                        double sRev = sRows.Sum(r => r.EstimatedRevenue);
+                        double nsW = Math.Min(sNS / 30.0 * 100, 100);
+                        double exW = Math.Min(sExtra / 20.0 * 100, 100);
+                        string sc = slotColor(sName);
+                        string sb = slotBg(sName);
+                        string sbd = slotBd(sName);
+
+                        <div class="slot-card">
+                            <div class="slot-card-head">
+                                <div class="slot-card-ico" style="background:@sb;color:@sc;"><i class="bi @sIco"></i></div>
+                                <div>
+                                    <div class="slot-card-name">@sName</div>
+                                    <div class="slot-card-sub">@sTime &bull; @sRows.Count uçuş</div>
+                                </div>
+                            </div>
+                            <div class="slot-metrics">
+                                <div class="slot-metric">
+                                    <div class="slot-metric-hdr">
+                                        <span class="slot-metric-lbl">No-Show Eğilimi</span>
+                                        <span class="slot-metric-val" style="color:@sc;">@sNS.ToString("0.0") pax</span>
+                                    </div>
+                                    <div class="slot-bar-bg">
+                                        <div class="slot-bar-fill" style="width:@nsW.ToString("0", System.Globalization.CultureInfo.InvariantCulture)%;background:@sc;"></div>
+                                    </div>
+                                </div>
+                                <div class="slot-metric">
+                                    <div class="slot-metric-hdr">
+                                        <span class="slot-metric-lbl">Satış Potansiyeli</span>
+                                        <span class="slot-metric-val" style="color:#16a34a;">+@sExtra.ToString("0.0") koltuk</span>
+                                    </div>
+                                    <div class="slot-bar-bg">
+                                        <div class="slot-bar-fill" style="width:@exW.ToString("0", System.Globalization.CultureInfo.InvariantCulture)%;background:#16a34a;"></div>
+                                    </div>
+                                </div>
+                                <div class="slot-metric">
+                                    <div class="slot-metric-hdr">
+                                        <span class="slot-metric-lbl">Tahmini Gelir</span>
+                                        <span class="slot-metric-val" style="color:#7c3aed;">€@sRev.ToString("N0")</span>
+                                    </div>
+                                    <div class="slot-bar-bg">
+                                        <div class="slot-bar-fill" style="width:@Math.Min(sRev / (totalRevenue > 0 ? totalRevenue : 1) * 100, 100).ToString("0", System.Globalization.CultureInfo.InvariantCulture)%;background:#7c3aed;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slot-footer">
+                                <span class="slot-tag" style="background:@sb;color:@sc;">@sRows.Count Uçuş</span>
+                                <span class="slot-tag" style="background:#f0fdf4;color:#16a34a;">€@sRev.ToString("N0")</span>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            @* ══════════════════════════════════════
+       AI INSIGHTS
+    ══════════════════════════════════════ *@
+            <div>
+                <h3 class="sec-title">
+                    <i class="bi bi-lightbulb-fill"></i>
+                    AI Operational Insights
+                    <span class="sec-title-sub">ML.NET destekli operasyon önerileri</span>
+                </h3>
+                <div class="ins-grid">
+                    <div class="ins-card">
+                        <div class="ins-ico" style="background:#fef2f2;color:#dc2626;"><i class="bi bi-exclamation-triangle-fill"></i></div>
+                        <div>
+                            <div class="ins-title">Weekend Risk Yoğunluğu</div>
+                            <div class="ins-desc">Hafta sonu evening uçuşlarında no-show volatilitesi ML.NET tarafından yüksek tespit edildi. Agresif overbooking + standby yolcu listesi önerilir.</div>
+                            <span class="ins-tag" style="background:#fef2f2;color:#dc2626;"><i class="bi bi-exclamation-circle"></i> Kritik Uyarı</span>
+                        </div>
+                    </div>
+                    <div class="ins-card">
+                        <div class="ins-ico" style="background:#fff7ed;color:#ea580c;"><i class="bi bi-moon-stars-fill"></i></div>
+                        <div>
+                            <div class="ins-title">Evening Slot Volatilitesi</div>
+                            <div class="ins-desc">Evening-2 slotunda tahmin edilen no-show, Morning slotlarına kıyasla %@((int)((slotGroups.FirstOrDefault(s => s.Slot == "Evening-2")?.AvgNS ?? 0) / (avgNoShow > 0 ? avgNoShow : 1) * 100 - 100)) daha yüksek. Ekstra koltuk satışı için ideal pencere.</div>
+                            <span class="ins-tag" style="background:#fff7ed;color:#ea580c;"><i class="bi bi-lightning-charge"></i> Yüksek Fırsat</span>
+                        </div>
+                    </div>
+                    <div class="ins-card">
+                        <div class="ins-ico" style="background:#eff6ff;color:#2563eb;"><i class="bi bi-ticket-perforated-fill"></i></div>
+                        <div>
+                            <div class="ins-title">Agresif Overbooking Fırsatı</div>
+                            <div class="ins-desc">@Model.Count(r => r.RiskLevel == "Critical" || r.RiskLevel == "High") uçuşta yüksek no-show tahmini, güvenli overbooking uygulaması için uygun. Toplam +@Model.Where(r => r.RiskLevel == "Critical" || r.RiskLevel == "High").Sum(r => r.ExtraSeatCount) ekstra koltuk potansiyeli.</div>
+                            <span class="ins-tag" style="background:#eff6ff;color:#2563eb;"><i class="bi bi-check-circle"></i> ML.NET Onaylı</span>
+                        </div>
+                    </div>
+                    <div class="ins-card">
+                        <div class="ins-ico" style="background:#f5f3ff;color:#7c3aed;"><i class="bi bi-people-fill"></i></div>
+                        <div>
+                            <div class="ins-title">Standby Crew Planlaması</div>
+                            <div class="ins-desc">Kritik günlerde check-in ve boarding personeli artırılmalı. @riskySlot slotu için özellikle ekip hazır tutulması gerekiyor.</div>
+                            <span class="ins-tag" style="background:#f5f3ff;color:#7c3aed;"><i class="bi bi-person-check"></i> Operasyon Planı</span>
+                        </div>
+                    </div>
+                    <div class="ins-card">
+                        <div class="ins-ico" style="background:#fffbeb;color:#d97706;"><i class="bi bi-door-open-fill"></i></div>
+                        <div>
+                            <div class="ins-title">Gate Pressure Uyarısı</div>
+                            <div class="ins-desc">Yüksek no-show günlerinde overbooking satışı sonucu gate'de fazla yolcu toplanabilir. Operasyon ekibinin önceden bilgilendirilmesi kritik.</div>
+                            <span class="ins-tag" style="background:#fffbeb;color:#d97706;"><i class="bi bi-exclamation-triangle"></i> Uyarı</span>
+                        </div>
+                    </div>
+                    <div class="ins-card">
+                        <div class="ins-ico" style="background:#ecfdf5;color:#059669;"><i class="bi bi-currency-euro"></i></div>
+                        <div>
+                            <div class="ins-title">Revenue Optimization</div>
+                            <div class="ins-desc">Ocak 2027 için ML.NET tarafından tahmin edilen toplam ek gelir potansiyeli €@totalRevenue.ToString("N0"). Doğru overbooking stratejisi ile bu rakama ulaşmak mümkün.</div>
+                            <span class="ins-tag" style="background:#ecfdf5;color:#059669;"><i class="bi bi-arrow-up-right"></i> €@totalRevenue.ToString("N0") Fırsat</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @* ══════════════════════════════════════
+       REVENUE SECTION
+    ══════════════════════════════════════ *@
+            <div>
+                <h3 class="sec-title">
+                    <i class="bi bi-currency-euro"></i>
+                    Revenue Optimization Analysis
+                    <span class="sec-title-sub">Ekstra koltuk gelir optimizasyonu</span>
+                </h3>
+                <div class="rev-grid">
+                    <div class="rev-card">
+                        <div class="rev-card-top">
+                            <span class="rev-card-lbl">Toplam Ekstra Koltuk</span>
+                            <div class="rev-card-ico" style="background:#eff6ff;color:#2563eb;"><i class="bi bi-ticket-perforated-fill"></i></div>
+                        </div>
+                        <div class="rev-card-val">@totalExtra.ToString("N0")</div>
+                        <div class="rev-card-sub">@totalFlights uçuşta satılabilir ekstra</div>
+                        <div class="rev-bar-bg"><div class="rev-bar-fill" style="width:75%;background:#2563eb;"></div></div>
+                    </div>
+                    <div class="rev-card">
+                        <div class="rev-card-top">
+                            <span class="rev-card-lbl">Toplam Tahmini Gelir</span>
+                            <div class="rev-card-ico" style="background:#ecfdf5;color:#059669;"><i class="bi bi-currency-euro"></i></div>
+                        </div>
+                        <div class="rev-card-val" style="color:#059669;font-size:18px;">€@totalRevenue.ToString("N0")</div>
+                        <div class="rev-card-sub">ML.NET revenue forecast</div>
+                        <div class="rev-bar-bg"><div class="rev-bar-fill" style="width:88%;background:#059669;"></div></div>
+                    </div>
+                    <div class="rev-card">
+                        <div class="rev-card-top">
+                            <span class="rev-card-lbl">Yüksek Talep Uçuşları</span>
+                            <div class="rev-card-ico" style="background:#fff7ed;color:#ea580c;"><i class="bi bi-graph-up-arrow"></i></div>
+                        </div>
+                        <div class="rev-card-val">@Model.Count(r => r.RiskLevel == "Critical" || r.RiskLevel == "High")</div>
+                        <div class="rev-card-sub">Kritik + Yüksek risk uçuş sayısı</div>
+                        <div class="rev-bar-bg"><div class="rev-bar-fill" style="width:@((Model.Count > 0 ? (double)Model.Count(r => r.RiskLevel == "Critical" || r.RiskLevel == "High") / Model.Count * 100 : 0).ToString("0", System.Globalization.CultureInfo.InvariantCulture))%;background:#ea580c;"></div></div>
+                    </div>
+                    <div class="rev-card">
+                        <div class="rev-card-top">
+                            <span class="rev-card-lbl">En Yüksek Gelir Slotu</span>
+                            <div class="rev-card-ico" style="background:#f5f3ff;color:#7c3aed;"><i class="bi bi-stars"></i></div>
+                        </div>
+                        @{
+                            var topRevSlot = Model.GroupBy(r => r.FlightSlot)
+                            .Select(g => new { Slot = g.Key, Rev = g.Sum(x => x.EstimatedRevenue) })
+                            .OrderByDescending(x => x.Rev).FirstOrDefault();
+                        }
+                        <div class="rev-card-val" style="font-size:17px;">@(topRevSlot?.Slot ?? "—")</div>
+                        <div class="rev-card-sub">€@((topRevSlot?.Rev ?? 0).ToString("N0")) tahmini gelir</div>
+                        <div class="rev-bar-bg"><div class="rev-bar-fill" style="width:90%;background:#7c3aed;"></div></div>
+                    </div>
+                </div>
+            </div>
+
+            @* ══════════════════════════════════════
+       HEATMAP
+    ══════════════════════════════════════ *@
+            <div class="hm-card">
+                <div class="hm-head">
+                    <div class="hm-title"><i class="bi bi-calendar3"></i> Risk & Revenue Heatmap — Ocak 2027</div>
+                    <div class="hm-legend">
+                        <div class="hml-item"><div class="hml-dot" style="background:#f0fdf4;border:1px solid #bbf7d0;"></div> Düşük Risk</div>
+                        <div class="hml-item"><div class="hml-dot" style="background:#fffbeb;border:1px solid #fde68a;"></div> Orta Risk</div>
+                        <div class="hml-item"><div class="hml-dot" style="background:#fff7ed;border:1px solid #fed7aa;"></div> Yüksek Risk</div>
+                        <div class="hml-item"><div class="hml-dot" style="background:#fef2f2;border:1px solid #fecaca;"></div> Kritik</div>
+                    </div>
+                </div>
+                <div class="hm-body">
+                    @{
+                        @* Gün → max risk & no-show *@
+                        var dayMap = new Dictionary<int, (string Risk, int NS, double Rev)>();
+                        foreach (var item in Model)
+                        {
+                            if (DateTime.TryParse(item.FlightDate, out DateTime hd))
+                            {
+                                int d = hd.Day;
+                                if (!dayMap.ContainsKey(d))
+                                    dayMap[d] = (item.RiskLevel, item.PredictedNoShow, item.EstimatedRevenue);
+                                else
+                                {
+                                    var cur = dayMap[d];
+                                    var pri = new[] { "Critical", "High", "Medium", "Low" };
+                                    string newRisk = Array.IndexOf(pri, item.RiskLevel) < Array.IndexOf(pri, cur.Risk)
+                                    ? item.RiskLevel : cur.Risk;
+                                    dayMap[d] = (newRisk, Math.Max(item.PredictedNoShow, cur.NS), cur.Rev + item.EstimatedRevenue);
+                                }
+                            }
+                        }
+                        string HmClass(string r) => r == "Critical" ? "hm-critical" : r == "High" ? "hm-high" : r == "Medium" ? "hm-medium" : r == "Low" ? "hm-low" : "hm-empty";
+                        var defRisks = new[] {
+                                        "Low","Low","Medium","Medium","High","High","Critical",
+                                        "Low","Low","Medium","High","High","Critical","Low",
+                                        "Medium","Medium","High","Low","Low","Medium",
+                                        "High","Critical","Low","Low","Medium","High","High","Low","Medium","Critical","Low"
+                                        };
+                    }
+                    <div class="hm-grid">
+                        @for (int d = 1; d <= 31; d++)
+                        {
+                            string risk = dayMap.ContainsKey(d) ? dayMap[d].Risk : defRisks[d - 1];
+                            int ns = dayMap.ContainsKey(d) ? dayMap[d].NS : 0;
+                            double rev = dayMap.ContainsKey(d) ? dayMap[d].Rev : 0;
+                            string hmCls = HmClass(risk);
+                            <div class="hm-day @hmCls" title="@d Ocak 2027 — Risk: @rlb(risk) · NoShow: @ns · Rev: €@rev.ToString("N0")">
+                                <span class="hm-day-num">@d</span>
+                                <span class="hm-day-ns">@(ns > 0 ? ns.ToString() : "—")</span>
+                                <span class="hm-day-dot"></span>
+                            </div>
+                        }
+                    </div>
+                    <div class="hm-footer">
+                        <div class="hm-f-item"><div class="hm-f-box" style="background:#f0fdf4;border:1px solid #bbf7d0;"></div> Standart Operasyon</div>
+                        <div class="hm-f-item"><div class="hm-f-box" style="background:#fffbeb;border:1px solid #fde68a;"></div> Kontrollü Overbooking</div>
+                        <div class="hm-f-item"><div class="hm-f-box" style="background:#fff7ed;border:1px solid #fed7aa;"></div> Agresif Satış Önerilir</div>
+                        <div class="hm-f-item"><div class="hm-f-box" style="background:#fef2f2;border:1px solid #fecaca;"></div> Kritik — Max Overbooking + Standby</div>
+                        <span style="margin-left:auto;font-size:11px;color:#94a3b8;">
+                            <i class="bi bi-info-circle me-1"></i>
+                            Kare içi sayı: ML.NET tahmini no-show · Hover ile detay
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+@section Scripts {
+    <script>
+        /* ── Filtre ── */
+        function tblFilter(risk, btn) {
+            document.querySelectorAll('.t-chip').forEach(function(c){ c.classList.remove('active'); });
+            btn.classList.add('active');
+            var rows = document.querySelectorAll('#mainTable tbody .tbl-row');
+            var vis  = 0;
+            rows.forEach(function(row) {
+                var show = risk === 'all' || row.dataset.risk === risk;
+                row.style.display = show ? '' : 'none';
+                if (show) vis++;
+            });
+            document.getElementById('tblCount').textContent = vis + ' kayıt';
+        }
+
+        /* ── Arama ── */
+        function tblSearch(val) {
+            val = val.toLowerCase();
+            var rows = document.querySelectorAll('#mainTable tbody .tbl-row');
+            var vis  = 0;
+            rows.forEach(function(row) {
+                var show = val === '' || (row.dataset.search || '').includes(val);
+                row.style.display = show ? '' : 'none';
+                if (show) vis++;
+            });
+            document.getElementById('tblCount').textContent = vis + ' kayıt';
+        }
+
+        /* ── Export CSV ── */
+        function exportCSV() {
+            var rows  = document.querySelectorAll('#mainTable tbody .tbl-row');
+            var lines = ['Tarih,Slot,Uçak Tipi,Kapasite,Tahmini NoShow,Max Satış,Ekstra Koltuk,Risk,Tahmini Gelir'];
+            rows.forEach(function(row) {
+                if (row.style.display === 'none') return;
+                var tds = row.querySelectorAll('td');
+                var arr = [];
+                for (var i = 0; i < 9; i++)
+                    arr.push(tds[i] ? tds[i].textContent.trim().replace(/\s+/g,' ') : '');
+                lines.push(arr.join(','));
+            });
+            var blob = new Blob([lines.join('\n')], { type: 'text/csv;charset=utf-8;' });
+            var url  = URL.createObjectURL(blob);
+            var a    = document.createElement('a');
+            a.href = url; a.download = 'overbooking-forecast-jan2027.csv'; a.click();
+            URL.revokeObjectURL(url);
+        }
+    </script>
+}
