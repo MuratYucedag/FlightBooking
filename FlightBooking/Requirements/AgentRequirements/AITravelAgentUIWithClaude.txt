@@ -1,0 +1,1270 @@
+﻿@{
+    ViewData["Title"] = "AI Travel Assistant";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Travel Assistant · FlightBooking</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
+
+<style>
+/* ═══════════════════════════════════════════════════
+   TOKENS
+═══════════════════════════════════════════════════ */
+:root {
+    --navy:      #0F172A;
+    --navy-80:   #1E293B;
+    --navy-60:   #334155;
+    --indigo:    #4F46E5;
+    --indigo-lt: #6366F1;
+    --indigo-bg: #EEF2FF;
+    --cyan:      #06B6D4;
+    --cyan-bg:   #ECFEFF;
+    --amber:     #F59E0B;
+    --amber-bg:  #FFFBEB;
+    --slate-100: #F1F5F9;
+    --slate-200: #E2E8F0;
+    --slate-400: #94A3B8;
+    --slate-500: #64748B;
+    --slate-600: #475569;
+    --white:     #FFFFFF;
+    --font-display: 'Syne', sans-serif;
+    --font-body:    'DM Sans', sans-serif;
+    --radius-lg: 20px;
+    --radius-md: 14px;
+    --radius-sm: 9px;
+    --shadow-sm: 0 1px 4px rgba(15,23,42,.06);
+    --shadow-md: 0 4px 20px rgba(15,23,42,.09);
+    --shadow-lg: 0 12px 48px rgba(15,23,42,.13);
+}
+
+/* ═══════════════════════════════════════════════════
+   RESET & BASE
+═══════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; }
+html, body {
+    margin: 0; padding: 0;
+    background: #F8FAFC;
+    font-family: var(--font-body);
+    color: var(--navy);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ═══════════════════════════════════════════════════
+   TOPBAR
+═══════════════════════════════════════════════════ */
+.topbar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    height: 56px;
+    background: rgba(255,255,255,.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--slate-200);
+    display: flex; align-items: center;
+    padding: 0 24px;
+    gap: 16px;
+}
+.topbar-brand {
+    display: flex; align-items: center; gap: 9px;
+    font-family: var(--font-display);
+    font-size: 15px; font-weight: 700;
+    color: var(--navy);
+    text-decoration: none;
+}
+.topbar-brand-icon {
+    width: 30px; height: 30px;
+    background: linear-gradient(135deg, var(--indigo), var(--cyan));
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 14px;
+}
+.topbar-badge {
+    padding: 3px 10px; border-radius: 99px;
+    font-size: 11px; font-weight: 600;
+    background: linear-gradient(135deg, var(--indigo-bg), var(--cyan-bg));
+    color: var(--indigo);
+    border: 1px solid #c7d2fe;
+    margin-left: 4px;
+}
+.topbar-right { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+.topbar-link {
+    font-size: 13px; color: var(--slate-600); text-decoration: none;
+    padding: 5px 12px; border-radius: var(--radius-sm); transition: background .15s;
+}
+.topbar-link:hover { background: var(--slate-100); color: var(--navy); }
+.topbar-btn {
+    padding: 7px 16px; border-radius: var(--radius-sm);
+    background: var(--indigo); color: white;
+    font-size: 13px; font-weight: 600;
+    border: none; cursor: pointer; transition: all .15s;
+    display: flex; align-items: center; gap: 6px;
+}
+.topbar-btn:hover { background: #4338ca; box-shadow: 0 4px 14px rgba(79,70,229,.3); }
+
+/* ═══════════════════════════════════════════════════
+   PAGE SHELL
+═══════════════════════════════════════════════════ */
+.page-shell {
+    padding-top: 56px; /* topbar height */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ═══════════════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════════════ */
+.hero {
+    position: relative;
+    padding: 64px 24px 52px;
+    text-align: center;
+    overflow: hidden;
+}
+/* Signature element: horizon gradient shimmer */
+.hero-horizon {
+    position: absolute;
+    bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 600px; height: 2px;
+    background: linear-gradient(90deg, transparent 0%, var(--indigo) 25%, var(--cyan) 50%, var(--amber) 75%, transparent 100%);
+    border-radius: 99px;
+    animation: horizon-shimmer 4s ease-in-out infinite;
+}
+@keyframes horizon-shimmer {
+    0%, 100% { opacity: .6; width: 400px; }
+    50%       { opacity: 1;  width: 680px; }
+}
+.hero-glow {
+    position: absolute; top: -60px; left: 50%; transform: translateX(-50%);
+    width: 500px; height: 300px;
+    background: radial-gradient(ellipse at center, rgba(79,70,229,.08) 0%, rgba(6,182,212,.05) 50%, transparent 80%);
+    pointer-events: none;
+}
+.hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 6px 16px; border-radius: 99px;
+    background: white; border: 1px solid var(--slate-200);
+    box-shadow: var(--shadow-sm);
+    font-size: 12px; font-weight: 600; color: var(--slate-600);
+    margin-bottom: 20px;
+}
+.hero-eyebrow-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--indigo), var(--cyan));
+    animation: pulse-glow 2s ease-in-out infinite;
+    flex-shrink: 0;
+}
+@keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(79,70,229,.4); }
+    50%       { box-shadow: 0 0 0 5px rgba(79,70,229,.0); }
+}
+.hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 800;
+    color: var(--navy);
+    letter-spacing: -.03em;
+    line-height: 1.1;
+    margin-bottom: 14px;
+}
+.hero-title-accent {
+    background: linear-gradient(135deg, var(--indigo) 0%, var(--cyan) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.hero-sub {
+    font-size: 16px; line-height: 1.65;
+    color: var(--slate-500); font-weight: 300;
+    max-width: 520px; margin: 0 auto 28px;
+}
+.chip-row {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+    max-width: 620px; margin: 0 auto;
+}
+.chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 7px 15px; border-radius: 99px;
+    background: white; border: 1.5px solid var(--slate-200);
+    font-size: 13px; font-weight: 500; color: var(--slate-600);
+    cursor: pointer; transition: all .15s;
+    box-shadow: var(--shadow-sm);
+    user-select: none;
+}
+.chip:hover {
+    border-color: var(--indigo);
+    background: var(--indigo-bg);
+    color: var(--indigo);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(79,70,229,.15);
+}
+
+/* ═══════════════════════════════════════════════════
+   MAIN CONTENT LAYOUT
+═══════════════════════════════════════════════════ */
+.main-content {
+    flex: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 24px 60px;
+    display: grid;
+    grid-template-columns: 1fr 310px;
+    gap: 24px;
+    align-items: start;
+}
+.main-left { display: flex; flex-direction: column; gap: 20px; }
+
+/* ═══════════════════════════════════════════════════
+   PROMPT CARD
+═══════════════════════════════════════════════════ */
+.prompt-card {
+    background: white;
+    border: 1.5px solid var(--slate-200);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: 20px;
+    transition: border-color .2s, box-shadow .2s;
+    position: relative;
+}
+.prompt-card:focus-within {
+    border-color: var(--indigo);
+    box-shadow: 0 0 0 4px rgba(79,70,229,.08), var(--shadow-md);
+}
+.prompt-card-label {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 11.5px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .8px;
+    color: var(--slate-400); margin-bottom: 10px;
+}
+.prompt-card-label-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--indigo), var(--cyan));
+    flex-shrink: 0;
+}
+.prompt-textarea {
+    width: 100%; border: none; outline: none; resize: none;
+    font-family: var(--font-body);
+    font-size: 15px; line-height: 1.6;
+    color: var(--navy);
+    background: transparent;
+    min-height: 100px;
+    padding: 0;
+}
+.prompt-textarea::placeholder { color: var(--slate-400); font-weight: 300; }
+.prompt-examples {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    padding: 10px 0;
+    border-top: 1px solid var(--slate-100);
+    border-bottom: 1px solid var(--slate-100);
+    margin: 10px 0;
+}
+.prompt-example {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 4px 11px; border-radius: 6px;
+    background: var(--slate-100);
+    font-size: 11.5px; color: var(--slate-500);
+    cursor: pointer; transition: all .13s;
+    font-style: italic;
+}
+.prompt-example:hover { background: var(--indigo-bg); color: var(--indigo); }
+.prompt-examples-label {
+    font-size: 10.5px; font-weight: 600; color: var(--slate-400);
+    text-transform: uppercase; letter-spacing: .6px;
+    display: flex; align-items: center; align-self: center;
+    margin-right: 4px; white-space: nowrap;
+}
+.prompt-footer {
+    display: flex; align-items: center; gap: 8px;
+    padding-top: 10px;
+}
+.prompt-icon-btn {
+    width: 36px; height: 36px; border-radius: var(--radius-sm);
+    border: 1.5px solid var(--slate-200); background: white;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; color: var(--slate-500);
+    cursor: pointer; transition: all .13s; flex-shrink: 0;
+}
+.prompt-icon-btn:hover { border-color: var(--indigo); color: var(--indigo); background: var(--indigo-bg); }
+.prompt-footer-hint {
+    font-size: 11.5px; color: var(--slate-400);
+    margin-left: auto; margin-right: 8px;
+}
+.prompt-send-btn {
+    display: flex; align-items: center; gap: 7px;
+    padding: 9px 22px; border-radius: var(--radius-sm);
+    background: linear-gradient(135deg, var(--indigo) 0%, #6366f1 100%);
+    color: white; border: none; cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 14px; font-weight: 600;
+    transition: all .15s;
+    box-shadow: 0 4px 14px rgba(79,70,229,.3);
+    flex-shrink: 0;
+}
+.prompt-send-btn:hover {
+    background: linear-gradient(135deg, #4338ca, #4f46e5);
+    box-shadow: 0 6px 20px rgba(79,70,229,.4);
+    transform: translateY(-1px);
+}
+.prompt-send-btn:active { transform: translateY(0); }
+.prompt-send-btn .spinner { display: none; }
+.prompt-send-btn.loading .bi-send-fill { display: none; }
+.prompt-send-btn.loading .spinner { display: inline-block; }
+
+/* ═══════════════════════════════════════════════════
+   QUICK TRAVEL CARDS
+═══════════════════════════════════════════════════ */
+.quick-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+.quick-card {
+    background: white;
+    border: 1.5px solid var(--slate-200);
+    border-radius: var(--radius-md);
+    padding: 16px 14px;
+    cursor: pointer;
+    transition: all .18s;
+    display: flex; flex-direction: column; gap: 10px;
+    box-shadow: var(--shadow-sm);
+    position: relative; overflow: hidden;
+}
+.quick-card::before {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+    opacity: 0; transition: opacity .18s;
+}
+.quick-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: transparent;
+}
+.quick-card:hover::before { opacity: 1; }
+.qc-food::before   { background: linear-gradient(90deg, var(--amber), #fb923c); }
+.qc-attraction::before { background: linear-gradient(90deg, var(--indigo), var(--cyan)); }
+.qc-hotel::before  { background: linear-gradient(90deg, #8b5cf6, var(--indigo)); }
+.qc-transport::before { background: linear-gradient(90deg, var(--cyan), #10b981); }
+.qc-food:hover   { background: #fffdf8; }
+.qc-attraction:hover { background: var(--indigo-bg); }
+.qc-hotel:hover  { background: #faf5ff; }
+.qc-transport:hover { background: var(--cyan-bg); }
+.quick-card-icon {
+    width: 38px; height: 38px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+}
+.qc-food .quick-card-icon       { background: var(--amber-bg); color: var(--amber); }
+.qc-attraction .quick-card-icon { background: var(--indigo-bg); color: var(--indigo); }
+.qc-hotel .quick-card-icon      { background: #f5f3ff; color: #8b5cf6; }
+.qc-transport .quick-card-icon  { background: var(--cyan-bg); color: var(--cyan); }
+.quick-card-title {
+    font-family: var(--font-display);
+    font-size: 13px; font-weight: 700; color: var(--navy);
+    margin-bottom: 2px;
+}
+.quick-card-desc { font-size: 11.5px; color: var(--slate-500); line-height: 1.45; }
+.quick-card-arrow {
+    margin-top: auto; font-size: 13px;
+    color: var(--slate-400); transition: color .15s, transform .15s;
+}
+.quick-card:hover .quick-card-arrow { color: var(--indigo); transform: translateX(3px); }
+
+/* ═══════════════════════════════════════════════════
+   CONVERSATION AREA
+═══════════════════════════════════════════════════ */
+.convo-area {
+    background: white;
+    border: 1.5px solid var(--slate-200);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    min-height: 380px;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+}
+.convo-header {
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--slate-100);
+    display: flex; align-items: center; gap: 10px;
+    background: #fafbfd;
+}
+.convo-header-ico {
+    width: 30px; height: 30px; border-radius: 8px;
+    background: linear-gradient(135deg, var(--indigo), var(--cyan));
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 13px;
+}
+.convo-header-title { font-size: 13.5px; font-weight: 700; color: var(--navy); }
+.convo-header-sub   { font-size: 11px; color: var(--slate-400); }
+.convo-header-badge {
+    margin-left: auto; padding: 3px 9px; border-radius: 99px;
+    background: #f0fdf4; color: #16a34a;
+    font-size: 11px; font-weight: 600; border: 1px solid #bbf7d0;
+    display: flex; align-items: center; gap: 4px;
+}
+.convo-header-badge::before {
+    content: ''; width: 5px; height: 5px; border-radius: 50%;
+    background: #16a34a; flex-shrink: 0;
+    animation: pulse-green 2s ease-in-out infinite;
+}
+@keyframes pulse-green {
+    0%, 100% { opacity: 1; } 50% { opacity: .3; }
+}
+
+/* Empty state */
+.convo-empty {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 40px 24px; text-align: center;
+}
+.convo-empty-globe {
+    width: 80px; height: 80px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--indigo-bg) 0%, var(--cyan-bg) 100%);
+    border: 2px dashed var(--slate-200);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 36px; margin-bottom: 18px;
+    position: relative;
+}
+.convo-empty-globe::after {
+    content: '✈️';
+    position: absolute; top: -8px; right: -8px;
+    width: 28px; height: 28px; border-radius: 50%;
+    background: white; border: 1.5px solid var(--slate-200);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+}
+.convo-empty-title { font-family: var(--font-display); font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+.convo-empty-sub   { font-size: 13px; color: var(--slate-400); max-width: 260px; line-height: 1.6; margin-bottom: 20px; }
+.convo-empty-prompts { display: flex; flex-direction: column; gap: 7px; width: 100%; max-width: 340px; }
+.cep {
+    padding: 10px 14px;
+    background: var(--slate-100); border-radius: var(--radius-sm);
+    font-size: 12.5px; color: var(--slate-600);
+    cursor: pointer; transition: all .13s; text-align: left;
+    border: 1px solid transparent;
+    display: flex; align-items: center; gap: 8px;
+}
+.cep i { color: var(--indigo); font-size: 13px; flex-shrink: 0; }
+.cep:hover { background: var(--indigo-bg); border-color: #c7d2fe; color: var(--indigo); }
+
+/* Chat messages (dynamic) */
+.convo-messages { flex: 1; padding: 16px 18px; display: flex; flex-direction: column; gap: 16px; }
+.msg-user, .msg-ai { display: flex; gap: 10px; align-items: flex-start; }
+.msg-user { flex-direction: row-reverse; }
+.msg-avatar {
+    width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+}
+.msg-ai .msg-avatar   { background: linear-gradient(135deg, var(--indigo), var(--cyan)); color: white; }
+.msg-user .msg-avatar { background: var(--slate-200); color: var(--slate-600); }
+.msg-bubble {
+    max-width: 80%; padding: 11px 15px; border-radius: 14px;
+    font-size: 13.5px; line-height: 1.6;
+}
+.msg-user .msg-bubble {
+    background: var(--indigo);
+    color: white;
+    border-radius: 14px 4px 14px 14px;
+}
+.msg-ai .msg-bubble {
+    background: white;
+    color: var(--navy);
+    border: 1.5px solid var(--slate-200);
+    border-radius: 4px 14px 14px 14px;
+    box-shadow: var(--shadow-sm);
+}
+.msg-ai .msg-bubble p:last-child { margin-bottom: 0; }
+.msg-ai-meta { font-size: 10.5px; color: var(--slate-400); margin-top: 4px; }
+.msg-typing {
+    display: flex; align-items: center; gap: 4px;
+    padding: 12px 15px; background: white;
+    border: 1.5px solid var(--slate-200); border-radius: 4px 14px 14px 14px;
+    box-shadow: var(--shadow-sm);
+}
+.typing-dot {
+    width: 6px; height: 6px; border-radius: 50%; background: var(--slate-400);
+    animation: typing-bounce .8s ease-in-out infinite;
+}
+.typing-dot:nth-child(2) { animation-delay: .15s; }
+.typing-dot:nth-child(3) { animation-delay: .3s; }
+@keyframes typing-bounce { 0%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-5px); } }
+
+/* ═══════════════════════════════════════════════════
+   RIGHT PANEL
+═══════════════════════════════════════════════════ */
+.right-panel { display: flex; flex-direction: column; gap: 14px; position: sticky; top: 72px; }
+
+/* Glass card */
+.glass-card {
+    background: rgba(255,255,255,.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1.5px solid rgba(255,255,255,.9);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+}
+.panel-head {
+    padding: 13px 16px 10px;
+    border-bottom: 1px solid var(--slate-100);
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(248,250,252,.8);
+}
+.panel-head-ico {
+    width: 28px; height: 28px; border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px;
+}
+.panel-head-title { font-size: 12.5px; font-weight: 700; color: var(--navy); }
+.panel-head-sub   { font-size: 10.5px; color: var(--slate-400); }
+.panel-body { padding: 14px 16px; }
+
+/* Weather */
+.weather-main {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 12px;
+}
+.weather-temp {
+    font-family: var(--font-display);
+    font-size: 40px; font-weight: 800; color: var(--navy);
+    line-height: 1;
+}
+.weather-temp span { font-size: 22px; font-weight: 400; color: var(--slate-400); }
+.weather-icon { font-size: 44px; }
+.weather-loc { font-size: 12px; color: var(--slate-500); font-weight: 500; margin-bottom: 8px; display: flex; align-items: center; gap: 4px; }
+.weather-meta { display: flex; gap: 12px; }
+.weather-meta-item { font-size: 11.5px; color: var(--slate-500); display: flex; align-items: center; gap: 4px; }
+.weather-meta-item i { font-size: 12px; color: var(--cyan); }
+.weather-bar-wrap { display: flex; gap: 4px; margin-top: 12px; align-items: flex-end; }
+.weather-bar-col { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1; }
+.weather-bar-day { font-size: 9.5px; color: var(--slate-400); font-weight: 600; }
+.weather-bar {
+    width: 100%; border-radius: 4px;
+    background: linear-gradient(180deg, var(--cyan), var(--indigo));
+    transition: height .3s;
+}
+.weather-bar-val { font-size: 10px; color: var(--slate-500); font-weight: 600; }
+
+/* Time */
+.time-display {
+    font-family: var(--font-display);
+    font-size: 34px; font-weight: 800; color: var(--navy);
+    letter-spacing: -.02em; margin-bottom: 4px;
+    line-height: 1;
+}
+.time-display .time-seconds { font-size: 20px; color: var(--slate-400); }
+.time-zone { font-size: 11.5px; color: var(--slate-400); margin-bottom: 10px; }
+.time-zones { display: flex; flex-direction: column; gap: 6px; }
+.tz-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 7px 10px; background: var(--slate-100); border-radius: var(--radius-sm);
+    font-size: 12px;
+}
+.tz-city { color: var(--slate-600); font-weight: 500; display: flex; align-items: center; gap: 6px; }
+.tz-city span { font-size: 14px; }
+.tz-time { font-weight: 700; color: var(--navy); font-family: var(--font-display); }
+
+/* Currency */
+.currency-base {
+    display: flex; align-items: baseline; gap: 6px; margin-bottom: 12px;
+}
+.currency-base-val {
+    font-family: var(--font-display);
+    font-size: 26px; font-weight: 800; color: var(--navy);
+}
+.currency-base-label { font-size: 12px; color: var(--slate-400); }
+.currency-rows { display: flex; flex-direction: column; gap: 7px; }
+.currency-row {
+    display: flex; align-items: center;
+    padding: 8px 10px; background: var(--slate-100); border-radius: var(--radius-sm);
+}
+.currency-flag { font-size: 18px; margin-right: 8px; }
+.currency-name { font-size: 12px; color: var(--slate-600); font-weight: 500; }
+.currency-code { font-size: 10.5px; color: var(--slate-400); margin-top: 1px; }
+.currency-val  { margin-left: auto; font-size: 13.5px; font-weight: 700; color: var(--navy); font-family: var(--font-display); }
+.currency-change { font-size: 10.5px; font-weight: 600; margin-left: 6px; padding: 1px 5px; border-radius: 4px; }
+.up   { background: #f0fdf4; color: #16a34a; }
+.down { background: #fef2f2; color: #dc2626; }
+
+/* Destinations */
+.dest-list { display: flex; flex-direction: column; gap: 8px; }
+.dest-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 10px; border-radius: var(--radius-sm);
+    border: 1px solid var(--slate-100);
+    background: white; cursor: pointer;
+    transition: all .13s;
+}
+.dest-item:hover { border-color: var(--indigo); background: var(--indigo-bg); }
+.dest-thumb {
+    width: 38px; height: 38px; border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; flex-shrink: 0;
+}
+.dest-name  { font-size: 13px; font-weight: 600; color: var(--navy); }
+.dest-desc  { font-size: 11px; color: var(--slate-400); }
+.dest-badge {
+    margin-left: auto; padding: 3px 9px; border-radius: 99px;
+    font-size: 10.5px; font-weight: 600; white-space: nowrap;
+}
+.dest-badge-hot  { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+.dest-badge-new  { background: var(--indigo-bg); color: var(--indigo); border: 1px solid #c7d2fe; }
+.dest-badge-top  { background: var(--amber-bg); color: #b45309; border: 1px solid #fde68a; }
+
+/* ═══════════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════════ */
+.page-footer {
+    border-top: 1px solid var(--slate-200);
+    padding: 14px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 12px; color: var(--slate-400); flex-wrap: wrap; gap: 8px;
+    background: white;
+}
+.footer-left { display: flex; align-items: center; gap: 6px; }
+.footer-link { color: var(--slate-400); text-decoration: none; }
+.footer-link:hover { color: var(--indigo); }
+.footer-powered {
+    display: flex; align-items: center; gap: 6px;
+    padding: 5px 12px; border-radius: 99px;
+    background: linear-gradient(135deg, var(--indigo-bg), var(--cyan-bg));
+    color: var(--indigo); font-size: 11.5px; font-weight: 600;
+    border: 1px solid #c7d2fe;
+}
+
+/* ═══════════════════════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════════════════════ */
+.fade-in { animation: fadeIn .35s ease forwards; }
+@keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+.slide-up { animation: slideUp .4s ease forwards; }
+@keyframes slideUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+
+/* ═══════════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+    .main-content { grid-template-columns: 1fr; }
+    .right-panel  { position: static; display: grid; grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+    .main-content { padding: 0 16px 48px; }
+    .hero { padding: 40px 16px 36px; }
+    .quick-cards { grid-template-columns: repeat(2, 1fr); }
+    .right-panel { grid-template-columns: 1fr; }
+    .topbar-link { display: none; }
+    .hero-title  { font-size: 28px; }
+}
+@media (max-width: 480px) {
+    .quick-cards { grid-template-columns: 1fr 1fr; }
+    .chip-row .chip { font-size: 12px; padding: 5px 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .hero-horizon, .hero-eyebrow-dot, .pulse-green,
+    .typing-dot, .fade-in, .slide-up { animation: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ TOPBAR ══ -->
+<nav class="topbar">
+    <a href="/" class="topbar-brand">
+        <div class="topbar-brand-icon"><i class="bi bi-airplane-fill"></i></div>
+        FlightBooking
+        <span class="topbar-badge"><i class="bi bi-stars me-1"></i>AI</span>
+    </a>
+    <a href="/Admin" class="topbar-link"><i class="bi bi-grid me-1"></i>Dashboard</a>
+    <a href="/Flights" class="topbar-link"><i class="bi bi-airplane me-1"></i>Flights</a>
+    <a href="/Bookings" class="topbar-link"><i class="bi bi-calendar-check me-1"></i>Bookings</a>
+    <div class="topbar-right">
+        <a href="#" class="topbar-link"><i class="bi bi-bell"></i></a>
+        <button class="topbar-btn">
+            <i class="bi bi-person-circle"></i> Account
+        </button>
+    </div>
+</nav>
+
+<div class="page-shell">
+
+    <!-- ══ HERO ══ -->
+    <section class="hero">
+        <div class="hero-glow"></div>
+
+        <div class="hero-eyebrow">
+            <span class="hero-eyebrow-dot"></span>
+            Powered by ML.NET · Always learning
+        </div>
+
+        <h1 class="hero-title">
+            Your <span class="hero-title-accent">AI Travel</span><br>Assistant
+        </h1>
+        <p class="hero-sub">
+            Ask anything about your destination — restaurants, attractions, transportation, or local experiences.
+        </p>
+
+        <div class="chip-row">
+            <span class="chip" onclick="insertChip('Plan my trip to')">✈️ Plan my trip</span>
+            <span class="chip" onclick="insertChip('Find the best restaurants in')">🍔 Find restaurants</span>
+            <span class="chip" onclick="insertChip('Top attractions in')">🏛️ Attractions</span>
+            <span class="chip" onclick="insertChip('Transportation options from airport in')">🚇 Transportation</span>
+            <span class="chip" onclick="insertChip('Family-friendly activities in')">👨‍👩‍👧 Family activities</span>
+            <span class="chip" onclick="insertChip('Best local cafés in')">☕ Local cafés</span>
+        </div>
+
+        <div class="hero-horizon"></div>
+    </section>
+
+    <!-- ══ MAIN ══ -->
+    <div class="main-content">
+
+        <!-- Left column -->
+        <div class="main-left">
+
+            <!-- Prompt card -->
+            <div class="prompt-card fade-in">
+                <div class="prompt-card-label">
+                    <span class="prompt-card-label-dot"></span>
+                    Ask your travel question
+                </div>
+
+                <textarea
+                    id="promptInput"
+                    class="prompt-textarea"
+                    rows="3"
+                    placeholder="Ask anything about your next trip..."
+                    onkeydown="handleKeydown(event)"></textarea>
+
+                <div class="prompt-examples">
+                    <span class="prompt-examples-label">Try:</span>
+                    <span class="prompt-example" onclick="setPrompt(this.innerText)">
+                        <i class="bi bi-lightning-fill"></i>
+                        "Family restaurants in Rome"
+                    </span>
+                    <span class="prompt-example" onclick="setPrompt(this.innerText)">
+                        <i class="bi bi-lightning-fill"></i>
+                        "2-day itinerary for Milan"
+                    </span>
+                    <span class="prompt-example" onclick="setPrompt(this.innerText)">
+                        <i class="bi bi-lightning-fill"></i>
+                        "Must-see in Vienna"
+                    </span>
+                </div>
+
+                <div class="prompt-footer">
+                    <button class="prompt-icon-btn" title="Attach file" onclick="showToast('File attachment coming soon')">
+                        <i class="bi bi-paperclip"></i>
+                    </button>
+                    <button class="prompt-icon-btn" title="Add location" onclick="showToast('Location tagging coming soon')">
+                        <i class="bi bi-geo-alt-fill"></i>
+                    </button>
+                    <button class="prompt-icon-btn" title="Voice input" onclick="showToast('Voice input coming soon')">
+                        <i class="bi bi-mic-fill"></i>
+                    </button>
+                    <span class="prompt-footer-hint" id="charCount">0 / 500</span>
+                    <button class="prompt-send-btn" id="sendBtn" onclick="sendMessage()">
+                        <span class="spinner spinner-border spinner-border-sm" role="status" style="width:14px;height:14px;border-width:2px;"></span>
+                        <i class="bi bi-send-fill"></i>
+                        Ask AI
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quick travel cards -->
+            <div class="quick-cards fade-in" style="animation-delay:.08s;">
+
+                <div class="quick-card qc-food" onclick="insertChip('Best restaurants in')">
+                    <div class="quick-card-icon"><i class="bi bi-cup-hot-fill"></i></div>
+                    <div>
+                        <div class="quick-card-title">Restaurants</div>
+                        <div class="quick-card-desc">Discover local dining — from fine dining to street food</div>
+                    </div>
+                    <div class="quick-card-arrow"><i class="bi bi-arrow-right"></i></div>
+                </div>
+
+                <div class="quick-card qc-attraction" onclick="insertChip('Top attractions in')">
+                    <div class="quick-card-icon"><i class="bi bi-binoculars-fill"></i></div>
+                    <div>
+                        <div class="quick-card-title">Attractions</div>
+                        <div class="quick-card-desc">Museums, landmarks, parks and hidden gems</div>
+                    </div>
+                    <div class="quick-card-arrow"><i class="bi bi-arrow-right"></i></div>
+                </div>
+
+                <div class="quick-card qc-hotel" onclick="insertChip('Best hotels in')">
+                    <div class="quick-card-icon"><i class="bi bi-building-fill"></i></div>
+                    <div>
+                        <div class="quick-card-title">Hotels</div>
+                        <div class="quick-card-desc">Find accommodation for any budget and style</div>
+                    </div>
+                    <div class="quick-card-arrow"><i class="bi bi-arrow-right"></i></div>
+                </div>
+
+                <div class="quick-card qc-transport" onclick="insertChip('Transportation options in')">
+                    <div class="quick-card-icon"><i class="bi bi-train-front-fill"></i></div>
+                    <div>
+                        <div class="quick-card-title">Transport</div>
+                        <div class="quick-card-desc">Metro, bus, taxi and airport connections</div>
+                    </div>
+                    <div class="quick-card-arrow"><i class="bi bi-arrow-right"></i></div>
+                </div>
+
+            </div>
+
+            <!-- Conversation area -->
+            <div class="convo-area fade-in" id="convoArea" style="animation-delay:.14s;">
+                <div class="convo-header">
+                    <div class="convo-header-ico"><i class="bi bi-robot"></i></div>
+                    <div>
+                        <div class="convo-header-title">Travel Assistant</div>
+                        <div class="convo-header-sub">Personalized for your journey</div>
+                    </div>
+                    <div class="convo-header-badge">Online</div>
+                </div>
+
+                <!-- Empty state (shown by default) -->
+                <div class="convo-empty" id="emptyState">
+                    <div class="convo-empty-globe">🌍</div>
+                    <div class="convo-empty-title">No conversation yet</div>
+                    <div class="convo-empty-sub">Start by asking a travel-related question — I'm ready to help plan your perfect trip.</div>
+                    <div class="convo-empty-prompts">
+                        <div class="cep" onclick="setPrompt('Recommend family-friendly restaurants in Rome with good pasta')">
+                            <i class="bi bi-geo-alt-fill"></i>
+                            Recommend family-friendly restaurants in Rome
+                        </div>
+                        <div class="cep" onclick="setPrompt('Create a 2-day itinerary for Milan, Italy including must-see spots')">
+                            <i class="bi bi-calendar3"></i>
+                            Create a 2-day itinerary for Milan
+                        </div>
+                        <div class="cep" onclick="setPrompt('Best places to visit in Vienna with children and activities for kids')">
+                            <i class="bi bi-people-fill"></i>
+                            Best places in Vienna with children
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Messages container (hidden until first message) -->
+                <div class="convo-messages" id="messages" style="display:none;"></div>
+            </div>
+
+        </div>
+
+        <!-- Right panel -->
+        <div class="right-panel">
+
+            <!-- Weather -->
+            <div class="glass-card slide-up" style="animation-delay:.1s;">
+                <div class="panel-head">
+                    <div class="panel-head-ico" style="background:#ecfeff;color:#0891b2;"><i class="bi bi-cloud-sun-fill"></i></div>
+                    <div>
+                        <div class="panel-head-title">Weather</div>
+                        <div class="panel-head-sub">Real-time conditions</div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="weather-loc"><i class="bi bi-geo-alt-fill" style="color:var(--indigo);"></i> Rome, Italy</div>
+                    <div class="weather-main">
+                        <div>
+                            <div class="weather-temp">22<span>°C</span></div>
+                        </div>
+                        <div class="weather-icon">⛅</div>
+                    </div>
+                    <div class="weather-meta">
+                        <div class="weather-meta-item"><i class="bi bi-droplet-fill"></i> 64% humidity</div>
+                        <div class="weather-meta-item"><i class="bi bi-wind"></i> 14 km/h NW</div>
+                    </div>
+                    <div class="weather-bar-wrap">
+                        <div class="weather-bar-col">
+                            <div class="weather-bar-day">Mon</div>
+                            <div class="weather-bar" style="height:36px;"></div>
+                            <div class="weather-bar-val">24°</div>
+                        </div>
+                        <div class="weather-bar-col">
+                            <div class="weather-bar-day">Tue</div>
+                            <div class="weather-bar" style="height:28px;"></div>
+                            <div class="weather-bar-val">19°</div>
+                        </div>
+                        <div class="weather-bar-col">
+                            <div class="weather-bar-day">Wed</div>
+                            <div class="weather-bar" style="height:20px;"></div>
+                            <div class="weather-bar-val">15°</div>
+                        </div>
+                        <div class="weather-bar-col">
+                            <div class="weather-bar-day">Thu</div>
+                            <div class="weather-bar" style="height:40px;"></div>
+                            <div class="weather-bar-val">27°</div>
+                        </div>
+                        <div class="weather-bar-col">
+                            <div class="weather-bar-day">Fri</div>
+                            <div class="weather-bar" style="height:32px;"></div>
+                            <div class="weather-bar-val">21°</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Local Time -->
+            <div class="glass-card slide-up" style="animation-delay:.18s;">
+                <div class="panel-head">
+                    <div class="panel-head-ico" style="background:var(--indigo-bg);color:var(--indigo);"><i class="bi bi-clock-fill"></i></div>
+                    <div>
+                        <div class="panel-head-title">Local Time</div>
+                        <div class="panel-head-sub">World clocks</div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="time-display" id="localTime">00:00<span class="time-seconds">:00</span></div>
+                    <div class="time-zone" id="localZone">Europe/Istanbul · UTC+3</div>
+                    <div class="time-zones">
+                        <div class="tz-row">
+                            <div class="tz-city"><span>🇮🇹</span> Rome</div>
+                            <div class="tz-time" id="tzRome">—</div>
+                        </div>
+                        <div class="tz-row">
+                            <div class="tz-city"><span>🇬🇧</span> London</div>
+                            <div class="tz-time" id="tzLondon">—</div>
+                        </div>
+                        <div class="tz-row">
+                            <div class="tz-city"><span>🇺🇸</span> New York</div>
+                            <div class="tz-time" id="tzNY">—</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Currency -->
+            <div class="glass-card slide-up" style="animation-delay:.24s;">
+                <div class="panel-head">
+                    <div class="panel-head-ico" style="background:#f0fdf4;color:#16a34a;"><i class="bi bi-currency-exchange"></i></div>
+                    <div>
+                        <div class="panel-head-title">Currency</div>
+                        <div class="panel-head-sub">Live exchange rates</div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="currency-base">
+                        <div class="currency-base-val">1 TRY</div>
+                        <div class="currency-base-label">Turkish Lira</div>
+                    </div>
+                    <div class="currency-rows">
+                        <div class="currency-row">
+                            <span class="currency-flag">🇪🇺</span>
+                            <div>
+                                <div class="currency-name">Euro</div>
+                                <div class="currency-code">EUR</div>
+                            </div>
+                            <div class="currency-val">0.028</div>
+                            <span class="currency-change down">▼ 0.3%</span>
+                        </div>
+                        <div class="currency-row">
+                            <span class="currency-flag">🇺🇸</span>
+                            <div>
+                                <div class="currency-name">US Dollar</div>
+                                <div class="currency-code">USD</div>
+                            </div>
+                            <div class="currency-val">0.031</div>
+                            <span class="currency-change up">▲ 0.1%</span>
+                        </div>
+                        <div class="currency-row">
+                            <span class="currency-flag">🇬🇧</span>
+                            <div>
+                                <div class="currency-name">British Pound</div>
+                                <div class="currency-code">GBP</div>
+                            </div>
+                            <div class="currency-val">0.024</div>
+                            <span class="currency-change up">▲ 0.2%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Popular Destinations -->
+            <div class="glass-card slide-up" style="animation-delay:.30s;">
+                <div class="panel-head">
+                    <div class="panel-head-ico" style="background:var(--amber-bg);color:var(--amber);"><i class="bi bi-fire"></i></div>
+                    <div>
+                        <div class="panel-head-title">Popular Now</div>
+                        <div class="panel-head-sub">Trending destinations</div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="dest-list">
+                        <div class="dest-item" onclick="setPrompt('Plan a 3-day trip to Rome, Italy with the best attractions and restaurants')">
+                            <div class="dest-thumb">🏛️</div>
+                            <div>
+                                <div class="dest-name">Rome, Italy</div>
+                                <div class="dest-desc">Colosseum, Vatican, Trastevere</div>
+                            </div>
+                            <span class="dest-badge dest-badge-hot">🔥 Hot</span>
+                        </div>
+                        <div class="dest-item" onclick="setPrompt('Best things to do in Barcelona, Spain for a family vacation')">
+                            <div class="dest-thumb">🎨</div>
+                            <div>
+                                <div class="dest-name">Barcelona, Spain</div>
+                                <div class="dest-desc">Sagrada Família, Park Güell</div>
+                            </div>
+                            <span class="dest-badge dest-badge-new">✨ New</span>
+                        </div>
+                        <div class="dest-item" onclick="setPrompt('Top attractions and local food experiences in Paris, France')">
+                            <div class="dest-thumb">🗼</div>
+                            <div>
+                                <div class="dest-name">Paris, France</div>
+                                <div class="dest-desc">Eiffel Tower, Montmartre, cafés</div>
+                            </div>
+                            <span class="dest-badge dest-badge-top">⭐ Top</span>
+                        </div>
+                        <div class="dest-item" onclick="setPrompt('Hidden gems and must-see places in Prague, Czech Republic')">
+                            <div class="dest-thumb">🏰</div>
+                            <div>
+                                <div class="dest-name">Prague, Czech Republic</div>
+                                <div class="dest-desc">Old Town, Charles Bridge</div>
+                            </div>
+                            <span class="dest-badge dest-badge-new">✨ New</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ══ FOOTER ══ -->
+    <footer class="page-footer">
+        <div class="footer-left">
+            <i class="bi bi-airplane-fill" style="color:var(--indigo);"></i>
+            FlightBooking AI Travel Assistant
+            <span style="color:var(--slate-200);">·</span>
+            <a href="#" class="footer-link">Privacy</a>
+            <span style="color:var(--slate-200);">·</span>
+            <a href="#" class="footer-link">Terms</a>
+        </div>
+        <div class="footer-powered">
+            <i class="bi bi-stars"></i>
+            Powered by ML.NET + Anthropic Claude
+        </div>
+    </footer>
+
+</div><!-- /page-shell -->
+
+<!-- Toast -->
+<div id="toast" style="
+    position:fixed; bottom:24px; right:24px; z-index:9999;
+    background:var(--navy); color:white; padding:12px 18px;
+    border-radius:var(--radius-sm); font-size:13px; font-weight:500;
+    box-shadow:var(--shadow-lg); opacity:0; transform:translateY(8px);
+    transition:all .25s; pointer-events:none; display:flex; align-items:center; gap:8px;
+">
+    <i class="bi bi-info-circle-fill" style="color:var(--cyan);"></i>
+    <span id="toastMsg"></span>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════
+   CLOCK
+═══════════════════════════════════════════ */
+function updateClocks() {
+    const now = new Date();
+    const pad = (n) => String(n).padStart(2,'0');
+    const h = pad(now.getHours()), m = pad(now.getMinutes()), s = pad(now.getSeconds());
+    const ltEl = document.getElementById('localTime');
+    if (ltEl) ltEl.innerHTML = h+':'+m+'<span class="time-seconds">:'+s+'</span>';
+
+    const fmt = (tz) => {
+        try {
+            return new Intl.DateTimeFormat('en-GB',{timeZone:tz,hour:'2-digit',minute:'2-digit',hour12:false}).format(now);
+        } catch(e){ return '—'; }
+    };
+    const rEl = document.getElementById('tzRome');
+    const lEl = document.getElementById('tzLondon');
+    const nEl = document.getElementById('tzNY');
+    if (rEl) rEl.textContent = fmt('Europe/Rome');
+    if (lEl) lEl.textContent = fmt('Europe/London');
+    if (nEl) nEl.textContent = fmt('America/New_York');
+}
+setInterval(updateClocks, 1000);
+updateClocks();
+
+/* ═══════════════════════════════════════════
+   CHAR COUNT
+═══════════════════════════════════════════ */
+const promptInput = document.getElementById('promptInput');
+const charCount   = document.getElementById('charCount');
+promptInput.addEventListener('input', function() {
+    const len = this.value.length;
+    charCount.textContent = len + ' / 500';
+    charCount.style.color = len > 450 ? '#dc2626' : 'var(--slate-400)';
+    if (len > 500) this.value = this.value.substring(0, 500);
+});
+
+/* ═══════════════════════════════════════════
+   CHIP / PROMPT HELPERS
+═══════════════════════════════════════════ */
+function insertChip(text) {
+    promptInput.value = text + ' ';
+    promptInput.focus();
+    promptInput.dispatchEvent(new Event('input'));
+}
+function setPrompt(text) {
+    promptInput.value = text.replace(/^"/, '').replace(/"$/, '').trim();
+    promptInput.focus();
+    promptInput.dispatchEvent(new Event('input'));
+}
+function handleKeydown(e) {
+    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+        e.preventDefault();
+        sendMessage();
+    }
+}
+
+/* ═══════════════════════════════════════════
+   TOAST
+═══════════════════════════════════════════ */
+let toastTimer;
+function showToast(msg) {
+    const toast = document.getElementById('toast');
+    document.getElementById('toastMsg').textContent = msg;
+    toast.style.opacity = '1';
+    toast.style.transform = 'translateY(0)';
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(8px)';
+    }, 2800);
+}
+
+/* ═══════════════════════════════════════════
+   CONVERSATION
+═══════════════════════════════════════════ */
+const messagesEl  = document.getElementById('messages');
+const emptyEl     = document.getElementById('emptyState');
+const sendBtn     = document.getElementById('sendBtn');
+let   isLoading   = false;
+
+const AI_RESPONSES = {
+    restaurant: [
+        "Here are some top restaurant picks for your destination:\n\n🍝 **La Pergola** (Rome) — Michelin-starred fine dining with panoramic views. Perfect for a special evening.\n\n🍕 **Da Enzo al 29** — Authentic Roman trattoria in Trastevere. Try the cacio e pepe — it's exceptional.\n\n☕ **Sant'Eustachio il Caffè** — The best espresso in Rome, near the Pantheon. Don't leave without a gran caffè.\n\n**Tip:** Make reservations at least 2 days in advance for popular spots. Most restaurants open at 19:30 for dinner.",
+        "Great question! For authentic local dining, I'd recommend:\n\n🥗 **Osteria dell'Enoteca** — Local wine bar with seasonal Italian dishes\n\n🍖 **Testaccio Market** — Best street food, try supplì (Roman rice balls)\n\n🍦 **Fatamorgana** — Creative gelato flavors near Campo de' Fiori\n\nBudget tip: Lunch menus (menù del giorno) offer 2-3 courses for €12-15."
+    ],
+    itinerary: [
+        "Here's a curated **2-day Milan itinerary**:\n\n**Day 1 — Culture & Cathedral**\n• 09:00 Duomo di Milano (book tickets online to skip queues)\n• 11:00 Galleria Vittorio Emanuele II — window shopping & coffee\n• 13:00 Lunch at Ristorante Cracco\n• 15:00 Pinacoteca di Brera (art museum)\n• 19:30 Aperitivo in Navigli district\n\n**Day 2 — Art & Fashion**\n• 09:30 The Last Supper (Leonardo da Vinci) — book 2 weeks ahead!\n• 12:00 Fashion District (Quadrilatero della Moda)\n• 14:00 Lunch at Peck Food Hall\n• 16:00 Brera neighborhood stroll\n• 20:00 Dinner at Il Luogo di Aimo e Nadia\n\n✈️ **Getting Around:** Metro lines M1, M2, M3 cover all key areas. Day pass: €7.",
+        "I've planned a **3-day Paris adventure** for you:\n\n**Day 1 — Icons**\nEiffel Tower (sunrise visit!), Champ de Mars picnic, Musée d'Orsay\n\n**Day 2 — History**\nLouvre Museum, Tuileries Garden, Notre-Dame, Latin Quarter dinner\n\n**Day 3 — Local Life**\nMontmartre, Sacré-Cœur, street art, Canal Saint-Martin\n\n💡 **Pro tip:** Get the Paris Museum Pass for €52 (48h) — covers 50+ sites."
+    ],
+    transport: [
+        "**Transportation options from the airport:**\n\n🚌 **Express Bus** — Most affordable option (€6-8), runs every 20 min, ~45 min journey\n\n🚇 **Metro/Rail** — Direct train service from main terminals, €14, 30 min to city center\n\n🚖 **Licensed Taxi** — Fixed rate ~€48 from airport to city. Use official taxi stands only.\n\n📱 **Ride-hailing** — Uber and local apps available, typically 20-30% cheaper than taxis\n\n⚠️ **Avoid:** Unlicensed 'taxi' drivers approaching you in arrivals — common scam in many cities.\n\nTravel time depends heavily on traffic. For early morning flights, the train is fastest and most reliable.",
+    ],
+    default: [
+        "That's a great travel question! Let me help you plan the perfect experience.\n\nBased on your query, here are my recommendations:\n\n🌟 **Top picks** for your destination include a mix of cultural landmarks, authentic local cuisine, and off-the-beaten-path experiences.\n\n📅 **Best time to visit:** Spring (April-June) and Fall (September-October) offer the best balance of weather and fewer crowds.\n\n💰 **Budget tip:** Booking accommodation and key attractions 2-3 weeks in advance typically saves 20-35%.\n\n🗺️ **Getting around:** Most European cities have excellent public transit — a day pass (€6-10) is usually the best value.\n\nWould you like me to get more specific about restaurants, attractions, or a day-by-day itinerary?",
+    ]
+};
+
+function getAIResponse(question) {
+    const q = question.toLowerCase();
+    if (q.includes('restaurant') || q.includes('food') || q.includes('eat') || q.includes('café') || q.includes('coffee'))
+        return AI_RESPONSES.restaurant[Math.floor(Math.random() * AI_RESPONSES.restaurant.length)];
+    if (q.includes('itinerary') || q.includes('day') || q.includes('plan') || q.includes('trip'))
+        return AI_RESPONSES.itinerary[Math.floor(Math.random() * AI_RESPONSES.itinerary.length)];
+    if (q.includes('transport') || q.includes('airport') || q.includes('metro') || q.includes('bus') || q.includes('taxi'))
+        return AI_RESPONSES.transport[0];
+    return AI_RESPONSES.default[0];
+}
+
+function renderMarkdown(text) {
+    return text
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\n\n/g, '</p><p>')
+        .replace(/\n/g, '<br>')
+        .replace(/^/, '<p>').replace(/$/, '</p>');
+}
+
+function addUserMsg(text) {
+    const div = document.createElement('div');
+    div.className = 'msg-user fade-in';
+    div.innerHTML = `
+        <div class="msg-avatar"><i class="bi bi-person-fill"></i></div>
+        <div class="msg-bubble">${text.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
+    `;
+    messagesEl.appendChild(div);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+
+function addTypingIndicator() {
+    const div = document.createElement('div');
+    div.className = 'msg-ai fade-in'; div.id = 'typingIndicator';
+    div.innerHTML = `
+        <div class="msg-avatar"><i class="bi bi-robot"></i></div>
+        <div class="msg-typing">
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+        </div>
+    `;
+    messagesEl.appendChild(div);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+
+function removeTypingIndicator() {
+    const el = document.getElementById('typingIndicator');
+    if (el) el.remove();
+}
+
+function addAIMsg(text) {
+    const now = new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+    const div = document.createElement('div');
+    div.className = 'msg-ai fade-in';
+    div.innerHTML = `
+        <div class="msg-avatar"><i class="bi bi-robot"></i></div>
+        <div>
+            <div class="msg-bubble">${renderMarkdown(text)}</div>
+            <div class="msg-ai-meta"><i class="bi bi-stars me-1"></i>AI Travel Assistant · ${now}</div>
+        </div>
+    `;
+    messagesEl.appendChild(div);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+
+async function sendMessage() {
+    const text = promptInput.value.trim();
+    if (!text || isLoading) return;
+
+    /* Show messages, hide empty state */
+    emptyEl.style.display = 'none';
+    messagesEl.style.display = 'flex';
+
+    /* Lock UI */
+    isLoading = true;
+    sendBtn.classList.add('loading');
+    sendBtn.disabled = true;
+
+    addUserMsg(text);
+    promptInput.value = '';
+    promptInput.dispatchEvent(new Event('input'));
+
+    addTypingIndicator();
+
+    /* Simulate AI response delay */
+    const delay = 1200 + Math.random() * 800;
+    await new Promise(r => setTimeout(r, delay));
+
+    removeTypingIndicator();
+    addAIMsg(getAIResponse(text));
+
+    /* Unlock UI */
+    isLoading = false;
+    sendBtn.classList.remove('loading');
+    sendBtn.disabled = false;
+    promptInput.focus();
+}
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
