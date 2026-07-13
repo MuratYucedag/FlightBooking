@@ -19,10 +19,10 @@ namespace FlightBooking.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AskAgent(AgentPromptRequestDto request)
+        public async Task<IActionResult> AskAgent([FromBody] AgentPromptRequestDto request)
         {
             var result = await _travelAgentService.AskAgentAsync(request.Prompt);
-            return Content(result);
+            return Json(result);
         }
     }
 }
