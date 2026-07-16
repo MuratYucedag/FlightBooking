@@ -56,3 +56,59 @@
 
     return result;
 }
+
+
+
+----------------------------------------------------------------------------------------
+
+
+public async Task<AgentResponseDto> AskAgentAsync(string prompt)
+{
+    var intent = _intentDetector.Detect(prompt);
+
+    string intentInstruction;
+
+    switch (intent)
+    {
+        case TravelIntent.Weather:
+            var weatherResult = await _weatherTool.GetWeatherAsync("Amsterdam");
+
+            intentInstruction =
+                $"Kullanıcı hava durumu bilgisi istiyor. " +
+                $"Gerçek hava durumu verisi: " +
+                $"Şehir: {weatherResult.City}, " +
+                $"Sıcaklık: {weatherResult.Temperature}°C, " +
+                $"Durum: {weatherResult.Condition}, " +
+                $"Nem: %{weatherResult.Humidity}, " +
+                $"Rüzgar: {weatherResult.WindSpeed} km/s. " +
+                $"Bu verilere göre kullanıcıya seyahat ve kıyafet önerisi ver.";
+            break;
+
+        case TravelIntent.Restaurant:
+            intentInstruction =
+                "Kullanıcı restoran önerisi istiyor.";
+            break;
+
+        case TravelIntent.Hotel:
+            intentInstruction =
+                "Kullanıcı otel önerisi istiyor.";
+            break;
+
+        default:
+            intentInstruction =
+                "Kullanıcının seyahatle ilgili sorusuna yardımcı ol.";
+            break;
+    }
+
+    var finalPrompt = _promptBuilder.BuildPrompt(
+        $"{intentInstruction}\n\nKullanıcının gerçek sorusu:\n{prompt}");
+
+    var result = await _openAIService.GetResponseAsync(finalPrompt);
+
+    result.Intent = intent.ToString();
+
+    return result;
+}
+
+
+---------------------------------------------------------------------------------------------------
