@@ -996,12 +996,12 @@
                 margin: 10px 0;
             }
 
-            /* YENİ: hata balonu varyantı */
-            .msg-ai .msg-bubble.msg-error {
-                background: #fef2f2;
-                border-color: #fecaca;
-                color: #b91c1c;
-            }
+        /* YENİ: hata balonu varyantı */
+        .msg-ai .msg-bubble.msg-error {
+            background: #fef2f2;
+            border-color: #fecaca;
+            color: #b91c1c;
+        }
 
         .msg-ai-meta {
             font-size: 10.5px;
@@ -1138,9 +1138,9 @@
         }
 
         /* ═══════════════════════════════════════════
-                   YENİ: HAVA DURUMU KARTI İÇERİK STİLLERİ
-                   (mevcut palet ve radius değişkenleri kullanıldı)
-                ═══════════════════════════════════════════ */
+           YENİ: HAVA DURUMU KARTI İÇERİK STİLLERİ
+           (mevcut palet ve radius değişkenleri kullanıldı)
+        ═══════════════════════════════════════════ */
         .weather-city {
             font-family: var(--font-display);
             font-size: 15px;
@@ -1443,6 +1443,7 @@
             .hero-title {
                 font-size: 26px;
             }
+
             /* YENİ: mobilde tahmin kartları sabit genişlik + yatay kaydırma */
             .forecast-card {
                 flex: 0 0 62px;
@@ -1459,6 +1460,7 @@
                 font-size: 12px;
                 padding: 5px 12px;
             }
+
             /* YENİ: dar ekranda detay grid'i tek sütun */
             .weather-details {
                 grid-template-columns: 1fr;
@@ -1709,6 +1711,7 @@
                     <div class="panel-body" id="weatherContent" style="display:none;"></div>
                 </div>
                 <!-- ═══ /HAVA DURUMU KARTI ═══ -->
+
                 <!-- Aşağıdaki kartlar değişmedi: empty state olarak kalıyor -->
                 <div class="glass-card slide-up" style="animation-delay:.18s;">
                     <div class="panel-head">

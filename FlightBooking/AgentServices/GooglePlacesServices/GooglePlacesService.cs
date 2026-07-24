@@ -1,0 +1,44 @@
+﻿using FlightBooking.Dtos.RestaurantDtos;
+using System.Text;
+using System.Text.Json;
+
+namespace FlightBooking.AgentServices.GooglePlacesServices
+{
+    public class GooglePlacesService : IGooglePlacesService
+    {
+        private readonly HttpClient _httpClient;
+        private readonly IConfiguration _configuration;
+        public GooglePlacesService(HttpClient httpClient, IConfiguration configuration)
+        {
+            _httpClient = httpClient;
+            _configuration = configuration;
+        }
+        public async Task<List<RestaurantDto>> SearchRestaurantsAsync(string query)
+        {
+            var apiKey = _configuration["GoogleMaps:ApiKey"];
+
+            var request = new
+            {
+                textQuery = query,
+                languageCode = "tr",
+                regionCode = "TR",
+                maxResultCount = 5
+            };
+
+            var content = new StringContent(JsonSerializer.Serialize(request), Encoding.UTF8, "application/json");
+
+            _httpClient.DefaultRequestHeaders.Clear();
+            _httpClient.DefaultRequestHeaders.Add("X-Goog-Api-Key", apiKey);
+            _httpClient.DefaultRequestHeaders.Add("X-Goog-FieldMask", "places.id,places.displayName,places.formattedAddress,places.rating,places.userRatingCount,places.googleMapsUri");
+
+            var response = await _httpClient.PostAsync("https://places.googleapis.com/v1/places:searchText", content);
+
+            response.EnsureSuccessStatusCode();
+
+            var json = await response.Content.ReadAsStringAsync();
+
+            // Burayı bir sonraki adımda deserialize edeceğiz.
+            return new List<RestaurantDto>();
+        }
+    }
+}

@@ -1,14 +1,29 @@
-﻿using FlightBooking.Dtos.AgentDtos;
-using FlightBooking.Dtos.WeatherDtos;
-using System.Text.Json;
+﻿ public string City { get; set; }
+        public string Country { get; set; }
+        public string TimeZoneId { get; set; }
 
-namespace FlightBooking.Tools.WeatherTool
-{
-    public class WeatherTool : IWeatherTool
-    {
-        private readonly HttpClient _httpClient;
+        public decimal Temperature { get; set; }
+        public string Condition { get; set; }
 
-        private const string RapidApiKey = "630ce9cc86msh271c60cffe62d5ep1b514djsn0fe292593744";
+        public int Humidity { get; set; }
+        public double WindSpeed { get; set; }
+        public string WindDirection { get; set; }
+
+        public int Visibility { get; set; }
+        public int Pressure { get; set; }
+
+        public string Sunrise { get; set; }
+        public string Sunset { get; set; }
+
+        public List<WeatherForecastResult> Forecasts { get; set; } = new();
+
+
+-----------------------------------------------------------------------------------------------------
+
+
+  private readonly HttpClient _httpClient;
+
+        private const string RapidApiKey = "YENI_RAPID_API_KEY";
         private const string RapidApiHost = "yahoo-weather5.p.rapidapi.com";
         private const string BaseUrl =
             "https://yahoo-weather5.p.rapidapi.com/weather";
@@ -164,5 +179,104 @@ namespace FlightBooking.Tools.WeatherTool
 
             return weatherResult;
         }
+
+--------------------------------------------------------------------------------
+
+public async Task<AgentResponseDto> AskAgentAsync(string prompt)
+{
+    var intent = _intentDetector.Detect(prompt);
+
+    string intentInstruction;
+
+    switch (intent)
+    {
+        case TravelIntent.Weather:
+        {
+            var city = await _cityExtractor.ExtractCityAsync(prompt);
+
+            if (string.IsNullOrWhiteSpace(city))
+            {
+                intentInstruction =
+                    "Kullanıcı hava durumu bilgisi istiyor ancak şehir belirtmemiş. " +
+                    "Kullanıcıdan hangi şehrin hava durumunu öğrenmek istediğini sor.";
+
+                break;
+            }
+
+            var weatherResult =
+                await _weatherTool.GetWeatherAsync(city);
+
+            var forecastText = string.Join(
+                "\n",
+                weatherResult.Forecasts.Select(x =>
+                    $"{x.Day}: En düşük {x.Low}°C, " +
+                    $"en yüksek {x.High}°C, durum: {x.Condition}"));
+
+            intentInstruction =
+                $"Kullanıcı hava durumu bilgisi istiyor.\n\n" +
+                $"Weather Tool tarafından sağlanan gerçek hava durumu verileri:\n" +
+                $"Şehir: {weatherResult.City}\n" +
+                $"Ülke: {weatherResult.Country}\n" +
+                $"Sıcaklık: {weatherResult.Temperature}°C\n" +
+                $"Durum: {weatherResult.Condition}\n" +
+                $"Nem: %{weatherResult.Humidity}\n" +
+                $"Rüzgar: {weatherResult.WindSpeed} km/sa, " +
+                $"{weatherResult.WindDirection}\n" +
+                $"Görüş mesafesi: {weatherResult.Visibility} km\n" +
+                $"Basınç: {weatherResult.Pressure} hPa\n" +
+                $"Gün doğumu: {weatherResult.Sunrise}\n" +
+                $"Gün batımı: {weatherResult.Sunset}\n\n" +
+                $"Gelecek gün tahminleri:\n{forecastText}\n\n" +
+                $"Yalnızca Weather Tool tarafından sağlanan verileri kullan. " +
+                $"Hava durumu veya sıcaklık uydurma. " +
+                $"Kullanıcının sorusuna göre kıyafet, şemsiye ve seyahat önerisi ver.";
+
+            break;
+        }
+
+        case TravelIntent.Restaurant:
+            intentInstruction =
+                "Kullanıcı restoran önerisi istiyor.";
+            break;
+
+        case TravelIntent.Hotel:
+            intentInstruction =
+                "Kullanıcı otel önerisi istiyor.";
+            break;
+
+        case TravelIntent.Transportation:
+            intentInstruction =
+                "Kullanıcı ulaşım seçenekleri hakkında bilgi istiyor.";
+            break;
+
+        case TravelIntent.Currency:
+            intentInstruction =
+                "Kullanıcı döviz kuru bilgisi istiyor.";
+            break;
+
+        case TravelIntent.Itinerary:
+            intentInstruction =
+                "Kullanıcı seyahat planı veya rota hazırlanmasını istiyor.";
+            break;
+
+        case TravelIntent.Attraction:
+            intentInstruction =
+                "Kullanıcı gezilecek yer önerileri istiyor.";
+            break;
+
+        default:
+            intentInstruction =
+                "Kullanıcının seyahatle ilgili sorusuna yardımcı ol.";
+            break;
     }
+
+    var finalPrompt = _promptBuilder.BuildPrompt(
+        $"{intentInstruction}\n\nKullanıcının gerçek sorusu:\n{prompt}");
+
+    var result =
+        await _openAIService.GetResponseAsync(finalPrompt);
+
+    result.Intent = intent.ToString();
+
+    return result;
 }
