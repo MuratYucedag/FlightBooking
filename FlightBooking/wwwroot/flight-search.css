@@ -1,0 +1,572 @@
+/* =============================================================
+   FLYORA – Uçuş Arama Ana Sayfası Stil Dosyası
+   Renk paleti: gökyüzü mavisi, lacivert, turkuaz, beyaz
+   ============================================================= */
+
+:root {
+    --sky:        #38bdf8;   /* gökyüzü mavisi */
+    --sky-soft:   #e0f2fe;   /* açık gök tonu   */
+    --navy:       #0f2a52;   /* koyu lacivert başlıklar */
+    --navy-deep:  #0a1f3d;   /* footer / koyu yüzey */
+    --brand:      #1466d6;   /* ana marka mavisi */
+    --turquoise:  #14b8a6;   /* turkuaz vurgu / CTA */
+    --turquoise-d:#0d9488;
+    --ink:        #1e293b;   /* gövde metni */
+    --muted:      #64748b;   /* ikincil metin */
+    --line:       #e2e8f0;   /* ince çizgiler */
+    --bg:         #f4f8fd;   /* açık sayfa arka planı */
+    --white:      #ffffff;
+    --shadow-sm:  0 4px 14px rgba(15, 42, 82, .08);
+    --shadow-md:  0 12px 34px rgba(15, 42, 82, .12);
+    --shadow-lg:  0 24px 60px rgba(15, 42, 82, .18);
+    --radius:     18px;
+    --radius-sm:  12px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    font-family: 'Inter', -apple-system, 'Segoe UI', sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4, .fly-brand-text {
+    font-family: 'Sora', 'Inter', sans-serif;
+    color: var(--navy);
+    letter-spacing: -.02em;
+}
+
+/* =============================================================
+   1. NAVBAR
+   ============================================================= */
+.fly-navbar {
+    background: rgba(255, 255, 255, .92);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 1px 0 rgba(15, 42, 82, .06);
+    padding-top: .55rem;
+    padding-bottom: .55rem;
+    transition: box-shadow .3s ease;
+}
+.fly-navbar.fly-scrolled { box-shadow: var(--shadow-sm); }
+
+.fly-logo-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px; height: 40px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--brand), var(--turquoise));
+    color: #fff;
+    font-size: 1.15rem;
+    transform: rotate(-20deg);
+    box-shadow: 0 6px 16px rgba(20, 102, 214, .35);
+}
+.fly-brand-text { font-weight: 800; font-size: 1.5rem; }
+
+.fly-main-links .nav-link {
+    font-weight: 600;
+    color: var(--navy);
+    padding: .4rem .9rem;
+    border-radius: 10px;
+    transition: color .2s, background .2s;
+}
+.fly-main-links .nav-link:hover,
+.fly-main-links .nav-link.active { color: var(--brand); background: var(--sky-soft); }
+
+.fly-nav-select {
+    width: auto;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    font-weight: 600;
+    color: var(--navy);
+}
+
+/* Butonlar */
+.fly-btn-ghost {
+    border: 1.5px solid var(--brand);
+    color: var(--brand);
+    background: transparent;
+    font-weight: 600;
+    border-radius: 10px;
+    padding: .4rem 1rem;
+    transition: all .2s;
+}
+.fly-btn-ghost:hover { background: var(--brand); color: #fff; }
+
+.fly-btn-solid {
+    background: var(--brand);
+    color: #fff;
+    font-weight: 600;
+    border-radius: 10px;
+    padding: .4rem 1.1rem;
+    border: none;
+    transition: all .2s;
+}
+.fly-btn-solid:hover { background: #0f52ad; color: #fff; transform: translateY(-1px); }
+
+/* =============================================================
+   2. HERO
+   ============================================================= */
+.fly-hero {
+    position: relative;
+    padding: 5rem 0 8rem;
+    background:
+        linear-gradient(180deg, rgba(224,242,254,.35), rgba(244,248,253,.9)),
+        url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1600&q=70') center 30% / cover no-repeat;
+    overflow: hidden;
+}
+.fly-hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(20,102,214,.18) 0%, rgba(255,255,255,.05) 55%, rgba(244,248,253,1) 100%);
+    pointer-events: none;
+}
+.fly-hero-route {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 60%;
+    pointer-events: none;
+    opacity: .7;
+}
+.fly-hero-content { position: relative; z-index: 2; }
+
+.fly-hero-eyebrow {
+    display: inline-flex; align-items: center; gap: .4rem;
+    background: rgba(255,255,255,.85);
+    color: var(--brand);
+    font-weight: 600; font-size: .85rem;
+    padding: .35rem .9rem;
+    border-radius: 999px;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 1.2rem;
+}
+.fly-hero-title {
+    font-size: clamp(2rem, 4.5vw, 3.4rem);
+    font-weight: 800;
+    color: var(--navy);
+    text-shadow: 0 2px 20px rgba(255,255,255,.6);
+    margin-bottom: .8rem;
+}
+.fly-hero-subtitle {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: #1c3a63;
+    font-weight: 500;
+    margin-bottom: 2.5rem;
+}
+
+/* =============================================================
+   3. UÇUŞ ARAMA KARTI
+   ============================================================= */
+.fly-search-card {
+    background: var(--white);
+    border-radius: 24px;
+    box-shadow: var(--shadow-lg);
+    padding: 1.5rem;
+    max-width: 1080px;
+    margin: 0 auto;
+    text-align: left;
+    border: 1px solid rgba(255,255,255,.6);
+}
+
+/* Seyahat tipi sekmeleri */
+.fly-trip-tabs {
+    display: inline-flex;
+    gap: .3rem;
+    background: var(--sky-soft);
+    padding: .3rem;
+    border-radius: 14px;
+    margin-bottom: 1.4rem;
+    flex-wrap: wrap;
+}
+.fly-trip-tab {
+    display: inline-flex; align-items: center; gap: .4rem;
+    padding: .5rem 1.1rem;
+    border-radius: 10px;
+    font-weight: 600; font-size: .92rem;
+    color: var(--navy);
+    cursor: pointer;
+    transition: all .2s;
+    margin: 0;
+}
+.btn-check:checked + .fly-trip-tab {
+    background: var(--white);
+    color: var(--brand);
+    box-shadow: var(--shadow-sm);
+}
+.btn-check:focus-visible + .fly-trip-tab { outline: 2px solid var(--brand); outline-offset: 2px; }
+
+/* Alan etiketleri ve inputlar */
+.fly-field-col { min-width: 0; }
+.fly-field-label {
+    display: flex; align-items: center; gap: .4rem;
+    font-size: .78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    color: var(--muted);
+    margin-bottom: .35rem;
+}
+.fly-field-label i { color: var(--brand); }
+
+.fly-field-input {
+    border: 1.5px solid var(--line);
+    border-radius: var(--radius-sm);
+    padding: .7rem .85rem;
+    font-size: .98rem;
+    font-weight: 500;
+    color: var(--ink);
+    background: #fbfdff;
+    height: auto;
+    transition: border-color .2s, box-shadow .2s;
+}
+.fly-field-input:focus {
+    border-color: var(--brand);
+    box-shadow: 0 0 0 4px rgba(20,102,214,.14);
+    background: #fff;
+    outline: none;
+}
+
+/* Swap butonu */
+.fly-swap-col {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding-bottom: .35rem;
+}
+.fly-swap-btn {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    border: 1.5px solid var(--line);
+    background: #fff;
+    color: var(--brand);
+    font-size: 1.1rem;
+    display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    transition: all .25s;
+}
+.fly-swap-btn:hover { background: var(--brand); color: #fff; transform: rotate(180deg); }
+@media (max-width: 991px){
+    .fly-swap-btn { transform: rotate(90deg); }
+    .fly-swap-btn:hover { transform: rotate(270deg); }
+}
+
+/* Yolcu toggle butonu */
+.fly-passenger-toggle {
+    display: flex; align-items: center; justify-content: space-between;
+    cursor: pointer;
+}
+.fly-toggle-caret { transition: transform .25s; color: var(--muted); }
+.fly-passenger-toggle[aria-expanded="true"] .fly-toggle-caret { transform: rotate(180deg); }
+
+/* Yolcu paneli */
+.fly-passenger-panel {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0; right: 0;
+    z-index: 40;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+    padding: 1.1rem;
+    min-width: 300px;
+}
+.fly-counter-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: .55rem 0;
+}
+.fly-counter-title { font-weight: 600; color: var(--navy); }
+.fly-counter-sub { font-size: .78rem; color: var(--muted); }
+.fly-counter-controls { display: flex; align-items: center; gap: .8rem; }
+.fly-counter-btn {
+    width: 34px; height: 34px;
+    border-radius: 9px;
+    border: 1.5px solid var(--line);
+    background: #fff;
+    color: var(--brand);
+    font-size: 1.2rem; font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+    transition: all .2s;
+}
+.fly-counter-btn:hover:not(:disabled) { border-color: var(--brand); background: var(--sky-soft); }
+.fly-counter-btn:disabled { opacity: .4; cursor: not-allowed; }
+.fly-counter-value { min-width: 20px; text-align: center; font-weight: 700; color: var(--navy); }
+
+.fly-panel-divider { margin: .8rem 0; border-color: var(--line); }
+
+.fly-cabin-options { display: flex; flex-wrap: wrap; gap: .5rem; }
+.fly-cabin-chip {
+    font-size: .85rem; font-weight: 600;
+    padding: .4rem .8rem;
+    border: 1.5px solid var(--line);
+    border-radius: 999px;
+    cursor: pointer;
+    color: var(--navy);
+    transition: all .2s;
+    margin: 0;
+}
+.fly-cabin-chip input { display: none; }
+.fly-cabin-chip:has(input:checked) {
+    background: var(--brand); color: #fff; border-color: var(--brand);
+}
+
+/* Direkt uçuş switch */
+.fly-direct-switch .form-check-input {
+    width: 2.6em; height: 1.4em; cursor: pointer;
+}
+.fly-direct-switch .form-check-input:checked {
+    background-color: var(--turquoise);
+    border-color: var(--turquoise);
+}
+.fly-direct-switch .form-check-input:focus {
+    box-shadow: 0 0 0 4px rgba(20,184,166,.2);
+    border-color: var(--turquoise);
+}
+.fly-direct-switch .form-check-label { font-weight: 600; color: var(--navy); font-size: .92rem; }
+
+/* Uçuş Ara butonu */
+.fly-btn-search {
+    background: linear-gradient(135deg, var(--turquoise), var(--turquoise-d));
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.05rem;
+    padding: .85rem 1.5rem;
+    border: none;
+    border-radius: var(--radius-sm);
+    box-shadow: 0 10px 24px rgba(20,184,166,.35);
+    transition: all .25s;
+}
+.fly-btn-search:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 32px rgba(20,184,166,.45);
+    color: #fff;
+}
+.fly-btn-search:active { transform: translateY(0); }
+
+/* Genel form uyarısı */
+.fly-form-alert {
+    margin-top: 1rem;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #b91c1c;
+    border-radius: var(--radius-sm);
+    padding: .7rem 1rem;
+    font-weight: 600; font-size: .9rem;
+}
+
+/* =============================================================
+   BÖLÜM BAŞLIKLARI (ortak)
+   ============================================================= */
+.fly-section { padding: 4.5rem 0; }
+.fly-section-tinted { background: var(--sky-soft); }
+.fly-section-head { text-align: center; max-width: 640px; margin: 0 auto 2.6rem; }
+.fly-section-head-left { text-align: left; margin-left: 0; }
+.fly-eyebrow {
+    display: inline-block;
+    color: var(--turquoise-d);
+    font-weight: 700; font-size: .82rem;
+    text-transform: uppercase; letter-spacing: .08em;
+    margin-bottom: .5rem;
+}
+.fly-section-title { font-size: clamp(1.6rem, 3vw, 2.3rem); font-weight: 800; margin-bottom: .5rem; }
+.fly-section-desc { color: var(--muted); font-size: 1.05rem; }
+
+/* =============================================================
+   11. POPÜLER ROTA KARTLARI
+   ============================================================= */
+.fly-route-card {
+    display: block;
+    background: #fff;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    text-decoration: none;
+    color: inherit;
+    transition: transform .25s, box-shadow .25s;
+    height: 100%;
+}
+.fly-route-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+.fly-route-thumb { height: 150px; background-size: cover; background-position: center; }
+.fly-route-body { padding: 1.1rem 1.2rem 1.3rem; }
+.fly-route-cities {
+    display: flex; align-items: center; gap: .5rem;
+    font-family: 'Sora', sans-serif;
+    font-weight: 700; font-size: 1.1rem; color: var(--navy);
+    margin-bottom: .4rem;
+}
+.fly-route-cities i { color: var(--turquoise); }
+.fly-route-price { color: var(--muted); font-size: .92rem; margin-bottom: .7rem; }
+.fly-route-link { color: var(--brand); font-weight: 700; font-size: .92rem; }
+.fly-route-card:hover .fly-route-link i { transform: translateX(4px); }
+.fly-route-link i { transition: transform .2s; }
+
+/* =============================================================
+   12. KAMPANYA SLIDER
+   ============================================================= */
+.fly-campaign-carousel { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-md); }
+.fly-campaign-slide {
+    height: 340px;
+    background-size: cover; background-position: center;
+    display: flex; align-items: center;
+    position: relative;
+}
+.fly-campaign-slide::before {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(90deg, rgba(10,31,61,.82) 0%, rgba(10,31,61,.35) 60%, rgba(10,31,61,.1) 100%);
+}
+.fly-campaign-content {
+    position: relative; z-index: 2;
+    color: #fff;
+    padding: 2rem 2.5rem;
+    max-width: 520px;
+}
+.fly-campaign-content h3 { color: #fff; font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 800; margin-bottom: .6rem; }
+.fly-campaign-content p { font-size: 1.05rem; margin-bottom: 1.2rem; opacity: .95; }
+.fly-campaign-indicators [data-bs-target] { border-radius: 999px; width: 10px; height: 10px; }
+
+/* =============================================================
+   13. AVANTAJLAR
+   ============================================================= */
+.fly-advantage-card {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 1.6rem 1.3rem;
+    height: 100%;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--line);
+    transition: transform .25s, box-shadow .25s;
+}
+.fly-advantage-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.fly-advantage-icon {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    background: var(--sky-soft);
+    color: var(--brand);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+.fly-advantage-card h3 { font-size: 1.08rem; font-weight: 700; margin-bottom: .4rem; }
+.fly-advantage-card p { color: var(--muted); font-size: .92rem; margin: 0; }
+
+/* =============================================================
+   14. SON ARAMALAR
+   ============================================================= */
+.fly-recent-card {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 1.2rem 1.3rem;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--line);
+    display: flex; flex-direction: column; gap: .5rem;
+    height: 100%;
+}
+.fly-recent-route {
+    display: flex; align-items: center; gap: .6rem;
+    font-family: 'Sora', sans-serif; font-weight: 700; color: var(--navy);
+}
+.fly-recent-route > i { color: var(--turquoise); font-size: 1.2rem; }
+.fly-recent-route span i { color: var(--muted); font-size: .8rem; margin: 0 .2rem; }
+.fly-recent-meta { color: var(--muted); font-size: .88rem; }
+.fly-recent-card .fly-btn-ghost { align-self: flex-start; }
+
+/* =============================================================
+   15. DESTİNASYONLAR
+   ============================================================= */
+.fly-dest-card {
+    position: relative;
+    height: 300px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background-size: cover; background-position: center;
+    box-shadow: var(--shadow-sm);
+    transition: transform .3s;
+}
+.fly-dest-card:hover { transform: translateY(-5px); }
+.fly-dest-card:hover .fly-dest-overlay { background: linear-gradient(180deg, transparent 20%, rgba(10,31,61,.92) 100%); }
+.fly-dest-overlay {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 1.3rem;
+    background: linear-gradient(180deg, transparent 40%, rgba(10,31,61,.85) 100%);
+    color: #fff;
+    transition: background .3s;
+}
+.fly-dest-overlay h3 { color: #fff; font-size: 1.4rem; font-weight: 800; margin-bottom: .1rem; }
+.fly-dest-country { font-size: .82rem; font-weight: 600; color: var(--sky); text-transform: uppercase; letter-spacing: .05em; }
+.fly-dest-overlay p { font-size: .88rem; opacity: .9; margin: .5rem 0 .6rem; }
+.fly-dest-link { color: #fff; font-weight: 700; font-size: .9rem; text-decoration: none; }
+.fly-dest-link i { transition: transform .2s; }
+.fly-dest-card:hover .fly-dest-link i { transform: translateX(4px); }
+
+/* =============================================================
+   16. BİLGİLENDİRME ŞERİDİ
+   ============================================================= */
+.fly-info-strip { background: var(--navy); padding: 1.4rem 0; }
+.fly-info-strip p {
+    color: #cbd8ec; margin: 0; text-align: center; font-size: .92rem;
+    display: flex; align-items: center; justify-content: center; gap: .5rem; flex-wrap: wrap;
+}
+.fly-info-strip i { color: var(--sky); }
+
+/* =============================================================
+   17. FOOTER
+   ============================================================= */
+.fly-footer { background: var(--navy-deep); color: #cbd8ec; padding: 3.5rem 0 1.5rem; }
+.fly-footer-about { color: #9db2d3; font-size: .92rem; max-width: 340px; }
+.fly-footer-title { color: #fff; font-size: 1rem; font-weight: 700; margin-bottom: 1rem; }
+.fly-footer-list { list-style: none; padding: 0; margin: 0; }
+.fly-footer-list li { margin-bottom: .55rem; }
+.fly-footer-list a { color: #9db2d3; text-decoration: none; font-size: .92rem; transition: color .2s; }
+.fly-footer-list a:hover { color: var(--sky); }
+
+.fly-social { display: flex; gap: .6rem; margin-top: 1rem; }
+.fly-social a {
+    width: 38px; height: 38px; border-radius: 10px;
+    background: rgba(255,255,255,.08);
+    color: #cbd8ec;
+    display: inline-flex; align-items: center; justify-content: center;
+    transition: all .2s; text-decoration: none;
+}
+.fly-social a:hover { background: var(--brand); color: #fff; transform: translateY(-2px); }
+
+.fly-app-buttons { display: flex; gap: .7rem; flex-wrap: wrap; }
+.fly-app-btn {
+    display: inline-flex; align-items: center; gap: .6rem;
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: 12px;
+    padding: .55rem 1rem;
+    color: #fff; text-decoration: none;
+    transition: all .2s;
+}
+.fly-app-btn:hover { background: rgba(255,255,255,.16); color: #fff; }
+.fly-app-btn i { font-size: 1.5rem; }
+.fly-app-btn span { display: flex; flex-direction: column; line-height: 1.1; font-weight: 600; font-size: .95rem; }
+.fly-app-btn small { font-size: .68rem; opacity: .7; font-weight: 400; }
+
+.fly-footer-divider { border-color: rgba(255,255,255,.1); margin: 2.2rem 0 1.2rem; }
+.fly-footer-bottom { text-align: center; font-size: .88rem; color: #7f96b8; }
+
+/* =============================================================
+   RESPONSIVE İNCE AYARLAR
+   ============================================================= */
+@media (max-width: 991px){
+    .fly-nav-actions { margin-top: 1rem; flex-wrap: wrap; }
+    .fly-search-card { padding: 1.2rem; }
+    .fly-hero { padding: 3rem 0 5rem; }
+    .fly-btn-search { margin-top: .5rem !important; }
+    .fly-direct-switch { margin-top: .5rem !important; }
+}
+@media (max-width: 575px){
+    .fly-trip-tabs { width: 100%; justify-content: space-between; }
+    .fly-trip-tab { flex: 1; justify-content: center; padding: .5rem .4rem; font-size: .82rem; }
+    .fly-campaign-content { padding: 1.4rem; }
+}
+
+/* Erişilebilirlik: azaltılmış hareket tercihi */
+@media (prefers-reduced-motion: reduce){
+    * { transition: none !important; animation: none !important; }
+}

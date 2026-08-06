@@ -1,0 +1,196 @@
+@*
+    ================================================================
+    FİLTRE İÇERİĞİ (PARTIAL)
+    Hem masaüstü sol panelde hem de mobil offcanvas içinde kullanılır.
+    Böylece filtre kodu tek yerde tutulur (tekrar kullanılabilir).
+    ================================================================
+*@
+
+<div class="fly-filter-head">
+    <h2>Filtreler</h2>
+    <button type="button" class="fly-filter-clear" id="clearFilters">Temizle</button>
+</div>
+
+@* 8.1 AKTARMA SAYISI *@
+<div class="fly-filter-group">
+    <div class="fly-filter-group-title"><i class="bi bi-signpost-split"></i> Aktarma Sayısı</div>
+    <div class="fly-check-row">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="stopDirect" name="stops" value="0">
+            <label class="fly-check-label" for="stopDirect">Direkt</label>
+        </div>
+        <span class="fly-check-price">4.250 TL</span>
+    </div>
+    <div class="fly-check-row">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="stop1" name="stops" value="1">
+            <label class="fly-check-label" for="stop1">1 Aktarma</label>
+        </div>
+        <span class="fly-check-price">3.450 TL</span>
+    </div>
+    <div class="fly-check-row">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="stop2" name="stops" value="2">
+            <label class="fly-check-label" for="stop2">2+ Aktarma</label>
+        </div>
+        <span class="fly-check-price">3.100 TL</span>
+    </div>
+</div>
+
+@* 8.2 KALKIŞ SAATİ *@
+<div class="fly-filter-group">
+    <div class="fly-filter-group-title"><i class="bi bi-clock"></i> Kalkış Saati</div>
+    <div class="fly-time-chips">
+        <label class="fly-time-chip"><input type="checkbox" name="departTime" value="morning"><i class="bi bi-sunrise"></i> Sabah <small>06–12</small></label>
+        <label class="fly-time-chip"><input type="checkbox" name="departTime" value="afternoon"><i class="bi bi-sun"></i> Öğleden Sonra <small>12–18</small></label>
+        <label class="fly-time-chip"><input type="checkbox" name="departTime" value="evening"><i class="bi bi-sunset"></i> Akşam <small>18–00</small></label>
+        <label class="fly-time-chip"><input type="checkbox" name="departTime" value="night"><i class="bi bi-moon-stars"></i> Gece <small>00–06</small></label>
+    </div>
+</div>
+
+@* 8.3 VARIŞ SAATİ *@
+<div class="fly-filter-group">
+    <div class="fly-filter-group-title"><i class="bi bi-clock-history"></i> Varış Saati</div>
+    <div class="fly-time-chips">
+        <label class="fly-time-chip"><input type="checkbox" name="arriveTime" value="morning"><i class="bi bi-sunrise"></i> Sabah <small>06–12</small></label>
+        <label class="fly-time-chip"><input type="checkbox" name="arriveTime" value="afternoon"><i class="bi bi-sun"></i> Öğleden Sonra <small>12–18</small></label>
+        <label class="fly-time-chip"><input type="checkbox" name="arriveTime" value="evening"><i class="bi bi-sunset"></i> Akşam <small>18–00</small></label>
+        <label class="fly-time-chip"><input type="checkbox" name="arriveTime" value="night"><i class="bi bi-moon-stars"></i> Gece <small>00–06</small></label>
+    </div>
+</div>
+
+@* 8.4 UÇUŞ SÜRESİ *@
+<div class="fly-filter-group">
+    <div class="fly-filter-group-title"><i class="bi bi-hourglass-split"></i> Uçuş Süresi</div>
+    <input type="range" class="fly-range" id="durationRange" name="maxDuration" min="3" max="12" value="12">
+    <div class="fly-range-values">
+        <span>3 saat</span>
+        <span id="durationValue">12 saat</span>
+    </div>
+</div>
+
+@* 8.5 HAVA YOLLARI *@
+<div class="fly-filter-group">
+    <div class="fly-filter-group-title"><i class="bi bi-airplane-engines"></i> Hava Yolları</div>
+    @{
+        var airlines = new (string Name, string Logo, int Count, string Price)[] {
+            ("Türk Hava Yolları", "https://logo.clearbit.com/turkishairlines.com", 8, "4.650 TL"),
+            ("Pegasus Airlines", "https://logo.clearbit.com/flypgs.com", 6, "3.980 TL"),
+            ("AJet", "https://logo.clearbit.com/ajet.com", 5, "3.450 TL"),
+            ("Lufthansa", "https://logo.clearbit.com/lufthansa.com", 7, "5.250 TL"),
+            ("SunExpress", "https://logo.clearbit.com/sunexpress.com", 4, "4.120 TL"),
+            ("Air Serbia", "https://logo.clearbit.com/airserbia.com", 3, "4.150 TL"),
+            ("KLM", "https://logo.clearbit.com/klm.com", 5, "5.480 TL"),
+            ("LOT Polish Airlines", "https://logo.clearbit.com/lot.com", 4, "4.890 TL")
+        };
+    }
+    @foreach (var a in airlines)
+    {
+        <div class="fly-check-row">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="airline" value="@a.Name" id="al-@a.Name.GetHashCode()">
+                <label class="fly-check-label" for="al-@a.Name.GetHashCode()">
+                    <img class="fly-airline-logo" src="@a.Logo" alt="@a.Name logosu" loading="lazy">
+                    @a.Name <span class="fly-check-count">(@a.Count)</span>
+                </label>
+            </div>
+            <span class="fly-check-price">@a.Price</span>
+        </div>
+    }
+</div>
+
+@* 8.6 KALKIŞ HAVALİMANLARI *@
+<div class="fly-filter-group">
+    <div class="fly-filter-group-title"><i class="bi bi-box-arrow-up-right"></i> Kalkış Havalimanları</div>
+    <div class="fly-check-row">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="depAirport" value="IST" id="depIST">
+            <label class="fly-check-label" for="depIST">İstanbul Havalimanı (IST)</label>
+        </div>
+    </div>
+    <div class="fly-check-row">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="depAirport" value="SAW" id="depSAW">
+            <label class="fly-check-label" for="depSAW">Sabiha Gökçen (SAW)</label>
+        </div>
+    </div>
+</div>
+
+@* 8.7 VARIŞ HAVALİMANLARI *@
+<div class="fly-filter-group">
+    <div class="fly-filter-group-title"><i class="bi bi-box-arrow-in-down-right"></i> Varış Havalimanları</div>
+    <div class="fly-check-row">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="arrAirport" value="HAM" id="arrHAM">
+            <label class="fly-check-label" for="arrHAM">Hamburg Havalimanı (HAM)</label>
+        </div>
+    </div>
+    <div class="fly-check-row">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="arrAirport" value="BRE" id="arrBRE">
+            <label class="fly-check-label" for="arrBRE">Bremen Havalimanı (BRE)</label>
+        </div>
+    </div>
+</div>
+
+@* 8.8 BAGAJ *@
+<div class="fly-filter-group">
+    <div class="fly-filter-group-title"><i class="bi bi-luggage"></i> Bagaj</div>
+    <div class="fly-check-row">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="baggage" value="cabin" id="bagCabin">
+            <label class="fly-check-label" for="bagCabin">Kabin bagajı dahil</label>
+        </div>
+    </div>
+    <div class="fly-check-row">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="baggage" value="checkin" id="bagCheckin">
+            <label class="fly-check-label" for="bagCheckin">Check-in bagajı dahil</label>
+        </div>
+    </div>
+    <div class="fly-check-row">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="baggage" value="20kg" id="bag20">
+            <label class="fly-check-label" for="bag20">20 kg ve üzeri bagaj</label>
+        </div>
+    </div>
+    <div class="fly-check-row">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="baggage" value="none" id="bagNone">
+            <label class="fly-check-label" for="bagNone">Bagaj dahil değil</label>
+        </div>
+    </div>
+</div>
+
+@* 8.9 FİYAT ARALIĞI *@
+<div class="fly-filter-group">
+    <div class="fly-filter-group-title"><i class="bi bi-cash-coin"></i> Fiyat Aralığı</div>
+    <input type="range" class="fly-range" id="priceRange" name="maxPrice" min="3000" max="15000" step="250" value="15000">
+    <div class="fly-range-values">
+        <span>3.000 TL</span>
+        <span id="priceValue">15.000 TL</span>
+    </div>
+</div>
+
+@* 8.10 ESNEK BİLET *@
+<div class="fly-filter-group">
+    <div class="fly-filter-group-title"><i class="bi bi-shuffle"></i> Esnek Bilet</div>
+    <div class="fly-flex-switch">
+        <label for="flexChange">Ücretsiz değişiklik</label>
+        <div class="form-check form-switch m-0">
+            <input class="form-check-input" type="checkbox" role="switch" id="flexChange" name="flex" value="change">
+        </div>
+    </div>
+    <div class="fly-flex-switch">
+        <label for="flexRefund">İade edilebilir bilet</label>
+        <div class="form-check form-switch m-0">
+            <input class="form-check-input" type="checkbox" role="switch" id="flexRefund" name="flex" value="refund">
+        </div>
+    </div>
+    <div class="fly-flex-switch">
+        <label for="flexFlexible">Esnek bilet seçenekleri</label>
+        <div class="form-check form-switch m-0">
+            <input class="form-check-input" type="checkbox" role="switch" id="flexFlexible" name="flex" value="flexible">
+        </div>
+    </div>
+</div>

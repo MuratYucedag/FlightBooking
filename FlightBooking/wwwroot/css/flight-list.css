@@ -1,0 +1,408 @@
+/* =========================================================
+   SkyRoute — Uçuş Sonuçları Sayfası
+   flight-list.css
+   Ana sayfayla aynı renk paleti ve tasarım dili
+   ========================================================= */
+
+/* ---------- Tasarım değişkenleri (ana sayfayla uyumlu) ---------- */
+:root {
+    --sr-navy:      #0f2f52;
+    --sr-blue:      #1668c9;
+    --sr-blue-dark: #114f9c;
+    --sr-sky:       #4aa3e8;
+    --sr-sky-soft:  #e8f2fc;
+    --sr-teal:      #17b3a3;
+    --sr-amber:     #f5a623;
+    --sr-ink:       #24313f;
+    --sr-muted:     #6b7a8c;
+    --sr-line:      #e2e8f0;
+    --sr-bg:        #ffffff;
+    --sr-bg-alt:    #f4f7fb;
+    --sr-radius:    10px;
+    --sr-radius-sm: 8px;
+    --sr-shadow:    0 10px 30px rgba(15, 47, 82, .10);
+    --sr-shadow-sm: 0 4px 14px rgba(15, 47, 82, .08);
+
+    /* Havayolu renkleri (logo ikon zeminleri) */
+    --sr-thy:  #c1121f;   /* Türk Hava Yolları kırmızısı */
+    --sr-pgs:  #f9a825;   /* Pegasus sarısı */
+    --sr-ajet: #5b2d8e;   /* AJet moru */
+}
+
+/* ---------- Genel ---------- */
+* { box-sizing: border-box; }
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: var(--sr-ink);
+    background: var(--sr-bg-alt);   /* açık gri-mavi sayfa zemini */
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, .sr-logo-text { font-family: 'Sora', 'Inter', sans-serif; }
+a { text-decoration: none; }
+
+a:focus-visible, button:focus-visible, input:focus-visible,
+select:focus-visible, .btn:focus-visible {
+    outline: 3px solid rgba(22, 104, 201, .45);
+    outline-offset: 2px;
+}
+
+/* =========================================================
+   1. NAVBAR
+   ========================================================= */
+.sr-navbar {
+    background: #fff;
+    box-shadow: 0 2px 12px rgba(15, 47, 82, .08);
+    padding: .6rem 0;
+}
+.sr-logo-mark {
+    width: 38px; height: 38px;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, var(--sr-blue), var(--sr-sky));
+    color: #fff; border-radius: var(--sr-radius-sm);
+    font-size: 1.05rem; transform: rotate(-8deg);
+}
+.sr-logo-text { font-weight: 800; font-size: 1.35rem; color: var(--sr-navy); letter-spacing: -.5px; }
+.sr-logo-accent { color: var(--sr-sky); }
+
+.sr-navbar .nav-link {
+    color: var(--sr-ink); font-weight: 500; font-size: .95rem;
+    padding: .5rem .9rem; border-radius: 6px; transition: color .2s;
+}
+.sr-navbar .nav-link:hover, .sr-navbar .nav-link.active { color: var(--sr-blue); }
+
+.navbar-toggler { border: none; color: var(--sr-navy); font-size: 1.6rem; padding: 0 .25rem; }
+.navbar-toggler:focus { box-shadow: none; }
+
+.sr-mini-select { width: auto; min-width: 74px; border-radius: 6px; font-weight: 500; border-color: var(--sr-line); }
+
+.btn-sr-login {
+    background: var(--sr-teal); color: #fff; font-weight: 600; border-radius: 6px;
+    padding: .45rem 1.1rem; white-space: nowrap; transition: background-color .2s, transform .15s;
+}
+.btn-sr-login:hover { background: #12a08f; color: #fff; transform: translateY(-1px); }
+
+@media (max-width: 991.98px) {
+    .navbar-collapse { background: #fff; margin-top: .75rem; border-radius: var(--sr-radius); padding: 1rem; box-shadow: var(--sr-shadow); }
+}
+
+/* =========================================================
+   ORTAK GİRİŞ ve BUTON STİLLERİ
+   ========================================================= */
+.sr-label { display: block; font-size: .72rem; font-weight: 600; color: var(--sr-muted); margin-bottom: .3rem; text-transform: uppercase; letter-spacing: .4px; }
+.sr-input {
+    height: 46px; border-radius: var(--sr-radius-sm); border: 1px solid var(--sr-line);
+    font-size: .92rem; font-weight: 500; color: var(--sr-ink); background: #fff;
+    transition: border-color .2s, box-shadow .2s;
+}
+.sr-input:focus { border-color: var(--sr-blue); box-shadow: 0 0 0 3px rgba(22, 104, 201, .12); }
+
+.btn-sr-primary {
+    background: var(--sr-blue); color: #fff; font-weight: 600; border: none;
+    border-radius: var(--sr-radius-sm); padding: .6rem 1.3rem; transition: background-color .2s, transform .15s;
+}
+.btn-sr-primary:hover { background: var(--sr-blue-dark); color: #fff; transform: translateY(-1px); }
+
+.btn-sr-ghost {
+    background: #fff; color: var(--sr-muted); border: 1px solid var(--sr-line); font-weight: 600;
+    border-radius: var(--sr-radius-sm); padding: .6rem 1.3rem; transition: all .2s;
+}
+.btn-sr-ghost:hover { background: var(--sr-bg-alt); color: var(--sr-ink); }
+
+/* =========================================================
+   2. ARAMA ÖZETİ ALANI
+   ========================================================= */
+.sr-summary-bar { background: var(--sr-sky-soft); border-bottom: 1px solid rgba(22, 104, 201, .12); padding: .9rem 0; }
+.sr-summary-wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+
+.sr-summary-chips { display: flex; align-items: center; gap: .55rem; flex-wrap: wrap; }
+.sr-chip {
+    display: inline-flex; align-items: center; gap: .4rem;
+    background: #fff; border: 1px solid var(--sr-line); border-radius: 20px;
+    padding: .35rem .8rem; font-size: .85rem; font-weight: 500; color: var(--sr-ink); white-space: nowrap;
+}
+.sr-chip i { color: var(--sr-blue); font-size: .95rem; }
+.sr-chip b { color: var(--sr-navy); font-weight: 700; }
+.sr-chip-route { background: #fff; font-weight: 600; }
+
+.btn-sr-edit {
+    background: #fff; color: var(--sr-blue); border: 1.5px solid var(--sr-blue);
+    font-weight: 600; border-radius: var(--sr-radius-sm); padding: .45rem 1.1rem;
+    white-space: nowrap; transition: all .2s;
+}
+.btn-sr-edit:hover { background: var(--sr-blue); color: #fff; }
+
+.sr-edit-panel { background: #fff; border: 1px solid var(--sr-line); border-radius: var(--sr-radius); padding: 1.25rem; margin-top: .9rem; box-shadow: var(--sr-shadow-sm); }
+
+/* =========================================================
+   3. SONUÇ BAŞLIĞI + SIRALAMA
+   ========================================================= */
+.sr-result-head {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 1rem; flex-wrap: wrap; padding: 1.5rem 0 1rem;
+}
+.sr-result-title { font-size: 1.6rem; font-weight: 800; color: var(--sr-navy); margin: 0; letter-spacing: -.4px; }
+.sr-result-count { color: var(--sr-muted); font-size: .95rem; margin: .25rem 0 0; }
+
+.sr-sort-wrap { display: flex; align-items: center; gap: .5rem; }
+.sr-sort-label { font-size: .88rem; font-weight: 600; color: var(--sr-muted); white-space: nowrap; }
+.sr-sort-select { width: auto; min-width: 190px; }
+
+.btn-sr-filter-toggle {
+    width: 100%; background: #fff; color: var(--sr-blue); border: 1.5px solid var(--sr-blue);
+    font-weight: 600; border-radius: var(--sr-radius-sm); padding: .6rem; margin-bottom: .5rem;
+}
+.btn-sr-filter-toggle:hover { background: var(--sr-blue); color: #fff; }
+
+.sr-main { padding-bottom: 3rem; }
+
+/* =========================================================
+   5. FİLTRE PANELİ
+   ========================================================= */
+.sr-filter-panel { background: #fff; border: 1px solid var(--sr-line); border-radius: var(--sr-radius); padding: 1.25rem; box-shadow: var(--sr-shadow-sm); position: sticky; top: 84px; }
+.offcanvas-body .sr-filter-panel { position: static; border: none; box-shadow: none; padding: 0; }
+
+.sr-filter-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+.sr-filter-title { font-size: 1.1rem; font-weight: 700; color: var(--sr-navy); margin: 0; }
+.sr-clear-link { font-size: .82rem; font-weight: 600; color: var(--sr-blue); background: none; border: none; padding: 0; cursor: pointer; }
+.sr-clear-link:hover { text-decoration: underline; }
+
+.sr-filter-group { padding: 1rem 0; border-top: 1px solid var(--sr-line); }
+.sr-filter-group:first-of-type { border-top: none; padding-top: 0; }
+.sr-filter-group-title { font-size: .88rem; font-weight: 700; color: var(--sr-navy); margin-bottom: .7rem; }
+
+/* Checkbox satırları */
+.sr-check { display: flex; align-items: center; justify-content: space-between; padding: .3rem 0; }
+.sr-check .form-check { margin: 0; display: flex; align-items: center; gap: .5rem; }
+.sr-check .form-check-input { width: 1.15em; height: 1.15em; margin: 0; cursor: pointer; border-color: #c3ccd6; }
+.sr-check .form-check-input:checked { background-color: var(--sr-blue); border-color: var(--sr-blue); }
+.sr-check .form-check-input:focus { box-shadow: 0 0 0 3px rgba(22, 104, 201, .15); }
+.sr-check .form-check-label { font-size: .9rem; color: var(--sr-ink); cursor: pointer; display: flex; align-items: center; gap: .45rem; }
+.sr-check-count { font-size: .8rem; color: var(--sr-muted); }
+
+/* Havayolu mini logo (filtre) */
+.sr-airline-dot { width: 20px; height: 20px; border-radius: 5px; display: inline-flex; align-items: center; justify-content: center; color: #fff; font-size: .65rem; font-weight: 800; flex: 0 0 auto; }
+.sr-dot-thy  { background: var(--sr-thy); }
+.sr-dot-pgs  { background: var(--sr-pgs); }
+.sr-dot-ajet { background: var(--sr-ajet); }
+
+/* Range slider */
+.sr-range { width: 100%; accent-color: var(--sr-blue); cursor: pointer; }
+.sr-range-value { font-size: .88rem; font-weight: 600; color: var(--sr-navy); margin-top: .35rem; }
+.sr-range-scale { display: flex; justify-content: space-between; font-size: .75rem; color: var(--sr-muted); margin-top: .2rem; }
+
+/* Kalkış saati kartları */
+.sr-time-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
+.sr-time-card { position: relative; }
+.sr-time-card input { position: absolute; opacity: 0; }
+.sr-time-card label {
+    display: block; text-align: center; padding: .55rem .3rem; border: 1px solid var(--sr-line);
+    border-radius: var(--sr-radius-sm); cursor: pointer; font-size: .82rem; font-weight: 600; color: var(--sr-ink);
+    transition: all .18s; background: #fff;
+}
+.sr-time-card label small { display: block; font-weight: 500; color: var(--sr-muted); font-size: .72rem; margin-top: .1rem; }
+.sr-time-card input:checked + label { border-color: var(--sr-blue); background: var(--sr-sky-soft); color: var(--sr-blue); }
+.sr-time-card label i { display: block; font-size: 1rem; margin-bottom: .15rem; }
+
+/* =========================================================
+   6. ÖNERİLEN SEÇENEKLER (3 kart)
+   ========================================================= */
+.sr-suggest-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: .75rem; margin-bottom: 1.25rem; }
+.sr-suggest-card {
+    background: #fff; border: 1px solid var(--sr-line); border-radius: var(--sr-radius);
+    padding: .85rem 1rem; cursor: pointer; text-align: left;
+    transition: border-color .18s, box-shadow .18s, transform .18s; box-shadow: var(--sr-shadow-sm);
+}
+.sr-suggest-card:hover { border-color: var(--sr-blue); box-shadow: var(--sr-shadow); transform: translateY(-2px); }
+.sr-suggest-card.active { border-color: var(--sr-blue); box-shadow: 0 0 0 2px rgba(22,104,201,.15); }
+.sr-suggest-tag { font-size: .74rem; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; color: var(--sr-blue); display: flex; align-items: center; gap: .3rem; }
+.sr-suggest-tag i { font-size: .9rem; }
+.sr-suggest-price { font-size: 1.15rem; font-weight: 800; color: var(--sr-navy); margin: .35rem 0 .1rem; }
+.sr-suggest-meta { font-size: .8rem; color: var(--sr-muted); }
+
+/* =========================================================
+   7. UÇUŞ KARTLARI
+   ========================================================= */
+.sr-flight-card {
+    background: #fff; border: 1px solid var(--sr-line); border-radius: var(--sr-radius);
+    margin-bottom: 1rem; box-shadow: var(--sr-shadow-sm); overflow: hidden;
+    transition: box-shadow .18s;
+}
+.sr-flight-card:hover { box-shadow: var(--sr-shadow); }
+
+.sr-flight-main { display: flex; align-items: stretch; }
+
+/* Sol taraf: uçuş bilgisi */
+.sr-flight-info { flex: 1; padding: 1.1rem 1.25rem; min-width: 0; }
+
+/* Havayolu satırı */
+.sr-airline-row { display: flex; align-items: center; gap: .6rem; margin-bottom: .9rem; }
+.sr-airline-logo { width: 38px; height: 38px; border-radius: var(--sr-radius-sm); display: inline-flex; align-items: center; justify-content: center; color: #fff; font-size: .78rem; font-weight: 800; flex: 0 0 auto; letter-spacing: -.5px; }
+.sr-logo-thy  { background: var(--sr-thy); }
+.sr-logo-pgs  { background: var(--sr-pgs); }
+.sr-logo-ajet { background: var(--sr-ajet); }
+.sr-airline-meta { line-height: 1.2; }
+.sr-airline-name { font-weight: 700; color: var(--sr-navy); font-size: .95rem; }
+.sr-airline-sub { font-size: .78rem; color: var(--sr-muted); }
+.sr-badge {
+    margin-left: auto; font-size: .72rem; font-weight: 700; padding: .22rem .6rem; border-radius: 6px;
+    background: var(--sr-sky-soft); color: var(--sr-blue); white-space: nowrap;
+}
+.sr-badge-best  { background: #e6f7f4; color: var(--sr-teal); }
+.sr-badge-cheap { background: #fff4e0; color: #d98a00; }
+.sr-badge-fast  { background: var(--sr-sky-soft); color: var(--sr-blue); }
+
+/* Uçuş rotası (saat - çizgi - saat) */
+.sr-route-row { display: flex; align-items: center; gap: 1rem; }
+.sr-endpoint { text-align: center; min-width: 74px; }
+.sr-endpoint-time { font-size: 1.3rem; font-weight: 800; color: var(--sr-navy); line-height: 1.1; }
+.sr-endpoint-time .sr-nextday { font-size: .68rem; font-weight: 700; color: var(--sr-amber); vertical-align: super; margin-left: 2px; }
+.sr-endpoint-iata { font-weight: 700; font-size: .82rem; color: var(--sr-blue); }
+.sr-endpoint-name { font-size: .72rem; color: var(--sr-muted); max-width: 96px; margin: 0 auto; line-height: 1.2; }
+
+/* Orta çizgi + süre */
+.sr-route-mid { flex: 1; text-align: center; position: relative; min-width: 0; }
+.sr-route-duration { font-size: .78rem; font-weight: 600; color: var(--sr-ink); margin-bottom: .3rem; }
+.sr-route-line { position: relative; height: 2px; background: var(--sr-line); border-radius: 2px; }
+.sr-route-line::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 7px; height: 7px; border-radius: 50%; background: var(--sr-sky); }
+.sr-route-line::after  { content: ''; position: absolute; right: 0; top: 50%; transform: translateY(-50%); width: 7px; height: 7px; border-radius: 50%; background: var(--sr-sky); }
+.sr-route-plane { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; color: var(--sr-blue); font-size: .95rem; padding: 0 .25rem; }
+/* aktarma noktası */
+.sr-route-stop-dot { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 8px; height: 8px; border-radius: 50%; background: var(--sr-amber); z-index: 2; }
+.sr-route-stops { font-size: .76rem; font-weight: 600; margin-top: .3rem; }
+.sr-stops-direct { color: var(--sr-teal); }
+.sr-stops-layover { color: var(--sr-amber); }
+
+/* Bagaj + etiketler */
+.sr-flight-extras { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-top: .9rem; padding-top: .8rem; border-top: 1px dashed var(--sr-line); }
+.sr-baggage { display: flex; align-items: center; gap: .8rem; flex-wrap: wrap; }
+.sr-bag-item { display: inline-flex; align-items: center; gap: .3rem; font-size: .8rem; color: var(--sr-ink); }
+.sr-bag-item i { color: var(--sr-teal); font-size: .95rem; }
+.sr-bag-item.sr-bag-paid { color: var(--sr-muted); }
+.sr-bag-item.sr-bag-paid i { color: var(--sr-muted); }
+
+.sr-tags { display: flex; align-items: center; gap: .4rem; flex-wrap: wrap; }
+.sr-tag { display: inline-flex; align-items: center; gap: .25rem; font-size: .74rem; font-weight: 500; color: var(--sr-muted); background: var(--sr-bg-alt); border-radius: 5px; padding: .18rem .5rem; }
+.sr-tag i { font-size: .82rem; }
+.sr-tag-green i { color: var(--sr-teal); }
+
+/* Sağ taraf: fiyat */
+.sr-flight-price { flex: 0 0 190px; background: var(--sr-bg-alt); border-left: 1px solid var(--sr-line); padding: 1.1rem 1.25rem; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+.sr-price-label { font-size: .78rem; color: var(--sr-muted); }
+.sr-price-amount { font-size: 1.55rem; font-weight: 800; color: var(--sr-navy); line-height: 1.1; margin: .1rem 0; }
+.sr-price-tax { font-size: .74rem; color: var(--sr-muted); margin-bottom: .8rem; }
+.btn-sr-select { width: 100%; background: var(--sr-blue); color: #fff; font-weight: 700; border: none; border-radius: var(--sr-radius-sm); padding: .6rem; transition: background-color .2s, transform .15s; }
+.btn-sr-select:hover { background: var(--sr-blue-dark); color: #fff; transform: translateY(-1px); }
+
+/* Uçuş detayları bağlantısı */
+.sr-detail-toggle { border-top: 1px solid var(--sr-line); }
+.sr-detail-btn { width: 100%; background: none; border: none; color: var(--sr-blue); font-weight: 600; font-size: .85rem; padding: .6rem; display: flex; align-items: center; justify-content: center; gap: .35rem; cursor: pointer; }
+.sr-detail-btn:hover { background: var(--sr-sky-soft); }
+.sr-detail-btn .bi-chevron-down { transition: transform .2s; }
+.sr-detail-btn[aria-expanded="true"] .bi-chevron-down { transform: rotate(180deg); }
+
+/* Detay içeriği */
+.sr-detail-body { background: var(--sr-bg-alt); padding: 1.1rem 1.25rem; border-top: 1px solid var(--sr-line); }
+.sr-detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 1.5rem; }
+.sr-detail-block { display: flex; gap: .6rem; }
+.sr-detail-block > i { color: var(--sr-blue); font-size: 1.1rem; margin-top: .1rem; }
+.sr-detail-label { font-size: .74rem; font-weight: 600; color: var(--sr-muted); text-transform: uppercase; letter-spacing: .3px; }
+.sr-detail-value { font-size: .88rem; color: var(--sr-ink); font-weight: 500; }
+.sr-detail-value small { color: var(--sr-muted); font-weight: 400; }
+
+/* =========================================================
+   BOŞ DURUM / DAHA FAZLA / BİLGİLENDİRME
+   ========================================================= */
+.sr-empty { background: #fff; border: 1px solid var(--sr-line); border-radius: var(--sr-radius); padding: 3rem 1.5rem; text-align: center; box-shadow: var(--sr-shadow-sm); }
+.sr-empty-icon { font-size: 3rem; color: var(--sr-sky); }
+.sr-empty-title { font-size: 1.2rem; font-weight: 700; color: var(--sr-navy); margin: 1rem 0 .4rem; }
+.sr-empty-text { color: var(--sr-muted); margin-bottom: 1.25rem; }
+
+.btn-sr-more { background: #fff; color: var(--sr-blue); border: 1.5px solid var(--sr-blue); font-weight: 600; border-radius: var(--sr-radius-sm); padding: .65rem 1.8rem; transition: all .2s; }
+.btn-sr-more:hover { background: var(--sr-blue); color: #fff; }
+
+.sr-notice { background: #eef1f5; border: 1px solid var(--sr-line); border-radius: var(--sr-radius); padding: 1rem 1.25rem; margin-top: 1.75rem; font-size: .84rem; color: var(--sr-muted); }
+.sr-notice i { color: var(--sr-blue); }
+.sr-notice-sub { font-size: .8rem; }
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+.sr-modal { border: none; border-radius: var(--sr-radius); }
+.sr-modal .modal-header { border-bottom: 1px solid var(--sr-line); }
+.sr-modal .modal-title { font-weight: 700; color: var(--sr-navy); }
+.sr-modal .modal-footer { border-top: 1px solid var(--sr-line); }
+
+.sr-modal-airline { display: flex; align-items: center; gap: .7rem; margin-bottom: 1rem; }
+.sr-modal-route { font-size: 1.05rem; font-weight: 700; color: var(--sr-navy); margin-bottom: 1rem; }
+.sr-modal-list { list-style: none; padding: 0; margin: 0; }
+.sr-modal-list li { display: flex; justify-content: space-between; padding: .5rem 0; border-bottom: 1px solid var(--sr-line); font-size: .9rem; }
+.sr-modal-list li:last-child { border-bottom: none; }
+.sr-modal-list .sr-ml-label { color: var(--sr-muted); }
+.sr-modal-list .sr-ml-value { font-weight: 600; color: var(--sr-ink); }
+.sr-modal-total { display: flex; justify-content: space-between; align-items: center; background: var(--sr-sky-soft); border-radius: var(--sr-radius-sm); padding: .8rem 1rem; margin-top: 1rem; }
+.sr-modal-total .sr-mt-label { font-weight: 600; color: var(--sr-navy); }
+.sr-modal-total .sr-mt-value { font-size: 1.3rem; font-weight: 800; color: var(--sr-blue); }
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+.sr-footer { background: var(--sr-navy); color: rgba(255, 255, 255, .78); padding: 2.25rem 0 1.5rem; }
+.sr-footer-top { display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; flex-wrap: wrap; }
+.sr-footer-links { list-style: none; display: flex; flex-wrap: wrap; gap: 1.25rem; padding: 0; margin: 0; }
+.sr-footer-links a { color: rgba(255, 255, 255, .72); font-size: .88rem; transition: color .2s; }
+.sr-footer-links a:hover { color: var(--sr-sky); }
+.sr-footer-divider { border-color: rgba(255, 255, 255, .12); margin: 1.5rem 0 1rem; }
+.sr-copyright { font-size: .84rem; color: rgba(255, 255, 255, .6); }
+
+/* Toast */
+#srToast { background: var(--sr-navy); color: #fff; }
+#srToast.sr-toast-success { background: var(--sr-teal); }
+
+/* Offcanvas başlık */
+.sr-offcanvas .offcanvas-title { color: var(--sr-navy); font-weight: 700; }
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+/* Tablet: önerilen kartlar + fiyat düzeni */
+@media (max-width: 991.98px) {
+    .sr-suggest-row { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* Küçük tablet / büyük mobil */
+@media (max-width: 767.98px) {
+    .sr-result-title { font-size: 1.35rem; }
+    .sr-sort-wrap { width: 100%; }
+    .sr-sort-select { width: 100%; min-width: 0; flex: 1; }
+
+    /* Önerilen kartlar tek/çift kolon */
+    .sr-suggest-row { grid-template-columns: 1fr; }
+
+    /* Uçuş kartı: dikey yerleşim */
+    .sr-flight-main { flex-direction: column; }
+    .sr-flight-price { flex: none; width: 100%; border-left: none; border-top: 1px solid var(--sr-line); flex-direction: row; justify-content: space-between; text-align: left; }
+    .sr-flight-price .sr-price-block { display: flex; flex-direction: column; }
+    .btn-sr-select { width: auto; padding: .6rem 1.4rem; white-space: nowrap; }
+
+    .sr-detail-grid { grid-template-columns: 1fr; }
+
+    /* Arama özeti yatay kaydırma yerine sarma */
+    .sr-summary-chips { width: 100%; }
+    .btn-sr-edit { width: 100%; justify-content: center; }
+}
+
+/* Küçük mobil */
+@media (max-width: 480px) {
+    .sr-endpoint { min-width: 60px; }
+    .sr-endpoint-time { font-size: 1.1rem; }
+    .sr-route-row { gap: .5rem; }
+    .sr-time-grid { grid-template-columns: 1fr; }
+}
+
+/* Hareket azaltma tercihi */
+@media (prefers-reduced-motion: reduce) {
+    * { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+}
